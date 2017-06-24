@@ -48,7 +48,7 @@ namespace Circuit_impedance_calculating_model.Elements
                 if (value.Length > 3)
                 {
                     throw new ArgumentException("Наименование катушки инлуктивности не должно" +
-                        " превышать трех симвллов. Наименование катушки инлуктивности в цепи должно начинаться" +
+                        " превышать трех символов. Наименование катушки инлуктивности в цепи должно начинаться" +
                         " с латинской буквы 'L' после которой должен идти порядковый номер катушки в цепи.");
                 }
                 if (!(Regex.IsMatch(value, pattern1) || Regex.IsMatch(value, pattern2)))

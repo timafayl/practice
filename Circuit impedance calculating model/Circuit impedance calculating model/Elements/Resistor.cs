@@ -48,12 +48,12 @@ namespace Circuit_impedance_calculating_model.Elements
                 if (value.Length > 3)
                 {
                     throw new ArgumentException("Наименование резистора не должно" +
-                        " превышать трех симвллов. Наименование резистора в цепи должно начинаться" +
+                        " превышать трех символов. Наименование резистора в цепи должно начинаться" +
                         " с латинской буквы 'R' после которой должен идти порядковый номер резистора в цепи.");
                 }
                 if (!(Regex.IsMatch(value, pattern1) || Regex.IsMatch(value, pattern2)))
                 {
-                    throw new ArgumentException("Имя резистора в цепи должно начинаться" +
+                    throw new ArgumentException("Наименование резистора в цепи должно начинаться" +
                         " с латинской буквы 'R' после которой должен идти порядковый номер резистора в цепи.");
                 }
                 _name = value;
