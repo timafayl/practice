@@ -13,7 +13,7 @@ namespace Circuit_impedance_calculating_model.Elements
 
         public Complex CalculateZ(double frequency)
         {
-            return  (0 + frequency * Value * Complex.ImaginaryOne);
+            return  0 + Math.PI * frequency * Value * Complex.ImaginaryOne;
         }
 
         public event EventHandler ValueChanged;

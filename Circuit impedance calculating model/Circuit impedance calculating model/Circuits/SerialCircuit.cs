@@ -16,7 +16,12 @@ namespace Circuit_impedance_calculating_model.Circuits
 
         public Complex CalculateZ(double frequency)
         {
-            
+            Complex impedance = new Complex();
+            foreach (IComponent component in _circuit)
+            {
+                impedance += component.CalculateZ(frequency);
+            }
+            return impedance;
         }
 
         public event EventHandler CircuitChanged;
