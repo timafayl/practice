@@ -6,26 +6,46 @@ using System.Text.RegularExpressions;
 
 namespace Circuit_impedance_calculating_model.Elements
 {
+    /// <summary>
+    /// Класс, описывающий коденсатор. 
+    /// </summary>
     public class Capacitor: IElement
     {
         #region - Private fields -
 
+        /// <summary>
+        /// Поле, задающее наименование элемента.
+        /// </summary>
         private string _name;
 
+        /// <summary>
+        /// Поле, задающее значение элемента.
+        /// </summary>
         private double _value;
 
         #endregion
 
         #region - Events -
 
+        /// <summary>
+        /// Событие, срабатывающее при изменении значения элемента.
+        /// </summary>
         public event EventHandler ValueChanged;
 
         #endregion
 
         #region - Constructors -
 
+        /// <summary>
+        /// Пустой конструтор.
+        /// </summary>
         public Capacitor() { }
 
+        /// <summary>
+        /// Конструктор с входными параметрами.
+        /// </summary>
+        /// <param name="name">Наименование элемента</param>
+        /// <param name="value">Значение элемента</param>
         public Capacitor(string name, double value)
         {
             Name = name;
@@ -36,6 +56,9 @@ namespace Circuit_impedance_calculating_model.Elements
 
         #region - Public properties -
 
+        /// <summary>
+        /// Свойство-аксессор для поля _name.
+        /// </summary>
         public string Name
         {
             get { return _name; }
@@ -60,6 +83,9 @@ namespace Circuit_impedance_calculating_model.Elements
             }
         }
 
+        /// <summary>
+        /// Свойство-аксессор для поля _value.
+        /// </summary>
         public double Value
         {
             get
@@ -78,6 +104,11 @@ namespace Circuit_impedance_calculating_model.Elements
 
         #region - Public methods -
 
+        /// <summary>
+        /// Метод для рассчета импеданса элемента.
+        /// </summary>
+        /// <param name="frequency">Входная частота.</param>
+        /// <returns>Импеданс элемента</returns>
         public Complex CalculateZ(double frequency)
         {
             return 0 + Complex.ImaginaryOne * 1 / (Math.PI * frequency * _value);

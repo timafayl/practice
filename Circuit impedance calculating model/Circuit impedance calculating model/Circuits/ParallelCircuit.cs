@@ -5,18 +5,30 @@ using System.Text.RegularExpressions;
 
 namespace Circuit_impedance_calculating_model.Circuits
 {
+    /// <summary>
+    /// Класс, описывающий параллельные цепи.
+    /// </summary>
     class ParallelCircuit: ICircuit
     {
         #region - Private fields -
 
+        /// <summary>
+        /// Поле, содержащее наименование цепи.
+        /// </summary>
         private string _name;
 
+        /// <summary>
+        /// Поле, содержащее список компонентов цепи.
+        /// </summary>
         private List<IComponent> _circuit;
 
         #endregion
 
         #region - Events -
 
+        /// <summary>
+        /// Событие, срабатывающее на изменения в цепи.
+        /// </summary>
         public event EventHandler CircuitChanged;
 
         #endregion
@@ -26,6 +38,9 @@ namespace Circuit_impedance_calculating_model.Circuits
 
         #region - Public Properties -
 
+        /// <summary>
+        /// Свойство-аксессор для поля _name.
+        /// </summary>
         public string Name
         {
             get { return _name; }
@@ -49,12 +64,20 @@ namespace Circuit_impedance_calculating_model.Circuits
             }
         }
 
+        /// <summary>
+        /// Свойство-аксессор для поля _circuit.
+        /// </summary>
         public List<IComponent> Circuit { get; set; }
 
         #endregion
 
         #region - Public methods -
 
+        /// <summary>
+        /// Метод рассчета импеданса цепи.
+        /// </summary>
+        /// <param name="frequency">Входная частота</param>
+        /// <returns>Импеданс цепи</returns>
         public Complex CalculateZ(double frequency)
         {
             Complex impedance = new Complex();
