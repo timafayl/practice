@@ -25,7 +25,7 @@ namespace Circuit_impedance_calculating_model.Circuits
         /// <summary>
         /// Поле, содержащее список компонентов цепи.
         /// </summary>
-        public List<IComponent> Circuit { get; set; }
+        public List<IComponent> Circuit;
 
         #endregion
 
@@ -43,7 +43,10 @@ namespace Circuit_impedance_calculating_model.Circuits
         /// <summary>
         /// Пустой конструктор
         /// </summary>
-        public SerialCircuit() { }
+        public SerialCircuit()
+        {
+            Circuit = new List<IComponent>();
+        }
 
         /// <summary>
         /// Конструктор с входными параметрами
@@ -52,6 +55,7 @@ namespace Circuit_impedance_calculating_model.Circuits
         public SerialCircuit(string name)
         {
             Name = name;
+            Circuit = new List<IComponent>();
         }
 
         #endregion

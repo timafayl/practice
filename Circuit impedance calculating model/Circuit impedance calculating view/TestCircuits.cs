@@ -1,5 +1,6 @@
 ﻿#region - Using -
 
+using System.Collections.Generic;
 using Circuit_impedance_calculating_model;
 using Circuit_impedance_calculating_model.Circuits;
 using Circuit_impedance_calculating_model.Elements;
@@ -14,6 +15,27 @@ namespace Circuit_impedance_calculating_view
     /// </summary>
     public class TestCircuits
     {
+        #region - Public methods -
+
+        /// <summary>
+        /// Метод, возвращающий список с тестовыми схемами.
+        /// </summary>
+        /// <returns></returns>
+        public List<IComponent> TestCircuitsList()
+        {
+            var testCircuitsList = new List<IComponent>
+                { _circuit1(), _circuit2(), _circuit3(), _circuit4(), _circuit5()};
+            return testCircuitsList;
+        }
+
+        #endregion
+
+        #region - Private methods | Test circuits-
+
+        /// <summary>
+        /// Тестовая схема №1.
+        /// </summary>
+        /// <returns></returns>
         private IComponent _circuit1()
         {
             var R1 = new Resistor("R1", 100);
@@ -28,6 +50,10 @@ namespace Circuit_impedance_calculating_view
             return circuit1;
         }
 
+        /// <summary>
+        /// Тестовая схема №2.
+        /// </summary>
+        /// <returns></returns
         private IComponent _circuit2()
         {
             var R1 = new Resistor("R1", 100);
@@ -42,6 +68,10 @@ namespace Circuit_impedance_calculating_view
             return circuit1;
         }
 
+        /// <summary>
+        /// Тестовая схема №3.
+        /// </summary>
+        /// <returns></returns
         private IComponent _circuit3()
         {
             var R1 = new Resistor("R1", 100);
@@ -62,6 +92,10 @@ namespace Circuit_impedance_calculating_view
             return circuit1;
         }
 
+        /// <summary>
+        /// Тестовая схема №4.
+        /// </summary>
+        /// <returns></returns
         private IComponent _circuit4()
         {
             var R1 = new Resistor("R1", 100);
@@ -88,6 +122,10 @@ namespace Circuit_impedance_calculating_view
             return circuit1;
         }
 
+        /// <summary>
+        /// Тестовая схема №5.
+        /// </summary>
+        /// <returns></returns
         private IComponent _circuit5()
         {
             var R1 = new Resistor("R1", 100);
@@ -121,5 +159,7 @@ namespace Circuit_impedance_calculating_view
             circuit1.Circuit.Add(circuit2);
             return circuit1;
         }
+
+        #endregion
     }
 }
