@@ -1,5 +1,8 @@
-﻿using System.Numerics;
+﻿#region - Using -
 
+using System.Numerics;
+
+#endregion
 
 namespace Circuit_impedance_calculating_model
 {
@@ -8,10 +11,16 @@ namespace Circuit_impedance_calculating_model
     /// </summary>
     public interface IComponent
     {
+        #region - Properties - 
+        
         /// <summary>
         /// Наименование компонента.
         /// </summary>
         string Name { get; set; }
+
+        #endregion
+
+        #region - Methods -
 
         /// <summary>
         /// Метод рассчета импеданса компонента.
@@ -19,5 +28,7 @@ namespace Circuit_impedance_calculating_model
         /// <param name="frequency">Входная частота</param>
         /// <returns>Импеданс компонента</returns>
         Complex CalculateZ(double frequency);
+
+        #endregion
     }
 }
