@@ -111,7 +111,7 @@ namespace Circuit_impedance_calculating_model.Elements
         /// <returns>Импеданс элемента</returns>
         public Complex CalculateZ(double frequency)
         {
-            return 0 + Complex.ImaginaryOne * 1 / (Math.PI * frequency * _value);
+            return new Complex(0, -1/(2 * Math.PI * frequency * _value));
         }
 
         #endregion
