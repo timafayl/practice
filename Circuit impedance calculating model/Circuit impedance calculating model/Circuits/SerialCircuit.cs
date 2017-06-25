@@ -9,7 +9,7 @@ using System.Text.RegularExpressions;
 
 namespace Circuit_impedance_calculating_model.Circuits
 {
-    public class SerialCircuit: ICircuit
+    class SerialCircuit: ICircuit
     {
         #region - Private fields -
 
@@ -18,10 +18,14 @@ namespace Circuit_impedance_calculating_model.Circuits
         /// </summary>
         private string _name;
 
-        /*/// <summary>
+        #endregion
+
+        #region - Public fields -
+
+        /// <summary>
         /// Поле, содержащее список компонентов цепи.
         /// </summary>
-        private List<IComponent> _circuit = new List<IComponent>();*/
+        public List<IComponent> Circuit { get; set; }
 
         #endregion
 
@@ -35,21 +39,6 @@ namespace Circuit_impedance_calculating_model.Circuits
         #endregion
 
         #region -Constructors-
-
-        /// <summary>
-        /// Пустой конструктор.
-        /// </summary>
-        public SerialCircuit() { }
-
-        /// <summary>
-        /// Конструктор с параметрами.
-        /// </summary>
-        /// <param name="name">Наименование цепи</param>
-        public SerialCircuit(string name)
-        {
-            Name = name;
-        }
-
         #endregion
 
         #region - Public properties - 
@@ -79,11 +68,6 @@ namespace Circuit_impedance_calculating_model.Circuits
                 _name = value;
             }
         }
-
-        /// <summary>
-        /// Свойство-аксессор для поля _circuit.
-        /// </summary>
-        public List<IComponent> Circuit = new List<IComponent>();
 
         #endregion
 
