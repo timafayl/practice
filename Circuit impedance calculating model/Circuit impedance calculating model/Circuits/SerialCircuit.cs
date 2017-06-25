@@ -9,7 +9,7 @@ using System.Text.RegularExpressions;
 
 namespace Circuit_impedance_calculating_model.Circuits
 {
-    class SerialCircuit: ICircuit
+    public class SerialCircuit: ICircuit
     {
         #region - Private fields -
 
@@ -18,10 +18,10 @@ namespace Circuit_impedance_calculating_model.Circuits
         /// </summary>
         private string _name;
 
-        /// <summary>
+        /*/// <summary>
         /// Поле, содержащее список компонентов цепи.
         /// </summary>
-        private List<IComponent> _circuit;
+        private List<IComponent> _circuit = new List<IComponent>();*/
 
         #endregion
 
@@ -83,11 +83,7 @@ namespace Circuit_impedance_calculating_model.Circuits
         /// <summary>
         /// Свойство-аксессор для поля _circuit.
         /// </summary>
-        public List<IComponent> Circuit
-        {
-            get { return _circuit; }
-            set { _circuit = value; }
-        }
+        public List<IComponent> Circuit = new List<IComponent>();
 
         #endregion
 
@@ -101,7 +97,7 @@ namespace Circuit_impedance_calculating_model.Circuits
         public Complex CalculateZ(double frequency)
         {
             Complex impedance = new Complex();
-            foreach (IComponent component in _circuit)
+            foreach (IComponent component in Circuit)
             {
                 impedance += component.CalculateZ(frequency);
             }

@@ -1,0 +1,11 @@
+C:\Users\tima\Documents\Visual Studio 2015\Projects\practice\Circuit impedance calculating model\Circuit impedance calculating view\bin\Debug\Circuit impedance calculating view.exe.config
+C:\Users\tima\Documents\Visual Studio 2015\Projects\practice\Circuit impedance calculating model\Circuit impedance calculating view\bin\Debug\Circuit impedance calculating view.exe
+C:\Users\tima\Documents\Visual Studio 2015\Projects\practice\Circuit impedance calculating model\Circuit impedance calculating view\bin\Debug\Circuit impedance calculating view.pdb
+C:\Users\tima\Documents\Visual Studio 2015\Projects\practice\Circuit impedance calculating model\Circuit impedance calculating view\bin\Debug\Circuit impedance calculating model.dll
+C:\Users\tima\Documents\Visual Studio 2015\Projects\practice\Circuit impedance calculating model\Circuit impedance calculating view\bin\Debug\Circuit impedance calculating model.pdb
+C:\Users\tima\Documents\Visual Studio 2015\Projects\practice\Circuit impedance calculating model\Circuit impedance calculating view\obj\Debug\Circuit impedance calculating view.csprojResolveAssemblyReference.cache
+C:\Users\tima\Documents\Visual Studio 2015\Projects\practice\Circuit impedance calculating model\Circuit impedance calculating view\obj\Debug\Circuit_impedance_calculating_view.CircuitViewForm.resources
+C:\Users\tima\Documents\Visual Studio 2015\Projects\practice\Circuit impedance calculating model\Circuit impedance calculating view\obj\Debug\Circuit_impedance_calculating_view.Properties.Resources.resources
+C:\Users\tima\Documents\Visual Studio 2015\Projects\practice\Circuit impedance calculating model\Circuit impedance calculating view\obj\Debug\Circuit impedance calculating view.csproj.GenerateResource.Cache
+C:\Users\tima\Documents\Visual Studio 2015\Projects\practice\Circuit impedance calculating model\Circuit impedance calculating view\obj\Debug\Circuit impedance calculating view.exe
+C:\Users\tima\Documents\Visual Studio 2015\Projects\practice\Circuit impedance calculating model\Circuit impedance calculating view\obj\Debug\Circuit impedance calculating view.pdb

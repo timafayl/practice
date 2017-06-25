@@ -1,8 +1,10 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
+﻿#region - Using -
+
+using System;
 using System.Windows.Forms;
+
+#endregion
+
 
 namespace Circuit_impedance_calculating_view
 {

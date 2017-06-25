@@ -67,8 +67,8 @@ namespace Circuit_impedance_calculating_model.Elements
             get { return _name; }
             set
             {
-                string pattern1 = @"^C\d$";
-                string pattern2 = @"^C\d{2}$";
+                string pattern1 = @"^R\d$";
+                string pattern2 = @"^R\d{2}$";
                 TextInfo ti = CultureInfo.CurrentCulture.TextInfo;
                 value = ti.ToTitleCase(value);
                 if (value.Length > 3)
