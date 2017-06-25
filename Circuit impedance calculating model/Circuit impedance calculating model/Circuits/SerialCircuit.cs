@@ -35,6 +35,21 @@ namespace Circuit_impedance_calculating_model.Circuits
         #endregion
 
         #region -Constructors-
+
+        /// <summary>
+        /// Пустой конструктор.
+        /// </summary>
+        public SerialCircuit() { }
+
+        /// <summary>
+        /// Конструктор с параметрами.
+        /// </summary>
+        /// <param name="name">Наименование цепи</param>
+        public SerialCircuit(string name)
+        {
+            Name = name;
+        }
+
         #endregion
 
         #region - Public properties - 
