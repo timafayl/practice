@@ -9,7 +9,7 @@ using System.Text.RegularExpressions;
 
 namespace Circuit_impedance_calculating_model.Circuits
 {
-    class SerialCircuit: ICircuit
+    public class SerialCircuit: ICircuit
     {
         #region - Private fields -
 
@@ -39,6 +39,21 @@ namespace Circuit_impedance_calculating_model.Circuits
         #endregion
 
         #region -Constructors-
+
+        /// <summary>
+        /// Пустой конструктор
+        /// </summary>
+        public SerialCircuit() { }
+
+        /// <summary>
+        /// Конструктор с входными параметрами
+        /// </summary>
+        /// <param name="name">Наименование цепи</param>
+        public SerialCircuit(string name)
+        {
+            Name = name;
+        }
+
         #endregion
 
         #region - Public properties - 

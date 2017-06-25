@@ -12,7 +12,7 @@ namespace Circuit_impedance_calculating_model.Circuits
     /// <summary>
     /// Класс, описывающий параллельные цепи.
     /// </summary>
-    class ParallelCircuit: ICircuit
+    public class ParallelCircuit: ICircuit
     {
         #region - Private fields -
 
@@ -42,6 +42,21 @@ namespace Circuit_impedance_calculating_model.Circuits
         #endregion
 
         #region - Constructors -
+
+        /// <summary>
+        /// Пустой конструктор
+        /// </summary>
+        public ParallelCircuit() { }
+
+        /// <summary>
+        /// Конструктор с входными параметрами
+        /// </summary>
+        /// <param name="name">Наименование цепи</param>
+        public ParallelCircuit(string name)
+        {
+            Name = name;
+        }
+
         #endregion
 
         #region - Public Properties -
