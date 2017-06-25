@@ -51,7 +51,7 @@
             this.circuitViewGroupBox.Controls.Add(this.circuitView);
             this.circuitViewGroupBox.Location = new System.Drawing.Point(12, 12);
             this.circuitViewGroupBox.Name = "circuitViewGroupBox";
-            this.circuitViewGroupBox.Size = new System.Drawing.Size(519, 407);
+            this.circuitViewGroupBox.Size = new System.Drawing.Size(564, 446);
             this.circuitViewGroupBox.TabIndex = 0;
             this.circuitViewGroupBox.TabStop = false;
             this.circuitViewGroupBox.Text = "Circuit View";
@@ -61,7 +61,7 @@
             this.circuitView.Dock = System.Windows.Forms.DockStyle.Fill;
             this.circuitView.Location = new System.Drawing.Point(3, 16);
             this.circuitView.Name = "circuitView";
-            this.circuitView.Size = new System.Drawing.Size(513, 388);
+            this.circuitView.Size = new System.Drawing.Size(558, 427);
             this.circuitView.TabIndex = 0;
             this.circuitView.TabStop = false;
             // 
@@ -73,23 +73,22 @@
             this.circuitsGroupBox.Controls.Add(this.calculateImpedanceButton);
             this.circuitsGroupBox.Controls.Add(this.circuitsListView);
             this.circuitsGroupBox.Controls.Add(this.impedanceGridView);
-            this.circuitsGroupBox.Location = new System.Drawing.Point(534, 12);
+            this.circuitsGroupBox.Location = new System.Drawing.Point(579, 12);
             this.circuitsGroupBox.Name = "circuitsGroupBox";
-            this.circuitsGroupBox.Size = new System.Drawing.Size(324, 407);
+            this.circuitsGroupBox.Size = new System.Drawing.Size(324, 446);
             this.circuitsGroupBox.TabIndex = 1;
             this.circuitsGroupBox.TabStop = false;
             this.circuitsGroupBox.Text = "Circuits";
             // 
             // impedanceGridView
             // 
-            this.impedanceGridView.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
-            | System.Windows.Forms.AnchorStyles.Right)));
+            this.impedanceGridView.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
             this.impedanceGridView.AutoSizeColumnsMode = System.Windows.Forms.DataGridViewAutoSizeColumnsMode.Fill;
             this.impedanceGridView.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
             this.impedanceGridView.Columns.AddRange(new System.Windows.Forms.DataGridViewColumn[] {
             this.frequency,
             this.impedance});
-            this.impedanceGridView.Location = new System.Drawing.Point(6, 222);
+            this.impedanceGridView.Location = new System.Drawing.Point(6, 261);
             this.impedanceGridView.Name = "impedanceGridView";
             this.impedanceGridView.RowHeadersVisible = false;
             this.impedanceGridView.ScrollBars = System.Windows.Forms.ScrollBars.Vertical;
@@ -98,15 +97,18 @@
             // 
             // circuitsListView
             // 
+            this.circuitsListView.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
+            | System.Windows.Forms.AnchorStyles.Right)));
             this.circuitsListView.Location = new System.Drawing.Point(6, 16);
             this.circuitsListView.Name = "circuitsListView";
-            this.circuitsListView.Size = new System.Drawing.Size(312, 200);
+            this.circuitsListView.Size = new System.Drawing.Size(312, 239);
             this.circuitsListView.TabIndex = 1;
             this.circuitsListView.UseCompatibleStateImageBehavior = false;
             // 
             // calculateImpedanceButton
             // 
-            this.calculateImpedanceButton.Location = new System.Drawing.Point(36, 378);
+            this.calculateImpedanceButton.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
+            this.calculateImpedanceButton.Location = new System.Drawing.Point(36, 417);
             this.calculateImpedanceButton.Name = "calculateImpedanceButton";
             this.calculateImpedanceButton.Size = new System.Drawing.Size(137, 23);
             this.calculateImpedanceButton.TabIndex = 2;
@@ -116,7 +118,8 @@
             // 
             // changeElementsValueButton
             // 
-            this.changeElementsValueButton.Location = new System.Drawing.Point(179, 378);
+            this.changeElementsValueButton.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
+            this.changeElementsValueButton.Location = new System.Drawing.Point(179, 417);
             this.changeElementsValueButton.Name = "changeElementsValueButton";
             this.changeElementsValueButton.Size = new System.Drawing.Size(139, 23);
             this.changeElementsValueButton.TabIndex = 3;
@@ -139,7 +142,7 @@
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.AutoScroll = true;
-            this.ClientSize = new System.Drawing.Size(870, 431);
+            this.ClientSize = new System.Drawing.Size(915, 470);
             this.Controls.Add(this.circuitsGroupBox);
             this.Controls.Add(this.circuitViewGroupBox);
             this.MinimumSize = new System.Drawing.Size(720, 440);
