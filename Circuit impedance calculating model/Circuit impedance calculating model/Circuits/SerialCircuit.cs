@@ -18,10 +18,14 @@ namespace Circuit_impedance_calculating_model.Circuits
         /// </summary>
         private string _name;
 
+        #endregion
+
+        #region - Public fields -
+
         /// <summary>
         /// Поле, содержащее список компонентов цепи.
         /// </summary>
-        private List<IComponent> _circuit;
+        public List<IComponent> Circuit { get; set; }
 
         #endregion
 
@@ -65,15 +69,6 @@ namespace Circuit_impedance_calculating_model.Circuits
             }
         }
 
-        /// <summary>
-        /// Свойство-аксессор для поля _circuit.
-        /// </summary>
-        public List<IComponent> Circuit
-        {
-            get { return _circuit; }
-            set { _circuit = value; }
-        }
-
         #endregion
 
         #region - Public methods -
@@ -86,7 +81,7 @@ namespace Circuit_impedance_calculating_model.Circuits
         public Complex CalculateZ(double frequency)
         {
             Complex impedance = new Complex();
-            foreach (IComponent component in _circuit)
+            foreach (IComponent component in Circuit)
             {
                 impedance += component.CalculateZ(frequency);
             }

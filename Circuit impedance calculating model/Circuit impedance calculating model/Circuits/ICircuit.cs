@@ -12,7 +12,7 @@ namespace Circuit_impedance_calculating_model.Circuits
     /// </summary>
     interface ICircuit: IComponent
     {
-        #region - Properties -
+        #region - Fields -
         
         /// <summary>
         /// Список, хранящий компоненты цепи.
