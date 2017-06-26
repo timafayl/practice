@@ -15,10 +15,31 @@ namespace Circuit_impedance_calculating_view
     /// </summary>
     public partial class CircuitViewForm : Form
     {
+        #region - Private fields -
+
+        /// <summary>
+        /// Массив с выходными частотами.
+        /// </summary>
         private double[] _frequency;
+
+        /// <summary>
+        /// Массив с рассчитаными импедансами для каждой частоты.
+        /// </summary>
         private Complex[] _impedance;
+
+        /// <summary>
+        /// Список всех схем.
+        /// </summary>
         private List<IComponent> _circuits;
+
+        /// <summary>
+        /// Переменная класса с тестовыми схемами.
+        /// </summary>
         private TestCircuits _testCircuits = new TestCircuits();
+
+        #endregion
+
+        #region - Constructors -
 
         public CircuitViewForm()
         {
@@ -27,7 +48,11 @@ namespace Circuit_impedance_calculating_view
             InitializeCircuitsList();
         }
 
-    private void calculateImpedanceButton_Click(object sender, EventArgs e)
+        #endregion
+
+        #region - Event handlers-
+
+        private void calculateImpedanceButton_Click(object sender, EventArgs e)
         {
             _frequency = new double[impedanceGridView.RowCount - 1];
             _impedance = new Complex[impedanceGridView.RowCount - 1];
@@ -42,6 +67,10 @@ namespace Circuit_impedance_calculating_view
             }
         }
 
+        #endregion
+
+        #region - Private methods -
+
         /// <summary>
         /// Инициализирует список схем в circuitsListBox.
         /// </summary>
@@ -49,8 +78,10 @@ namespace Circuit_impedance_calculating_view
         {
             for (int i = 0; i < _circuits.Count; i++)
             {
-                circuitsListBox.Items.Add("Тестовая схема #" + (i+1));
+                circuitsListBox.Items.Add("Тестовая схема #" + (i + 1));
             }
         }
+
+        #endregion
     }
 }
