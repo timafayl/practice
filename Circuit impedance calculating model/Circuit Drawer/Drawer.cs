@@ -1,8 +1,8 @@
 ﻿#region - Using -
 
 using Circuit_impedance_calculating_model;
-using System.Collections.Generic;
 using System.Drawing;
+using Circuit_impedance_calculating_model.Circuits;
 using Circuit_impedance_calculating_model.Elements;
 
 #endregion
@@ -59,9 +59,22 @@ namespace Circuit_Drawer
             return bmp;
         }
 
-        public Bitmap DrawSerialCircuit(List<IComponent> circuit, Bitmap bmp, int x, int y)
+        public Bitmap DrawCircuit(IComponent circuit, Bitmap bmp, int x, int y)
         {
-            foreach (IComponent component in circuit)
+            if (circuit is SerialCircuit)
+            {
+                DrawSerialCircuit(circuit as SerialCircuit, bmp, x, y);
+            }
+            else if (circuit is ParallelCircuit)
+            {
+                DrawParallelCircuit(circuit as ParallelCircuit, bmp, x, y);
+            }
+            return bmp;
+        }
+
+        public Bitmap DrawSerialCircuit(SerialCircuit circuit, Bitmap bmp, int x, int y)
+        {
+            foreach (IComponent component in circuit.Circuit)
             {
                 if (component is Resistor)
                 {
@@ -80,14 +93,39 @@ namespace Circuit_Drawer
                 }
                 else
                 {
-                    bmp = DrawParallelCircuit(bmp, ref x, y);
+                    bmp = DrawParallelCircuit(component as ParallelCircuit, bmp, x, y);
                 }
             }
             return bmp;
         }
 
-        public Bitmap DrawParallelCircuit(Bitmap bmp, ref int x, int y)
+        public Bitmap DrawParallelCircuit(ParallelCircuit circuit, Bitmap bmp, int x, int y)
         {
+            y -= (30 * circuit.Circuit.Count)/2;
+            var h = y;
+            foreach (IComponent component in circuit.Circuit)
+            {
+                if (component is Resistor)
+                {
+                    bmp = DrawResistor(bmp, x, y);
+                    y += 30;
+                }
+                else if (component is Inductor)
+                {
+                    bmp = DrawInductor(bmp, x, y);
+                    y += 30;
+                }
+                else if (component is Capacitor)
+                {
+                    bmp = DrawCapacitor(bmp, x, y);
+                    y += 30;
+                }
+                else
+                {
+                    bmp = DrawSerialCircuit(component as SerialCircuit, bmp, x, y);
+                    y += 30;
+                }
+            }
             return bmp;
         }
 

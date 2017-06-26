@@ -91,7 +91,7 @@ namespace Circuit_impedance_calculating_view
         {
             Bitmap bmp = new Bitmap(circuitView.Width, circuitView.Height);
             Drawer drawer = new Drawer();
-            circuitView.Image = drawer.DrawSerialCircuit(_testCircuits._circuit1(), bmp, 50, circuitView.Height / 2);
+            circuitView.Image = drawer.DrawCircuit(_circuits[0], bmp, 50, circuitView.Height / 2);
         }
 
         #endregion
