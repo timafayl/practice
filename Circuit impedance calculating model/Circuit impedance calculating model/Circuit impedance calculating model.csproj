@@ -41,6 +41,7 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Circuits\BaseCircuit.cs" />
     <Compile Include="Elements\Capacitor.cs" />
     <Compile Include="Circuits\ICircuit.cs" />
     <Compile Include="IComponent.cs" />
