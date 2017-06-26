@@ -12,6 +12,12 @@ namespace Circuit_impedance_calculating_model.Circuits
     /// </summary>
     public interface ICircuit: IComponent
     {
+        #region - Fields -
+
+        List<IComponent> Circuit { get; set; }
+
+        #endregion
+
         #region - Events -
 
         /// <summary>

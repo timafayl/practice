@@ -63,7 +63,8 @@ namespace Circuit_impedance_calculating_view
             for (int i = 0; i < impedanceGridView.RowCount - 1; i++)
             {
                 _impedance[i] = _circuits[circuitsListBox.SelectedIndex].CalculateZ(_frequency[i]);
-                impedanceGridView[1, i].Value = Convert.ToString(_impedance[i]);
+                impedanceGridView[1, i].Value = Convert.ToString(Math.Round(_impedance[i].Real, 7)
+                                              + " + " + Math.Round(_impedance[i].Imaginary, 7) + "i");
             }
         }
 
