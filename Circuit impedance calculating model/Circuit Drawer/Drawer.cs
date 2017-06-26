@@ -1,13 +1,8 @@
 ﻿#region - Using -
 
 using Circuit_impedance_calculating_model;
-using System;
 using System.Collections.Generic;
 using System.Drawing;
-using System.Linq;
-using System.Security.Cryptography.X509Certificates;
-using System.Text;
-using System.Threading.Tasks;
 using Circuit_impedance_calculating_model.Elements;
 
 #endregion
@@ -17,40 +12,50 @@ namespace Circuit_Drawer
 {
     public class Drawer
     {
+        #region - Private fields-
+
         private Pen _pen;
+
+        #endregion
+
+        #region - Constructors -
 
         public Drawer()
         {
             _pen = new Pen(Color.Black);
         }
 
+        #endregion
+
+        #region - Public methods -
+
         public Bitmap DrawResistor(Bitmap bmp, int x, int y)
         {
             Graphics graph = Graphics.FromImage(bmp);
-            graph.DrawLine(_pen, x, y, x + 25, y);
-            graph.DrawRectangle(_pen, x + 25, y + 10, x + 125, y - 10);
-            graph.DrawLine(_pen, x + 125, y, x + 150, y);
+            graph.DrawLine(_pen, x, y, x + 15, y);
+            graph.DrawRectangle(_pen, x + 15, y - 5, 50, 10);
+            graph.DrawLine(_pen, x + 65, y, x + 80, y);
             return bmp;
         }
 
         public Bitmap DrawInductor(Bitmap bmp, int x, int y)
         {
             Graphics graph = Graphics.FromImage(bmp);
-            graph.DrawLine(_pen, x, y, x + 25, y);
-            graph.DrawArc(_pen, x + 25, y + 20, 33, 20, 180, 0);
-            graph.DrawArc(_pen, x + 58, y + 20, 33, 20, 180, 0);
-            graph.DrawArc(_pen, x + 91, y + 20, 33, 20, 180, 0);
-            graph.DrawLine(_pen, x + 124, y, x + 150, y);
+            graph.DrawLine(_pen, x, y, x + 16, y);
+            graph.DrawArc(_pen, x + 16, y - 5, 16, 10, 360, -180);
+            graph.DrawArc(_pen, x + 32, y - 5, 16, 10, 360, -180);
+            graph.DrawArc(_pen, x + 48, y - 5, 16, 10, 360, -180);
+            graph.DrawLine(_pen, x + 64, y, x + 80, y);
             return bmp;
         }
 
         public Bitmap DrawCapacitor(Bitmap bmp, int x, int y)
         {
             Graphics graph = Graphics.FromImage(bmp);
-            graph.DrawLine(_pen, x, y, x + 60, y);
-            graph.DrawLine(_pen, x + 60, y + 25, x + 60, y - 25);
-            graph.DrawLine(_pen, x + 90, y + 25, x + 90, y - 25);
-            graph.DrawLine(_pen, x + 90, y, x + 150, y);
+            graph.DrawLine(_pen, x, y, x + 35, y);
+            graph.DrawLine(_pen, x + 35, y + 15, x + 35, y - 15);
+            graph.DrawLine(_pen, x + 45, y + 15, x + 45, y - 15);
+            graph.DrawLine(_pen, x + 45, y, x + 80, y);
             return bmp;
         }
 
@@ -61,17 +66,17 @@ namespace Circuit_Drawer
                 if (component is Resistor)
                 {
                     bmp = DrawResistor(bmp, x, y);
-                    x += 150;
+                    x += 80;
                 }
                 else if (component is Inductor)
                 {
                     bmp = DrawInductor(bmp, x, y);
-                    x += 150;
+                    x += 80;
                 }
                 else if (component is Capacitor)
                 {
                     bmp = DrawCapacitor(bmp, x, y);
-                    x += 150;
+                    x += 80;
                 }
                 else
                 {
@@ -85,5 +90,7 @@ namespace Circuit_Drawer
         {
             return bmp;
         }
+
+        #endregion
     }
 }

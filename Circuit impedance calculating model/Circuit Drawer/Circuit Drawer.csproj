@@ -49,10 +49,6 @@
       <Project>{edc1b1cf-1028-4b17-b865-8511a4aa2405}</Project>
       <Name>Circuit impedance calculating model</Name>
     </ProjectReference>
-    <ProjectReference Include="..\Circuit impedance calculating view\Circuit impedance calculating view.csproj">
-      <Project>{1be4dc7c-1172-4674-bb7c-a819556eb9d5}</Project>
-      <Name>Circuit impedance calculating view</Name>
-    </ProjectReference>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 

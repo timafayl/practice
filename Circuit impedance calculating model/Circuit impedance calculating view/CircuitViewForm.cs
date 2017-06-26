@@ -2,9 +2,12 @@
 
 using System;
 using System.Collections.Generic;
+using System.Drawing;
 using System.Numerics;
 using System.Windows.Forms;
+using Circuit_Drawer;
 using Circuit_impedance_calculating_model;
+using Circuit_impedance_calculating_model.Circuits;
 
 #endregion
 
@@ -46,6 +49,7 @@ namespace Circuit_impedance_calculating_view
             InitializeComponent();
             _circuits = _testCircuits.TestCircuitsList();
             InitializeCircuitsList();
+            Draw();
         }
 
         #endregion
@@ -81,6 +85,13 @@ namespace Circuit_impedance_calculating_view
             {
                 circuitsListBox.Items.Add("Тестовая схема #" + (i + 1));
             }
+        }
+
+        private void Draw()
+        {
+            Bitmap bmp = new Bitmap(circuitView.Width, circuitView.Height);
+            Drawer drawer = new Drawer();
+            circuitView.Image = drawer.DrawSerialCircuit(_testCircuits._circuit1(), bmp, 50, circuitView.Height / 2);
         }
 
         #endregion
