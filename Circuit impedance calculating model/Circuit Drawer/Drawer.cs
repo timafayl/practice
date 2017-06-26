@@ -8,6 +8,7 @@ using System.Linq;
 using System.Security.Cryptography.X509Certificates;
 using System.Text;
 using System.Threading.Tasks;
+using Circuit_impedance_calculating_model.Elements;
 
 #endregion
 
@@ -49,16 +50,38 @@ namespace Circuit_Drawer
             graph.DrawLine(_pen, x, y, x + 60, y);
             graph.DrawLine(_pen, x + 60, y + 25, x + 60, y - 25);
             graph.DrawLine(_pen, x + 90, y + 25, x + 90, y - 25);
-            graph.DrawLine(_pen, x+90, y, x + 150, y);
+            graph.DrawLine(_pen, x + 90, y, x + 150, y);
             return bmp;
         }
 
         public Bitmap DrawSerialCircuit(List<IComponent> circuit, Bitmap bmp, int x, int y)
         {
+            foreach (IComponent component in circuit)
+            {
+                if (component is Resistor)
+                {
+                    bmp = DrawResistor(bmp, x, y);
+                    x += 150;
+                }
+                else if (component is Inductor)
+                {
+                    bmp = DrawInductor(bmp, x, y);
+                    x += 150;
+                }
+                else if (component is Capacitor)
+                {
+                    bmp = DrawCapacitor(bmp, x, y);
+                    x += 150;
+                }
+                else
+                {
+                    bmp = DrawParallelCircuit(bmp, ref x, y);
+                }
+            }
             return bmp;
         }
 
-        public Bitmap DrawParallelCircuit(Bitmap bmp, int x, int y)
+        public Bitmap DrawParallelCircuit(Bitmap bmp, ref int x, int y)
         {
             return bmp;
         }
