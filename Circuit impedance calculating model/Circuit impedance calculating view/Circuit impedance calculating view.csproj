@@ -55,6 +55,7 @@
     </Compile>
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="TestCircuits.cs" />
     <EmbeddedResource Include="CircuitViewForm.resx">
       <DependentUpon>CircuitViewForm.cs</DependentUpon>
     </EmbeddedResource>

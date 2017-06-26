@@ -9,64 +9,26 @@ using System.Text.RegularExpressions;
 
 namespace Circuit_impedance_calculating_model.Circuits
 {
-    class SerialCircuit: ICircuit
+    public class SerialCircuit: BaseCircuit
     {
-        #region - Private fields -
-
-        /// <summary>
-        /// Поле, содержащее наименование цепи.
-        /// </summary>
-        private string _name;
-
-        #endregion
-
-        #region - Public fields -
-
-        /// <summary>
-        /// Поле, содержащее список компонентов цепи.
-        /// </summary>
-        public List<IComponent> Circuit { get; set; }
-
-        #endregion
-
-        #region -Events-
-
-        /// <summary>
-        /// Событие, срабатывающее на изменения в цепи.
-        /// </summary>
-        public event EventHandler CircuitChanged;
-
-        #endregion
-
         #region -Constructors-
-        #endregion
-
-        #region - Public properties - 
 
         /// <summary>
-        /// Свойство-аксессор для поля _name.
+        /// Пустой конструктор
         /// </summary>
-        public string Name
+        public SerialCircuit()
         {
-            get { return _name; }
-            set
-            {
-                string pattern1 = @"^circuit\d$";
-                string pattern2 = @"^circuit\d{2}$";
-                value = value.ToLower();
-                if (value.Length > 9)
-                {
-                    throw new ArgumentException("Наименование цепи не должно" +
-                        " превышать девяти символов. Наименование цепи должно начинаться" +
-                        " со слова 'circuit' после которого должен идти порядковый номер цепи в схеме.");
-                }
-                if (!(Regex.IsMatch(value, pattern1) || Regex.IsMatch(value, pattern2)))
-                {
-                    throw new ArgumentException(" Наименование цепи должно начинаться" +
-                        " со слова 'circuit' после которого должен идти порядковый номер цепи в схеме.");
-                }
-                _name = value;
-            }
+            Circuit = new List<IComponent>();
+        }
+
+        /// <summary>
+        /// Конструктор с входными параметрами
+        /// </summary>
+        /// <param name="name">Наименование цепи</param>
+        public SerialCircuit(string name)
+        {
+            Name = name;
+            Circuit = new List<IComponent>();
         }
 
         #endregion
@@ -78,7 +40,7 @@ namespace Circuit_impedance_calculating_model.Circuits
         /// </summary>
         /// <param name="frequency">Входная частота</param>
         /// <returns>Импеданс цепи</returns>
-        public Complex CalculateZ(double frequency)
+        public override Complex CalculateZ(double frequency)
         {
             Complex impedance = new Complex();
             foreach (IComponent component in Circuit)
