@@ -41,20 +41,13 @@ namespace Circuit_impedance_calculating_view
             var R1 = new Resistor("R1", 100);
             var C1 = new Capacitor("C1", 0.005);
             var L1 = new Inductor("L1", 0.5);
-            //var circuit1 = new SerialCircuit("circuit1");
+            var circuit1 = new SerialCircuit("circuit1");
             var circuit2 = new ParallelCircuit("circuit2");
-            //circuit2.Circuit.Add(L1);
-            //circuit2.Circuit.Add(C1);
-            //circuit1.Circuit.Add(R1);
-            //circuit1.Circuit.Add(circuit2);
-            //circuit1.Circuit.Add(R1);
-            //circuit1.Circuit.Add(L1);
-            //circuit1.Circuit.Add(C1);
-            //return circuit1;
-            circuit2.Circuit.Add(C1);
-            circuit2.Circuit.Add(R1);
             circuit2.Circuit.Add(L1);
-            return circuit2;
+            circuit2.Circuit.Add(C1);
+            circuit1.Circuit.Add(R1);
+            circuit1.Circuit.Add(circuit2);
+            return circuit1;
         }
 
         /// <summary>
