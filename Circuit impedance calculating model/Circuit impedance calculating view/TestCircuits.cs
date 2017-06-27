@@ -63,8 +63,8 @@ namespace Circuit_impedance_calculating_view
             var circuit2 = new ParallelCircuit("circuit2");
             circuit2.Circuit.Add(R1);
             circuit2.Circuit.Add(C1);
-            circuit1.Circuit.Add(L1);
             circuit1.Circuit.Add(circuit2);
+            circuit1.Circuit.Add(L1);
             return circuit1;
         }
 
@@ -95,7 +95,7 @@ namespace Circuit_impedance_calculating_view
         /// <summary>
         /// Тестовая схема №4.
         /// </summary>
-        /// <returns></returns
+        /// <returns></returns>
         private IComponent _circuit4()
         {
             var R1 = new Resistor("R1", 100);

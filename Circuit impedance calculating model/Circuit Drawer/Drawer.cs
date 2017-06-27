@@ -33,13 +33,21 @@ namespace Circuit_Drawer
         public Bitmap DrawCircuit(IComponent circuit, Bitmap bmp, int x, int y)
         {
             DrawKlemme(bmp, x, y);
+            Graphics graph = Graphics.FromImage(bmp);
+            graph.DrawLine(_pen, x, y, x + 15, y);
             if (circuit is SerialCircuit)
             {
-                DrawSerialCircuit(circuit as SerialCircuit, bmp, x, y);
+                DrawSerialCircuit(circuit as SerialCircuit, bmp, x + 15, y);
+                graph.DrawLine(_pen, x + CalculateSerialCircuitLength(circuit as SerialCircuit) + 15, y,
+                    x + CalculateSerialCircuitLength(circuit as SerialCircuit) + 30, y);
+                DrawKlemme(bmp, x + CalculateSerialCircuitLength(circuit as SerialCircuit) + 40, y);
             }
             else if (circuit is ParallelCircuit)
             {
-                DrawParallelCircuit(circuit as ParallelCircuit, bmp, x, y);
+                DrawParallelCircuit(circuit as ParallelCircuit, bmp, x + 15, y);
+                graph.DrawLine(_pen, x + CalculateParallelCircuitLength(circuit as ParallelCircuit), y,
+                    x + CalculateParallelCircuitLength(circuit as ParallelCircuit) + 15, y);
+                DrawKlemme(bmp, x + CalculateParallelCircuitLength(circuit as ParallelCircuit) + 35, y);
             }
             return bmp;
         }
@@ -133,6 +141,7 @@ namespace Circuit_Drawer
 
         private Bitmap DrawParallelCircuit(ParallelCircuit circuit, Bitmap bmp, int x, int y)
         {
+            int k = y;
             int height = circuit.Circuit.Count * 15;
             y -= height * (circuit.Circuit.Count - 1)/2;
             var h = y;
@@ -162,8 +171,12 @@ namespace Circuit_Drawer
             }
             Graphics graph = Graphics.FromImage(bmp);
             graph.DrawLine(_pen, x, h, x, y - height);
+
             graph.DrawLine(_pen, x + CalculateParallelCircuitLength(circuit), h,
                 x + CalculateParallelCircuitLength(circuit), y - height);
+
+            graph.DrawLine(_pen, x + CalculateParallelCircuitLength(circuit), k,
+                x + CalculateParallelCircuitLength(circuit) + 15, k);
             return bmp;
         }
 
@@ -177,15 +190,36 @@ namespace Circuit_Drawer
                     serials.Add(circuit.Circuit[i] as SerialCircuit);
                 }
             }
-            int count = 1;
-            for (int i = 0; i < serials.Count; i++)
+            if (serials.Count > 0)
             {
-                if (serials[i].Circuit.Count > count)
+                int length = CalculateSerialCircuitLength(serials[0]);
+                for (int i = 1; i < serials.Count; i++)
                 {
-                    count = serials[i].Circuit.Count;
+                    if (CalculateSerialCircuitLength(serials[i]) > length)
+                    {
+                        length = CalculateSerialCircuitLength(serials[i]);
+                    }
+                }
+                return length;
+            }
+            return 80;
+        }
+
+        private int CalculateSerialCircuitLength(SerialCircuit circuit)
+        {
+            int length = 0;
+            for (int i = 0; i < circuit.Circuit.Count; i++)
+            {
+                if (circuit.Circuit[i] is IElement)
+                {
+                    length += 80;
+                }
+                else if (circuit.Circuit[i] is ParallelCircuit)
+                {
+                    length += CalculateParallelCircuitLength(circuit.Circuit[i] as ParallelCircuit);
                 }
             }
-            return count * 80;
+            return length;
         }
 
         #endregion

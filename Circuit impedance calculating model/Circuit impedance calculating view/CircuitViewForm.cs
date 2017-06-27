@@ -49,7 +49,6 @@ namespace Circuit_impedance_calculating_view
             InitializeComponent();
             _circuits = _testCircuits.TestCircuitsList();
             InitializeCircuitsList();
-            Draw();
         }
 
         #endregion
@@ -87,13 +86,18 @@ namespace Circuit_impedance_calculating_view
             }
         }
 
-        private void Draw()
+        private void Draw(IComponent component)
         {
             Bitmap bmp = new Bitmap(circuitView.Width, circuitView.Height);
             Drawer drawer = new Drawer();
-            circuitView.Image = drawer.DrawCircuit(_circuits[4], bmp, 20, circuitView.Height / 2);
+            circuitView.Image = drawer.DrawCircuit(component, bmp, 20, circuitView.Height / 2);
         }
 
         #endregion
+
+        private void circuitsListBox_SelectedIndexChanged(object sender, EventArgs e)
+        {
+            Draw(_circuits[circuitsListBox.SelectedIndex]);
+        }
     }
 }
