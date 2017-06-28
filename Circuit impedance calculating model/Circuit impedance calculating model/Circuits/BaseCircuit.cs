@@ -9,6 +9,8 @@ using System.Text.RegularExpressions;
 
 namespace Circuit_impedance_calculating_model.Circuits
 {
+    //BUG: У тебя можно создать экзмепляр этого класса. Так нельзя. Сделай protected конструктор
+    //TODO:Xml Комментарии
     public class BaseCircuit: ICircuit
     {
         #region - Private fields -
@@ -44,6 +46,7 @@ namespace Circuit_impedance_calculating_model.Circuits
             get { return _name; }
             set
             {
+                //TODO:Комментарии.Можно объеденить.
                 string pattern1 = @"^circuit\d$";
                 string pattern2 = @"^circuit\d{2}$";
                 value = value.ToLower();
@@ -62,13 +65,14 @@ namespace Circuit_impedance_calculating_model.Circuits
             }
         }
 
+
         /// <summary>
         /// Свойство-аксессор для элемента _circuit.
         /// </summary>
         public List<IComponent> Circuit
         {
             get { return _circuit; }
-            set { _circuit = value; }
+            set { _circuit = value; }  //TODO: А событие вызвать ? ) 
         }
 
         #endregion
@@ -82,6 +86,8 @@ namespace Circuit_impedance_calculating_model.Circuits
         /// <returns>Импеданс компонента</returns>
         public virtual Complex CalculateZ(double frequency)
         {
+            //TODO: Лучше так:
+            //throw new NotImplementedException("тут текст");
             return new Complex();
         }
 

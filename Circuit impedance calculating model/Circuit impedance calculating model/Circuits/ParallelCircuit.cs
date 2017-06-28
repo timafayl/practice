@@ -45,6 +45,7 @@ namespace Circuit_impedance_calculating_model.Circuits
         /// <returns>Импеданс цепи</returns>
         public override Complex CalculateZ(double frequency)
         {
+            //TODO: Валидация.
             Complex admittance = new Complex();
             foreach (IComponent component in Circuit)
             {
