@@ -67,12 +67,14 @@ namespace Circuit_impedance_calculating_model.Elements
             get { return _name; }
             set
             {
+                //TODO: Комментарии к регуляркам. Можно объеденить в одно
                 string pattern1 = @"^R\d$";
                 string pattern2 = @"^R\d{2}$";
                 TextInfo ti = CultureInfo.CurrentCulture.TextInfo;
                 value = ti.ToTitleCase(value);
                 if (value.Length > 3)
                 {
+                    //TODO: Сложно
                     throw new ArgumentException("Наименование резистора не должно" +
                         " превышать трех символов. Наименование резистора в цепи должно начинаться" +
                         " с латинской буквы 'R' после которой должен идти порядковый номер резистора в цепи.");
@@ -86,6 +88,7 @@ namespace Circuit_impedance_calculating_model.Elements
             }
         }
 
+        //TODO: Это свойство для сопротивления. А не свойство для _value
         /// <summary>
         /// Свойство-аксессор для поля _value.
         /// </summary>
@@ -94,10 +97,12 @@ namespace Circuit_impedance_calculating_model.Elements
             get { return _value; }
             set
             {
+                //TODO: Валидация. NaN. +inf - inf
                 if (value < 0)
                 {
                     throw new ArgumentException("Значение резистора не должно быть меньше нуля.");
                 }
+                //TODO: Нужна проверка. Если _val = val то не должно вызываться событие
                 _value = value;
                 OnValueChanged();
             }
@@ -114,6 +119,7 @@ namespace Circuit_impedance_calculating_model.Elements
         /// <returns>Импеданс элемента</returns>
         public Complex CalculateZ(double frequency)
         {
+            //TODO: Валидация. NaN. +inf - inf
             return new Complex(Value, 0);
         }
 

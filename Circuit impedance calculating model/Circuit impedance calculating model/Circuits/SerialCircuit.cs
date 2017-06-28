@@ -9,6 +9,7 @@ using System.Text.RegularExpressions;
 
 namespace Circuit_impedance_calculating_model.Circuits
 {
+    //TODO: XMl комменты
     public class SerialCircuit: BaseCircuit
     {
         #region -Constructors-
@@ -42,6 +43,7 @@ namespace Circuit_impedance_calculating_model.Circuits
         /// <returns>Импеданс цепи</returns>
         public override Complex CalculateZ(double frequency)
         {
+            //TODO: Валидация
             Complex impedance = new Complex();
             foreach (IComponent component in Circuit)
             {

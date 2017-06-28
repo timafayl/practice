@@ -67,12 +67,14 @@ namespace Circuit_impedance_calculating_model.Elements
             get { return _name; }
             set
             {
+                //TODO: Регекспы нуждаются в комментариях
                 string pattern1 = @"^C\d$";
                 string pattern2 = @"^C\d{2}$";
                 TextInfo ti = CultureInfo.CurrentCulture.TextInfo;
                 value = ti.ToTitleCase(value);
                 if (value.Length > 3)
                 {
+                    //TODO: Сложно. Мб разделить на 3 строки и складывать строки ? 
                     throw new ArgumentException("Наименование конденсатора не должно" +
                         " превышать трех символов. Наименование конденсатора в цепи должно начинаться" +
                         " с латинской буквы 'C' после которой должен идти порядковый номер конденсатора в цепи.");
@@ -86,6 +88,7 @@ namespace Circuit_impedance_calculating_model.Elements
             }
         }
 
+        //TODO: Некорректный комментарий. Это у тебя емкость, а не поле _value
         /// <summary>
         /// Свойство-аксессор для поля _value.
         /// </summary>
@@ -95,11 +98,13 @@ namespace Circuit_impedance_calculating_model.Elements
             { return _value; }
             set
             {
+                //TODO: Валидация. NaN. +inf - inf
                 if (value < 0)
                 {
                     throw new ArgumentException("Значение конденсатора не должно быть меньше нуля.");
                 }
                 _value = value;
+                //TODO: Нужна проверка. Если _val = val то не должно вызываться событие
                 OnValueChanged();
             }
         }
@@ -115,6 +120,7 @@ namespace Circuit_impedance_calculating_model.Elements
         /// <returns>Импеданс элемента</returns>
         public Complex CalculateZ(double frequency)
         {
+            //TODO: Валидация на frequency  NaN. +inf - inf
             return new Complex(0, -1/(2 * Math.PI * frequency * _value));
         }
 

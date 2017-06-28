@@ -11,6 +11,7 @@ using Circuit_impedance_calculating_model.Elements;
 
 namespace Circuit_Drawer
 {
+    //TODO: XML Комментарии
     public class Drawer
     {
         #region - Private fields-
@@ -29,6 +30,7 @@ namespace Circuit_Drawer
         /// </summary>
         public Drawer()
         {
+            //NOTE: Раз так, то мб позволить в конструкторе указывать цвет, а по умолчанию сделать черный ? 
             _pen = new Pen(Color.Black);
         }
 
@@ -43,7 +45,7 @@ namespace Circuit_Drawer
         /// <param name="bmp">Рисунок</param>
         /// <param name="x">Входное значение координаты по оси Ох</param>
         /// <param name="y">Входное значение координаты по оси Оу</param>
-        /// <returns></returns>
+        /// <returns>TODO</returns>
         public Bitmap DrawCircuit(IComponent circuit, Bitmap bmp, int x, int y)
         {
             DrawKlemme(bmp, x, y);
@@ -91,7 +93,7 @@ namespace Circuit_Drawer
         /// <param name="x">Входное значение координаты по оси Ох</param>
         /// <param name="y">Входное значение координаты по оси Оу</param>
         /// <param name="length">Необязательный параметр длинны, при вхождении элемента в параллельную схему</param>
-        /// <returns></returns>
+        /// <returns>TODO</returns>
         private Bitmap DrawResistor(Bitmap bmp, int x, int y, int length = 0)
         {
             Graphics graph = Graphics.FromImage(bmp);
@@ -204,7 +206,7 @@ namespace Circuit_Drawer
         /// <param name="bmp">Рисунок</param>
         /// <param name="x">Входное значение координаты по оси Ох</param>
         /// <param name="y">Входное значение координаты по оси Оу</param>
-        /// <returns></returns>
+        /// <returns>TODO</returns>
         private Bitmap DrawParallelCircuit(ParallelCircuit circuit, Bitmap bmp, int x, int y)
         {
             Graphics graph = Graphics.FromImage(bmp);
@@ -253,7 +255,7 @@ namespace Circuit_Drawer
         /// Метод, для вычисления длины последовательной цепи в схеме.
         /// </summary>
         /// <param name="circuit">Входная схема цепи</param>
-        /// <returns></returns>
+        /// <returns>TODO</returns>
         private int CalculateSerialCircuitLength(SerialCircuit circuit)
         {
             int length = 0;
@@ -275,7 +277,7 @@ namespace Circuit_Drawer
         /// Метод, для вычисления длины параллельной цепи в схеме.
         /// </summary>
         /// <param name="circuit">Входная схема цепи</param>
-        /// <returns></returns>
+        /// <returns>TODO</returns>
         private int CalculateParallelCircuitLength(ParallelCircuit circuit)
         {
             List<SerialCircuit> serials = new List<SerialCircuit>();
@@ -331,6 +333,7 @@ namespace Circuit_Drawer
                     }
                 }
             }
+            //TODO: Магическое число. Вынести в константу
             return 30;
         }
 

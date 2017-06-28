@@ -11,6 +11,7 @@ namespace Circuit_impedance_calculating_model.Elements
     /// </summary>
     public interface IElement: IComponent
     {
+        //NOTE: Это не поля. Это свойства. Properties
         #region - Fields - 
 
         /// <summary>
@@ -31,6 +32,7 @@ namespace Circuit_impedance_calculating_model.Elements
 
         #region - Public methods -
 
+        //NOTE: А стоит это выносить в public ? 
         /// <summary>
         /// Вызывает событие ValueChanged, если оно не пустое.
         /// </summary>

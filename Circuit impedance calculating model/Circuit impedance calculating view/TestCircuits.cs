@@ -10,6 +10,8 @@ using Circuit_impedance_calculating_model.Elements;
 
 namespace Circuit_impedance_calculating_view
 {
+
+    //TODO: Исправь именования. Можно сделать статический класс.
     /// <summary>
     /// Класс с тестовыми схемами
     /// </summary>
@@ -36,6 +38,7 @@ namespace Circuit_impedance_calculating_view
         /// Тестовая схема №1.
         /// </summary>
         /// <returns></returns>
+        //TODO: Именование.Circuit1
         public IComponent _circuit1()
         {
             var R1 = new Resistor("R1", 100);

@@ -67,12 +67,15 @@ namespace Circuit_impedance_calculating_model.Elements
             get { return _name; }
             set
             {
+                //TODO: Комментарии к регуляркам
+                //TODO: Можно объеденить в ^L\d{1,2}$
                 string pattern1 = @"^L\d$";
                 string pattern2 = @"^L\d{2}$";
                 TextInfo ti = CultureInfo.CurrentCulture.TextInfo;
                 value = ti.ToTitleCase(value);
                 if (value.Length > 3)
                 {
+                    //TODO: Сложно. Катушка инЛуктивности
                     throw new ArgumentException("Наименование катушки инлуктивности не должно" +
                         " превышать трех символов. Наименование катушки инлуктивности в цепи должно начинаться" +
                         " с латинской буквы 'L' после которой должен идти порядковый номер катушки в цепи.");
@@ -94,11 +97,13 @@ namespace Circuit_impedance_calculating_model.Elements
             get { return _value; }
             set
             {
+                //TODO: Валидация. NaN. +inf - inf
                 if (value < 0)
                 {
                     throw new ArgumentException("Значение индуктивности не должно быть меньше нуля.");
                 }
                 _value = value;
+                //TODO: Нужна проверка. Если _val = val то не должно вызываться событие
                 OnValueChanged();
             }
         }
@@ -114,6 +119,7 @@ namespace Circuit_impedance_calculating_model.Elements
         /// <returns>Импеданс элемента</returns>
         public Complex CalculateZ(double frequency)
         {
+            //TODO: Валидация. NaN. +inf - inf
             return new Complex(0, 2 * Math.PI * frequency * Value);
         }
 
