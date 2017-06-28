@@ -10,13 +10,10 @@ namespace Circuit_impedance_calculating_model.Circuits
     /// <summary>
     /// Интерфейс, описывающий цепи.
     /// </summary>
-    interface ICircuit: IComponent
+    public interface ICircuit: IComponent
     {
         #region - Fields -
-        
-        /// <summary>
-        /// Список, хранящий компоненты цепи.
-        /// </summary>
+
         List<IComponent> Circuit { get; set; }
 
         #endregion
