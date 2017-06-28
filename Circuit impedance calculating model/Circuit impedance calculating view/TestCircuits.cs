@@ -25,6 +25,7 @@ namespace Circuit_impedance_calculating_view
         {
             var testCircuitsList = new List<IComponent>
                 { _circuit1(), _circuit2(), _circuit3(), _circuit4(), _circuit5(), _circuit6()};
+                { _circuit1(), _circuit2(), _circuit3(), _circuit4(), _circuit5()};
             return testCircuitsList;
         }
 
@@ -65,6 +66,8 @@ namespace Circuit_impedance_calculating_view
             circuit2.Circuit.Add(C1);
             circuit1.Circuit.Add(circuit2);
             circuit1.Circuit.Add(L1);
+            circuit1.Circuit.Add(L1);
+            circuit1.Circuit.Add(circuit2);
             return circuit1;
         }
 
@@ -96,6 +99,7 @@ namespace Circuit_impedance_calculating_view
         /// Тестовая схема №4.
         /// </summary>
         /// <returns></returns>
+        /// <returns></returns
         private IComponent _circuit4()
         {
             var R1 = new Resistor("R1", 100);
@@ -170,38 +174,27 @@ namespace Circuit_impedance_calculating_view
             var circuit7 = new ParallelCircuit("circuit7");
             var circuit8 = new ParallelCircuit("circuit8");
             var circuit9 = new SerialCircuit("circuit9");
-
             circuit7.Circuit.Add(R1);
             circuit7.Circuit.Add(R1);
-
             circuit6.Circuit.Add(R1);
             circuit6.Circuit.Add(circuit7);
-
             circuit5.Circuit.Add(R1);
             circuit5.Circuit.Add(circuit6);
-
             circuit8.Circuit.Add(circuit6);
             circuit8.Circuit.Add(R1);
-
             circuit4.Circuit.Add(R1);
             circuit4.Circuit.Add(R1);
-
             circuit3.Circuit.Add(R1);
             circuit3.Circuit.Add(circuit4);
             circuit3.Circuit.Add(R1);
-
             circuit2.Circuit.Add(R1);
             circuit2.Circuit.Add(circuit5);
-
             circuit9.Circuit.Add(R1);
             circuit9.Circuit.Add(circuit8);
-
             circuit1.Circuit.Add(circuit2);
             circuit1.Circuit.Add(circuit9);
-
             return circuit1;
         }
-
         #endregion
     }
 }

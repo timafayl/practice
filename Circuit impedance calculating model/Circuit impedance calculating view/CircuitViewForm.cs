@@ -9,6 +9,7 @@ using Circuit_Drawer;
 using Circuit_impedance_calculating_model;
 using Circuit_impedance_calculating_model.Circuits;
 
+
 #endregion
 
 namespace Circuit_impedance_calculating_view
@@ -99,5 +100,8 @@ namespace Circuit_impedance_calculating_view
         {
             Draw(_circuits[circuitsListBox.SelectedIndex]);
         }
+
+        #endregion
+
     }
 }

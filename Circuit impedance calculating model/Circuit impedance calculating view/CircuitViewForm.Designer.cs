@@ -37,6 +37,7 @@
             this.impedanceGridView = new System.Windows.Forms.DataGridView();
             this.frequency = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.impedance = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.circuitsListBox = new System.Windows.Forms.ListBox();
             this.circuitViewGroupBox.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.circuitView)).BeginInit();
             this.circuitsGroupBox.SuspendLayout();
@@ -92,6 +93,7 @@
             this.circuitsListBox.TabIndex = 4;
             this.circuitsListBox.SelectedIndexChanged += new System.EventHandler(this.circuitsListBox_SelectedIndexChanged);
             // 
+
             // changeElementsValueButton
             // 
             this.changeElementsValueButton.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
@@ -138,6 +140,16 @@
             this.impedance.HeaderText = "Импеданс цепи";
             this.impedance.Name = "impedance";
             this.impedance.ReadOnly = true;
+            // 
+            // circuitsListBox
+            // 
+            this.circuitsListBox.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
+            | System.Windows.Forms.AnchorStyles.Right)));
+            this.circuitsListBox.FormattingEnabled = true;
+            this.circuitsListBox.Location = new System.Drawing.Point(6, 16);
+            this.circuitsListBox.Name = "circuitsListBox";
+            this.circuitsListBox.Size = new System.Drawing.Size(312, 238);
+            this.circuitsListBox.TabIndex = 4;
             // 
             // CircuitViewForm
             // 
