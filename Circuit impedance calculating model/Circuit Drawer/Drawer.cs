@@ -15,6 +15,7 @@ namespace Circuit_Drawer
     {
         #region - Private fields-
 
+        //TODO: Вроде как можно ридонли сделать
         /// <summary>
         /// Переменная, задающая цвет линий.
         /// </summary>
