@@ -11,9 +11,8 @@ using Circuit_impedance_calculating_model.Elements;
 namespace Circuit_impedance_calculating_view
 {
 
-    //TODO: Исправь именования. Можно сделать статический класс.
     /// <summary>
-    /// Класс с тестовыми схемами
+    /// Класс с тестовыми схемами.
     /// </summary>
     public class TestCircuits
     {
@@ -22,11 +21,11 @@ namespace Circuit_impedance_calculating_view
         /// <summary>
         /// Метод, возвращающий список с тестовыми схемами.
         /// </summary>
-        /// <returns></returns>
+        /// <returns>Список с тестовыми цепями</returns>
         public List<IComponent> TestCircuitsList()
         {
             var testCircuitsList = new List<IComponent>
-                { _circuit1(), _circuit2(), _circuit3(), _circuit4(), _circuit5(), _circuit6()};
+                { Сircuit1(), Сircuit2(), Сircuit3(), Сircuit4(), Сircuit5(), Сircuit6()};
             return testCircuitsList;
         }
 
@@ -37,9 +36,8 @@ namespace Circuit_impedance_calculating_view
         /// <summary>
         /// Тестовая схема №1.
         /// </summary>
-        /// <returns></returns>
-        //TODO: Именование.Circuit1
-        public IComponent _circuit1()
+        /// <returns>Первую тестовую схему</returns>
+        public IComponent Сircuit1()
         {
             var R1 = new Resistor("R1", 100);
             var C1 = new Capacitor("C1", 0.005);
@@ -56,8 +54,8 @@ namespace Circuit_impedance_calculating_view
         /// <summary>
         /// Тестовая схема №2.
         /// </summary>
-        /// <returns></returns
-        private IComponent _circuit2()
+        /// <returns>Ввторую тестовую схему</returns
+        private IComponent Сircuit2()
         {
             var R1 = new Resistor("R1", 100);
             var C1 = new Capacitor("C1", 0.005);
@@ -74,8 +72,8 @@ namespace Circuit_impedance_calculating_view
         /// <summary>
         /// Тестовая схема №3.
         /// </summary>
-        /// <returns></returns
-        private IComponent _circuit3()
+        /// <returns>Третью тестовую схему</returns
+        private IComponent Сircuit3()
         {
             var R1 = new Resistor("R1", 100);
             var C1 = new Capacitor("C1", 0.005);
@@ -98,8 +96,8 @@ namespace Circuit_impedance_calculating_view
         /// <summary>
         /// Тестовая схема №4.
         /// </summary>
-        /// <returns></returns>
-        private IComponent _circuit4()
+        /// <returns>Четвертую тестовую схему</returns>
+        private IComponent Сircuit4()
         {
             var R1 = new Resistor("R1", 100);
             var R2 = new Resistor("R2", 100);
@@ -128,8 +126,8 @@ namespace Circuit_impedance_calculating_view
         /// <summary>
         /// Тестовая схема №5.
         /// </summary>
-        /// <returns></returns
-        private IComponent _circuit5()
+        /// <returns>Пятую тестовую схему</returns>
+        private IComponent Сircuit5()
         {
             var R1 = new Resistor("R1", 100);
             var R2 = new Resistor("R2", 100);
@@ -160,8 +158,8 @@ namespace Circuit_impedance_calculating_view
         /// <summary>
         /// Тестовая схема №6.
         /// </summary>
-        /// <returns></returns>
-        private IComponent _circuit6()
+        /// <returns>Шестую тестовую схему</returns>
+        private IComponent Сircuit6()
         {
             var R1 = new Resistor("R1", 100);
             var circuit1 = new ParallelCircuit("circuit1");

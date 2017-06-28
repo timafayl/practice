@@ -9,8 +9,9 @@ using System.Text.RegularExpressions;
 
 namespace Circuit_impedance_calculating_model.Circuits
 {
-    //BUG: У тебя можно создать экзмепляр этого класса. Так нельзя. Сделай protected конструктор
-    //TODO:Xml Комментарии
+    /// <summary>
+    /// Базовай класс Circuit.
+    /// </summary>
     public class BaseCircuit: ICircuit
     {
         #region - Private fields -
@@ -36,19 +37,26 @@ namespace Circuit_impedance_calculating_model.Circuits
 
         #endregion
 
+        #region - Constructors -
+
+        /// <summary>
+        /// Пустой конструктор.
+        /// </summary>
+        protected BaseCircuit() { }
+
+        #endregion
+
         #region - Public Properties -
 
         /// <summary>
-        /// Свойство-аксессор для поля _name.
+        /// Свойство для наименования цепи.
         /// </summary>
         public string Name
         {
             get { return _name; }
             set
             {
-                //TODO:Комментарии.Можно объеденить.
-                string pattern1 = @"^circuit\d$";
-                string pattern2 = @"^circuit\d{2}$";
+                string pattern = @"^circuit\d{1,2}$";
                 value = value.ToLower();
                 if (value.Length > 9)
                 {
@@ -56,18 +64,17 @@ namespace Circuit_impedance_calculating_model.Circuits
                         " превышать девяти символов. Наименование цепи должно начинаться" +
                         " со слова 'circuit' после которого должен идти порядковый номер цепи в схеме.");
                 }
-                if (!(Regex.IsMatch(value, pattern1) || Regex.IsMatch(value, pattern2)))
+                if (!Regex.IsMatch(value, pattern))
                 {
-                    throw new ArgumentException(" Наименование цепи должно начинаться" +
+                    throw new ArgumentException("Наименование цепи должно начинаться" +
                         " со слова 'circuit' после которого должен идти порядковый номер цепи в схеме.");
                 }
                 _name = value;
             }
         }
 
-
         /// <summary>
-        /// Свойство-аксессор для элемента _circuit.
+        /// Свойство для списка элементов цепи.
         /// </summary>
         public List<IComponent> Circuit
         {
@@ -86,9 +93,7 @@ namespace Circuit_impedance_calculating_model.Circuits
         /// <returns>Импеданс компонента</returns>
         public virtual Complex CalculateZ(double frequency)
         {
-            //TODO: Лучше так:
-            //throw new NotImplementedException("тут текст");
-            return new Complex();
+            throw new NotImplementedException("Метод не реализован!");
         }
 
         /// <summary>

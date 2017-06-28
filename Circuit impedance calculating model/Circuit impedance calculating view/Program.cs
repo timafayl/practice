@@ -8,7 +8,9 @@ using System.Windows.Forms;
 
 namespace Circuit_impedance_calculating_view
 {
-    //TODO: XML Комментики
+    /// <summary>
+    /// Класс запуска программы.
+    /// </summary>
     static class Program
     {
         /// <summary>

@@ -60,27 +60,23 @@ namespace Circuit_impedance_calculating_model.Elements
         #region - Public properties -
 
         /// <summary>
-        /// Свойство-аксессор для поля _name.
+        /// Свойство для наименования элемента.
         /// </summary>
         public string Name
         {
             get { return _name; }
             set
             {
-                //TODO: Комментарии к регуляркам
-                //TODO: Можно объеденить в ^L\d{1,2}$
-                string pattern1 = @"^L\d$";
-                string pattern2 = @"^L\d{2}$";
+                string pattern = @"^L\d{1,2}$"; //задает значение типа "L1" или "L10"
                 TextInfo ti = CultureInfo.CurrentCulture.TextInfo;
                 value = ti.ToTitleCase(value);
                 if (value.Length > 3)
                 {
-                    //TODO: Сложно. Катушка инЛуктивности
-                    throw new ArgumentException("Наименование катушки инлуктивности не должно" +
+                    throw new ArgumentException("Наименование катушки индуктивности не должно" +
                         " превышать трех символов. Наименование катушки инлуктивности в цепи должно начинаться" +
                         " с латинской буквы 'L' после которой должен идти порядковый номер катушки в цепи.");
                 }
-                if (!(Regex.IsMatch(value, pattern1) || Regex.IsMatch(value, pattern2)))
+                if (!Regex.IsMatch(value, pattern))
                 {
                     throw new ArgumentException("Наименование катушки индуктивности в цепи должно начинаться" +
                         " с латинской буквы 'L' после которой должен идти порядковый номер катушки в цепи.");
@@ -90,21 +86,30 @@ namespace Circuit_impedance_calculating_model.Elements
         }
 
         /// <summary>
-        /// Свойство-аксессор для поля _value.
+        /// Свойство для значения элемента.
         /// </summary>
         public double Value
         {
             get { return _value; }
             set
             {
-                //TODO: Валидация. NaN. +inf - inf
                 if (value < 0)
                 {
                     throw new ArgumentException("Значение индуктивности не должно быть меньше нуля.");
                 }
+                if (double.IsNaN(value))
+                {
+                    throw new ArgumentException("Значение индуктивности не должно быть нулевым.");
+                }
+                if (double.IsNegativeInfinity(value) || double.IsPositiveInfinity(value))
+                {
+                    throw new ArgumentException("Значение индуктивности не должно быть равным бесконечности.");
+                }
+                if (_value != value)
+                {
+                    OnValueChanged();
+                }
                 _value = value;
-                //TODO: Нужна проверка. Если _val = val то не должно вызываться событие
-                OnValueChanged();
             }
         }
 
@@ -119,7 +124,21 @@ namespace Circuit_impedance_calculating_model.Elements
         /// <returns>Импеданс элемента</returns>
         public Complex CalculateZ(double frequency)
         {
-            //TODO: Валидация. NaN. +inf - inf
+            if (frequency < 0)
+            {
+                throw new ArgumentOutOfRangeException(nameof(frequency), frequency,
+                    "Значение частоты не должно быть меньше нуля.");
+            }
+            if (double.IsNaN(frequency))
+            {
+                throw new ArgumentOutOfRangeException(nameof(frequency), frequency, 
+                    "Значение частоты не должно быть нулевым.");
+            }
+            if (double.IsNegativeInfinity(frequency) || double.IsPositiveInfinity(frequency))
+            {
+                throw new ArgumentOutOfRangeException(nameof(frequency), frequency, 
+                    "Значение частоты не должно быть равным бесконечности.");
+            }
             return new Complex(0, 2 * Math.PI * frequency * Value);
         }
 
