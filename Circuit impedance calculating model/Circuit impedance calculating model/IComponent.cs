@@ -11,7 +11,7 @@ namespace Circuit_impedance_calculating_model
     /// </summary>
     public interface IComponent
     {
-        #region - Properties - 
+        #region - Fields - 
         
         /// <summary>
         /// Наименование компонента.

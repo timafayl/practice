@@ -99,6 +99,7 @@ namespace Circuit_impedance_calculating_model.Elements
                     throw new ArgumentException("Значение индуктивности не должно быть меньше нуля.");
                 }
                 _value = value;
+                OnValueChanged();
             }
         }
 
@@ -114,6 +115,14 @@ namespace Circuit_impedance_calculating_model.Elements
         public Complex CalculateZ(double frequency)
         {
             return new Complex(0, 2 * Math.PI * frequency * Value);
+        }
+
+        /// <summary>
+        /// Вызывает событие ValueChanged, если оно не пустое.
+        /// </summary>
+        public void OnValueChanged()
+        {
+            ValueChanged?.Invoke(this, EventArgs.Empty);
         }
 
         #endregion

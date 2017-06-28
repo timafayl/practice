@@ -99,6 +99,7 @@ namespace Circuit_impedance_calculating_model.Elements
                     throw new ArgumentException("Значение резистора не должно быть меньше нуля.");
                 }
                 _value = value;
+                OnValueChanged();
             }
         }
 
@@ -114,6 +115,14 @@ namespace Circuit_impedance_calculating_model.Elements
         public Complex CalculateZ(double frequency)
         {
             return new Complex(Value, 0);
+        }
+
+        /// <summary>
+        /// Вызывает событие ValueChanged, если оно не пустое.
+        /// </summary>
+        public void OnValueChanged()
+        {
+            ValueChanged?.Invoke(this, EventArgs.Empty);
         }
 
         #endregion

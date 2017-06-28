@@ -50,13 +50,13 @@ namespace Circuit_impedance_calculating_model.Circuits
                 if (value.Length > 9)
                 {
                     throw new ArgumentException("Наименование цепи не должно" +
-                                                " превышать девяти символов. Наименование цепи должно начинаться" +
-                                                " со слова 'circuit' после которого должен идти порядковый номер цепи в схеме.");
+                        " превышать девяти символов. Наименование цепи должно начинаться" +
+                        " со слова 'circuit' после которого должен идти порядковый номер цепи в схеме.");
                 }
                 if (!(Regex.IsMatch(value, pattern1) || Regex.IsMatch(value, pattern2)))
                 {
                     throw new ArgumentException(" Наименование цепи должно начинаться" +
-                                                " со слова 'circuit' после которого должен идти порядковый номер цепи в схеме.");
+                        " со слова 'circuit' после которого должен идти порядковый номер цепи в схеме.");
                 }
                 _name = value;
             }
@@ -75,9 +75,22 @@ namespace Circuit_impedance_calculating_model.Circuits
 
         #region - Public methods-
 
+        /// <summary>
+        /// Метод рассчета импеданса цепи.
+        /// </summary>
+        /// <param name="frequency">Входная частота</param>
+        /// <returns>Импеданс компонента</returns>
         public virtual Complex CalculateZ(double frequency)
         {
             return new Complex();
+        }
+
+        /// <summary>
+        /// Вызывает событие CircuitChanged, если оно не пустое.
+        /// </summary>
+        public void OnCircuitChanged()
+        {
+            CircuitChanged?.Invoke(this, EventArgs.Empty);
         }
 
         #endregion

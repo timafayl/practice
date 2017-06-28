@@ -100,6 +100,7 @@ namespace Circuit_impedance_calculating_model.Elements
                     throw new ArgumentException("Значение конденсатора не должно быть меньше нуля.");
                 }
                 _value = value;
+                OnValueChanged();
             }
         }
 
@@ -115,6 +116,14 @@ namespace Circuit_impedance_calculating_model.Elements
         public Complex CalculateZ(double frequency)
         {
             return new Complex(0, -1/(2 * Math.PI * frequency * _value));
+        }
+
+        /// <summary>
+        /// Вызывает событие ValueChanged, если оно не пустое.
+        /// </summary>
+        public void OnValueChanged()
+        {
+            ValueChanged?.Invoke(this, EventArgs.Empty);
         }
 
         #endregion
