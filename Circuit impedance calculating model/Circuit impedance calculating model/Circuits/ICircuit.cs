@@ -26,5 +26,14 @@ namespace Circuit_impedance_calculating_model.Circuits
         event EventHandler CircuitChanged;
 
         #endregion
+
+        #region - OnCircuitChanged -
+
+        /// <summary>
+        /// Вызывает событие CircuitChanged, если оно не пустое.
+        /// </summary>
+        void OnCircuitChanged();
+
+        #endregion
     }
 }

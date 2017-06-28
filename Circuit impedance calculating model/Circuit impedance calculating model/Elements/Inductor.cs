@@ -116,6 +116,14 @@ namespace Circuit_impedance_calculating_model.Elements
             return new Complex(0, 2 * Math.PI * frequency * Value);
         }
 
+        /// <summary>
+        /// Вызывает событие ValueChanged, если оно не пустое.
+        /// </summary>
+        public void OnValueChanged()
+        {
+            ValueChanged?.Invoke(this, EventArgs.Empty);
+        }
+
         #endregion
     }
 }
