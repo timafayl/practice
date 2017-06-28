@@ -2,9 +2,12 @@
 
 using System;
 using System.Collections.Generic;
+using System.Drawing;
 using System.Numerics;
 using System.Windows.Forms;
+using Circuit_Drawer;
 using Circuit_impedance_calculating_model;
+using Circuit_impedance_calculating_model.Circuits;
 
 #endregion
 
@@ -83,6 +86,18 @@ namespace Circuit_impedance_calculating_view
             }
         }
 
+        private void Draw(IComponent component)
+        {
+            Bitmap bmp = new Bitmap(circuitView.Width, circuitView.Height);
+            Drawer drawer = new Drawer();
+            circuitView.Image = drawer.DrawCircuit(component, bmp, 20, circuitView.Height / 2);
+        }
+
         #endregion
+
+        private void circuitsListBox_SelectedIndexChanged(object sender, EventArgs e)
+        {
+            Draw(_circuits[circuitsListBox.SelectedIndex]);
+        }
     }
 }
