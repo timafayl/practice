@@ -11,3 +11,16 @@ C:\Users\tima\Documents\Visual Studio 2015\Projects\practice\Circuit impedance c
 C:\Users\tima\Documents\Visual Studio 2015\Projects\practice\Circuit impedance calculating model\Circuit impedance calculating view\obj\Debug\Circuit impedance calculating view.pdb
 C:\Users\tima\Documents\Visual Studio 2015\Projects\practice\Circuit impedance calculating model\Circuit impedance calculating view\bin\Debug\Circuit Drawer.dll
 C:\Users\tima\Documents\Visual Studio 2015\Projects\practice\Circuit impedance calculating model\Circuit impedance calculating view\bin\Debug\Circuit Drawer.pdb
+C:\Users\Администратор\Documents\practice\Circuit impedance calculating model\Circuit impedance calculating view\bin\Debug\Circuit impedance calculating view.exe.config
+C:\Users\Администратор\Documents\practice\Circuit impedance calculating model\Circuit impedance calculating view\bin\Debug\Circuit impedance calculating view.exe
+C:\Users\Администратор\Documents\practice\Circuit impedance calculating model\Circuit impedance calculating view\bin\Debug\Circuit impedance calculating view.pdb
+C:\Users\Администратор\Documents\practice\Circuit impedance calculating model\Circuit impedance calculating view\bin\Debug\Circuit Drawer.dll
+C:\Users\Администратор\Documents\practice\Circuit impedance calculating model\Circuit impedance calculating view\bin\Debug\Circuit impedance calculating model.dll
+C:\Users\Администратор\Documents\practice\Circuit impedance calculating model\Circuit impedance calculating view\bin\Debug\Circuit Drawer.pdb
+C:\Users\Администратор\Documents\practice\Circuit impedance calculating model\Circuit impedance calculating view\bin\Debug\Circuit impedance calculating model.pdb
+C:\Users\Администратор\Documents\practice\Circuit impedance calculating model\Circuit impedance calculating view\obj\Debug\Circuit impedance calculating view.csprojResolveAssemblyReference.cache
+C:\Users\Администратор\Documents\practice\Circuit impedance calculating model\Circuit impedance calculating view\obj\Debug\Circuit_impedance_calculating_view.CircuitViewForm.resources
+C:\Users\Администратор\Documents\practice\Circuit impedance calculating model\Circuit impedance calculating view\obj\Debug\Circuit_impedance_calculating_view.Properties.Resources.resources
+C:\Users\Администратор\Documents\practice\Circuit impedance calculating model\Circuit impedance calculating view\obj\Debug\Circuit impedance calculating view.csproj.GenerateResource.Cache
+C:\Users\Администратор\Documents\practice\Circuit impedance calculating model\Circuit impedance calculating view\obj\Debug\Circuit impedance calculating view.exe
+C:\Users\Администратор\Documents\practice\Circuit impedance calculating model\Circuit impedance calculating view\obj\Debug\Circuit impedance calculating view.pdb

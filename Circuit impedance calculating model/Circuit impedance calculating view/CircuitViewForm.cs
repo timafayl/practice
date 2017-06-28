@@ -30,6 +30,7 @@ namespace Circuit_impedance_calculating_view
         /// </summary>
         private Complex[] _impedance;
 
+        //TODO: Решарпер говорит, что поля ниже можно сделать ридонли
         /// <summary>
         /// Список всех схем.
         /// </summary>
@@ -44,6 +45,7 @@ namespace Circuit_impedance_calculating_view
 
         #region - Constructors -
 
+        //TODO: XML
         public CircuitViewForm()
         {
             InitializeComponent();
@@ -55,6 +57,7 @@ namespace Circuit_impedance_calculating_view
 
         #region - Event handlers-
 
+        //TODO: XML. и кнопка ничего не делает.
         private void calculateImpedanceButton_Click(object sender, EventArgs e)
         {
             _frequency = new double[impedanceGridView.RowCount - 1];
@@ -86,6 +89,7 @@ namespace Circuit_impedance_calculating_view
             }
         }
 
+        //TODO: XML
         private void Draw(IComponent component)
         {
             Bitmap bmp = new Bitmap(circuitView.Width, circuitView.Height);
@@ -95,6 +99,7 @@ namespace Circuit_impedance_calculating_view
 
         #endregion
 
+        //TODO: Убрать в регион и XML-комментарий
         private void circuitsListBox_SelectedIndexChanged(object sender, EventArgs e)
         {
             Draw(_circuits[circuitsListBox.SelectedIndex]);
