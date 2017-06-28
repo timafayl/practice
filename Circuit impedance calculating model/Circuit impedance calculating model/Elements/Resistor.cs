@@ -99,6 +99,7 @@ namespace Circuit_impedance_calculating_model.Elements
                     throw new ArgumentException("Значение резистора не должно быть меньше нуля.");
                 }
                 _value = value;
+                OnValueChanged();
             }
         }
 
