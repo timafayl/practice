@@ -31,6 +31,7 @@
             this.circuitViewGroupBox = new System.Windows.Forms.GroupBox();
             this.circuitView = new System.Windows.Forms.PictureBox();
             this.circuitsGroupBox = new System.Windows.Forms.GroupBox();
+            this.circuitsListBox = new System.Windows.Forms.ListBox();
             this.changeElementsValueButton = new System.Windows.Forms.Button();
             this.calculateImpedanceButton = new System.Windows.Forms.Button();
             this.impedanceGridView = new System.Windows.Forms.DataGridView();
@@ -81,6 +82,18 @@
             this.circuitsGroupBox.TabStop = false;
             this.circuitsGroupBox.Text = "Circuits";
             // 
+            // circuitsListBox
+            // 
+            this.circuitsListBox.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
+            | System.Windows.Forms.AnchorStyles.Right)));
+            this.circuitsListBox.FormattingEnabled = true;
+            this.circuitsListBox.Location = new System.Drawing.Point(6, 16);
+            this.circuitsListBox.Name = "circuitsListBox";
+            this.circuitsListBox.Size = new System.Drawing.Size(312, 238);
+            this.circuitsListBox.TabIndex = 4;
+            this.circuitsListBox.SelectedIndexChanged += new System.EventHandler(this.circuitsListBox_SelectedIndexChanged);
+            // 
+
             // changeElementsValueButton
             // 
             this.changeElementsValueButton.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
