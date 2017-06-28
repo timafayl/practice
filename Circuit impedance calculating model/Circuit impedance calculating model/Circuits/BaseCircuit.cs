@@ -1,10 +1,11 @@
-﻿using System;
+﻿#region - Using -
+
+using System;
 using System.Collections.Generic;
-using System.Linq;
 using System.Numerics;
-using System.Text;
 using System.Text.RegularExpressions;
-using System.Threading.Tasks;
+
+#endregion
 
 namespace Circuit_impedance_calculating_model.Circuits
 {
