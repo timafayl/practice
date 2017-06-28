@@ -72,6 +72,12 @@ namespace Circuit_impedance_calculating_view
             }
         }
 
+
+        private void circuitsListBox_SelectedIndexChanged(object sender, EventArgs e)
+        {
+            Draw(_circuits[circuitsListBox.SelectedIndex]);
+        }
+
         #endregion
 
         #region - Private methods -
@@ -95,13 +101,5 @@ namespace Circuit_impedance_calculating_view
         }
 
         #endregion
-
-        private void circuitsListBox_SelectedIndexChanged(object sender, EventArgs e)
-        {
-            Draw(_circuits[circuitsListBox.SelectedIndex]);
-        }
-
-        #endregion
-
     }
 }

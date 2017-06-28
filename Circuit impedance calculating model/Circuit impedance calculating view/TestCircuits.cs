@@ -25,7 +25,6 @@ namespace Circuit_impedance_calculating_view
         {
             var testCircuitsList = new List<IComponent>
                 { _circuit1(), _circuit2(), _circuit3(), _circuit4(), _circuit5(), _circuit6()};
-                { _circuit1(), _circuit2(), _circuit3(), _circuit4(), _circuit5()};
             return testCircuitsList;
         }
 
@@ -65,7 +64,6 @@ namespace Circuit_impedance_calculating_view
             circuit2.Circuit.Add(R1);
             circuit2.Circuit.Add(C1);
             circuit1.Circuit.Add(circuit2);
-            circuit1.Circuit.Add(L1);
             circuit1.Circuit.Add(L1);
             circuit1.Circuit.Add(circuit2);
             return circuit1;
@@ -195,6 +193,7 @@ namespace Circuit_impedance_calculating_view
             circuit1.Circuit.Add(circuit9);
             return circuit1;
         }
+
         #endregion
     }
 }

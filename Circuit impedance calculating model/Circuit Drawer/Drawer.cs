@@ -48,18 +48,14 @@ namespace Circuit_Drawer
         {
             DrawKlemme(bmp, x, y);
             Graphics graph = Graphics.FromImage(bmp);
-
             if (circuit is SerialCircuit)
             {
                 DrawSerialCircuit(circuit as SerialCircuit, bmp, x, y);
-
                 DrawKlemme(bmp, x + CalculateSerialCircuitLength(circuit as SerialCircuit) + 10, y);
             }
-
             else if (circuit is ParallelCircuit)
             {
                 DrawParallelCircuit(circuit as ParallelCircuit, bmp, x, y);
-
                 DrawKlemme(bmp, x + CalculateParallelCircuitLength(circuit as ParallelCircuit) + 10, y);
             }
             return bmp;
