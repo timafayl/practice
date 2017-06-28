@@ -24,7 +24,7 @@ namespace Circuit_impedance_calculating_view
         public List<IComponent> TestCircuitsList()
         {
             var testCircuitsList = new List<IComponent>
-                { _circuit1(), _circuit2(), _circuit3(), _circuit4(), _circuit5()};
+                { _circuit1(), _circuit2(), _circuit3(), _circuit4(), _circuit5(), _circuit6()};
             return testCircuitsList;
         }
 
@@ -151,6 +151,54 @@ namespace Circuit_impedance_calculating_view
             circuit2.Circuit.Add(circuit4);
             circuit1.Circuit.Add(C1);
             circuit1.Circuit.Add(circuit2);
+            return circuit1;
+        }
+
+        /// <summary>
+        /// Тестовая схема №6.
+        /// </summary>
+        /// <returns></returns>
+        private IComponent _circuit6()
+        {
+            var R1 = new Resistor("R1", 100);
+            var circuit1 = new ParallelCircuit("circuit1");
+            var circuit2 = new SerialCircuit("circuit2");
+            var circuit3 = new SerialCircuit("circuit3");
+            var circuit4 = new ParallelCircuit("circuit4");
+            var circuit5 = new ParallelCircuit("circuit5");
+            var circuit6 = new SerialCircuit("circuit6");
+            var circuit7 = new ParallelCircuit("circuit7");
+            var circuit8 = new ParallelCircuit("circuit8");
+            var circuit9 = new SerialCircuit("circuit9");
+
+            circuit7.Circuit.Add(R1);
+            circuit7.Circuit.Add(R1);
+
+            circuit6.Circuit.Add(R1);
+            circuit6.Circuit.Add(circuit7);
+
+            circuit5.Circuit.Add(R1);
+            circuit5.Circuit.Add(circuit6);
+
+            circuit8.Circuit.Add(circuit6);
+            circuit8.Circuit.Add(R1);
+
+            circuit4.Circuit.Add(R1);
+            circuit4.Circuit.Add(R1);
+
+            circuit3.Circuit.Add(R1);
+            circuit3.Circuit.Add(circuit4);
+            circuit3.Circuit.Add(R1);
+
+            circuit2.Circuit.Add(R1);
+            circuit2.Circuit.Add(circuit5);
+
+            circuit9.Circuit.Add(R1);
+            circuit9.Circuit.Add(circuit8);
+
+            circuit1.Circuit.Add(circuit2);
+            circuit1.Circuit.Add(circuit9);
+
             return circuit1;
         }
 
