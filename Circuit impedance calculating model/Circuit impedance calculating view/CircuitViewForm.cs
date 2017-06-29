@@ -8,6 +8,7 @@ using System.Windows.Forms;
 using Circuit_Drawer;
 using Circuit_impedance_calculating_model;
 using Circuit_impedance_calculating_model.Circuits;
+using Circuit_impedance_calculating_model.Elements;
 
 #endregion
 
@@ -115,7 +116,7 @@ namespace Circuit_impedance_calculating_view
         private void Draw(IComponent component)
         {
             Bitmap bmp = new Bitmap(circuitView.Width, circuitView.Height);
-            Drawer drawer = new Drawer();
+            CircuitDrawer drawer = new CircuitDrawer();
             circuitView.Image = drawer.DrawCircuit(component, bmp, 20, circuitView.Height / 2);
         }
 

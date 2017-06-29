@@ -45,9 +45,9 @@
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>
-    <ProjectReference Include="..\Circuit impedance calculating model\Circuit impedance calculating model.csproj">
+    <ProjectReference Include="..\Circuit impedance calculating model\ImpedanceCalculatingModel.csproj">
       <Project>{edc1b1cf-1028-4b17-b865-8511a4aa2405}</Project>
-      <Name>Circuit impedance calculating model</Name>
+      <Name>ImpedanceCalculatingModel</Name>
     </ProjectReference>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />

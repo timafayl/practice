@@ -37,10 +37,15 @@
             this.impedanceGridView = new System.Windows.Forms.DataGridView();
             this.frequency = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.impedance = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.tabControl = new System.Windows.Forms.TabControl();
+            this.circuitListTab = new System.Windows.Forms.TabPage();
+            this.circuitElementsValues = new System.Windows.Forms.TabPage();
             this.circuitViewGroupBox.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.circuitView)).BeginInit();
             this.circuitsGroupBox.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.impedanceGridView)).BeginInit();
+            this.tabControl.SuspendLayout();
+            this.circuitListTab.SuspendLayout();
             this.SuspendLayout();
             // 
             // circuitViewGroupBox
@@ -54,7 +59,7 @@
             this.circuitViewGroupBox.Size = new System.Drawing.Size(564, 446);
             this.circuitViewGroupBox.TabIndex = 0;
             this.circuitViewGroupBox.TabStop = false;
-            this.circuitViewGroupBox.Text = "Circuit View";
+            this.circuitViewGroupBox.Text = "Отрисовка схемы";
             // 
             // circuitView
             // 
@@ -70,7 +75,7 @@
             // 
             this.circuitsGroupBox.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
             | System.Windows.Forms.AnchorStyles.Right)));
-            this.circuitsGroupBox.Controls.Add(this.circuitsListBox);
+            this.circuitsGroupBox.Controls.Add(this.tabControl);
             this.circuitsGroupBox.Controls.Add(this.changeElementsValueButton);
             this.circuitsGroupBox.Controls.Add(this.calculateImpedanceButton);
             this.circuitsGroupBox.Controls.Add(this.impedanceGridView);
@@ -79,16 +84,15 @@
             this.circuitsGroupBox.Size = new System.Drawing.Size(324, 446);
             this.circuitsGroupBox.TabIndex = 1;
             this.circuitsGroupBox.TabStop = false;
-            this.circuitsGroupBox.Text = "Circuits";
+            this.circuitsGroupBox.Text = "Схемы";
             // 
             // circuitsListBox
             // 
-            this.circuitsListBox.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
-            | System.Windows.Forms.AnchorStyles.Right)));
+            this.circuitsListBox.Dock = System.Windows.Forms.DockStyle.Fill;
             this.circuitsListBox.FormattingEnabled = true;
-            this.circuitsListBox.Location = new System.Drawing.Point(6, 16);
+            this.circuitsListBox.Location = new System.Drawing.Point(3, 3);
             this.circuitsListBox.Name = "circuitsListBox";
-            this.circuitsListBox.Size = new System.Drawing.Size(312, 238);
+            this.circuitsListBox.Size = new System.Drawing.Size(298, 204);
             this.circuitsListBox.TabIndex = 4;
             this.circuitsListBox.SelectedIndexChanged += new System.EventHandler(this.circuitsListBox_SelectedIndexChanged);
             // 
@@ -139,6 +143,39 @@
             this.impedance.Name = "impedance";
             this.impedance.ReadOnly = true;
             // 
+            // tabControl
+            // 
+            this.tabControl.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
+            | System.Windows.Forms.AnchorStyles.Right)));
+            this.tabControl.Controls.Add(this.circuitListTab);
+            this.tabControl.Controls.Add(this.circuitElementsValues);
+            this.tabControl.Location = new System.Drawing.Point(6, 19);
+            this.tabControl.Name = "tabControl";
+            this.tabControl.SelectedIndex = 0;
+            this.tabControl.Size = new System.Drawing.Size(312, 236);
+            this.tabControl.TabIndex = 5;
+            // 
+            // circuitListTab
+            // 
+            this.circuitListTab.Controls.Add(this.circuitsListBox);
+            this.circuitListTab.Location = new System.Drawing.Point(4, 22);
+            this.circuitListTab.Name = "circuitListTab";
+            this.circuitListTab.Padding = new System.Windows.Forms.Padding(3);
+            this.circuitListTab.Size = new System.Drawing.Size(304, 210);
+            this.circuitListTab.TabIndex = 0;
+            this.circuitListTab.Text = "Список схем";
+            this.circuitListTab.UseVisualStyleBackColor = true;
+            // 
+            // circuitElementsValues
+            // 
+            this.circuitElementsValues.Location = new System.Drawing.Point(4, 22);
+            this.circuitElementsValues.Name = "circuitElementsValues";
+            this.circuitElementsValues.Padding = new System.Windows.Forms.Padding(3);
+            this.circuitElementsValues.Size = new System.Drawing.Size(304, 210);
+            this.circuitElementsValues.TabIndex = 1;
+            this.circuitElementsValues.Text = "Значения элементов схемы";
+            this.circuitElementsValues.UseVisualStyleBackColor = true;
+            // 
             // CircuitViewForm
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
@@ -154,6 +191,8 @@
             ((System.ComponentModel.ISupportInitialize)(this.circuitView)).EndInit();
             this.circuitsGroupBox.ResumeLayout(false);
             ((System.ComponentModel.ISupportInitialize)(this.impedanceGridView)).EndInit();
+            this.tabControl.ResumeLayout(false);
+            this.circuitListTab.ResumeLayout(false);
             this.ResumeLayout(false);
 
         }
@@ -169,6 +208,9 @@
         private System.Windows.Forms.DataGridViewTextBoxColumn frequency;
         private System.Windows.Forms.DataGridViewTextBoxColumn impedance;
         private System.Windows.Forms.ListBox circuitsListBox;
+        private System.Windows.Forms.TabControl tabControl;
+        private System.Windows.Forms.TabPage circuitListTab;
+        private System.Windows.Forms.TabPage circuitElementsValues;
     }
 }
 

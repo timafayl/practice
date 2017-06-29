@@ -111,7 +111,7 @@ namespace Circuit_impedance_calculating_model.Elements
                     throw new ArgumentException("Вы пытаетесь присвоить переменной существующее значение.");
                 }
                 _value = value;
-                OnValueChanged();
+                ValueChanged?.Invoke(this, EventArgs.Empty);
             }
         }
 
@@ -142,14 +142,6 @@ namespace Circuit_impedance_calculating_model.Elements
                     "Значение частоты не должно быть равным бесконечности.");
             }
             return new Complex(0, -1/(2 * Math.PI * frequency * _value));
-        }
-
-        /// <summary>
-        /// Вызывает событие ValueChanged, если оно не пустое.
-        /// </summary>
-        public void OnValueChanged()
-        {
-            ValueChanged?.Invoke(this, EventArgs.Empty);
         }
 
         #endregion

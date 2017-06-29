@@ -79,7 +79,11 @@ namespace Circuit_impedance_calculating_model.Circuits
         public List<IComponent> Circuit
         {
             get { return _circuit; }
-            set { _circuit = value; }  //TODO: А событие вызвать ? ) 
+            set
+            {
+                _circuit = value;
+                CircuitChanged?.Invoke(this, EventArgs.Empty);
+            } 
         }
 
         #endregion
@@ -94,14 +98,6 @@ namespace Circuit_impedance_calculating_model.Circuits
         public virtual Complex CalculateZ(double frequency)
         {
             throw new NotImplementedException("Метод не реализован!");
-        }
-
-        /// <summary>
-        /// Вызывает событие CircuitChanged, если оно не пустое.
-        /// </summary>
-        public void OnCircuitChanged()
-        {
-            CircuitChanged?.Invoke(this, EventArgs.Empty);
         }
 
         #endregion

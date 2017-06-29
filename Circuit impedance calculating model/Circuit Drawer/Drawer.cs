@@ -14,7 +14,7 @@ namespace Circuit_Drawer
     /// <summary>
     /// Класс отрисовки цепей.
     /// </summary>
-    public class Drawer
+    public class CircuitDrawer
     {
         #region - Private fields-
 
@@ -30,10 +30,12 @@ namespace Circuit_Drawer
         /// <summary>
         /// Пустой конструктор. Инициализирует цвет линий.
         /// </summary>
-        public Drawer()
+        public CircuitDrawer(Color color)
         {
-            _pen = new Pen(Color.Black);
+            _pen = new Pen(color);
         }
+
+        public CircuitDrawer() : this(Color.Black) { }
 
         #endregion
 
@@ -88,7 +90,7 @@ namespace Circuit_Drawer
         /// <param name="bmp">Рисунок</param>
         /// <param name="x">Входное значение координаты по оси Ох</param>
         /// <param name="y">Входное значение координаты по оси Оу</param>
-        /// <param name="length">Необязательный параметр длинны, при вхождении элемента в параллельную схему</param>
+        /// <param name="length">Необязательный параметр длины, при вхождении элемента в параллельную схему</param>
         /// <returns>Изображение резистора</returns>
         private Bitmap DrawResistor(Bitmap bmp, int x, int y, int length = 0)
         {
