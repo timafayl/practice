@@ -50,6 +50,16 @@ namespace Circuit_impedance_calculating_model.Circuits
                 throw new ArgumentOutOfRangeException(nameof(frequency), frequency,
                     "Значение частоты не должно быть меньше нуля.");
             }
+            if (double.IsNaN(frequency))
+            {
+                throw new ArgumentOutOfRangeException(nameof(frequency), frequency,
+                    "Значение частоты не должно быть нулевым.");
+            }
+            if (double.IsNegativeInfinity(frequency) || double.IsPositiveInfinity(frequency))
+            {
+                throw new ArgumentOutOfRangeException(nameof(frequency), frequency,
+                    "Значение частоты не должно быть равным бесконечности.");
+            }
             Complex impedance = new Complex();
             foreach (IComponent component in Circuit)
             {
