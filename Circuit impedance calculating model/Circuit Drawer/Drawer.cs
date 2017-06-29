@@ -1,10 +1,10 @@
 ﻿#region - Using -
 
 using System.Collections.Generic;
-using Circuit_impedance_calculating_model;
 using System.Drawing;
 using Circuit_impedance_calculating_model.Circuits;
 using Circuit_impedance_calculating_model.Elements;
+using IComponent = Circuit_impedance_calculating_model.IComponent;
 
 #endregion
 

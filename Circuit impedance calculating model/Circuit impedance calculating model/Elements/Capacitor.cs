@@ -106,11 +106,12 @@ namespace Circuit_impedance_calculating_model.Elements
                 {
                     throw new ArgumentException("Значение ёмкости не должно быть равным бесконечности.");
                 }
-                if (_value != value)
+                if (_value == value)
                 {
-                    OnValueChanged();
+                    throw new ArgumentException("Вы пытаетесь присвоить переменной существующее значение.");
                 }
                 _value = value;
+                OnValueChanged();
             }
         }
 
