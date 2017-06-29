@@ -60,15 +60,14 @@ namespace Circuit_impedance_calculating_model.Elements
         #region - Public properties -
 
         /// <summary>
-        /// Свойство-аксессор для поля _name.
+        /// Свойство для наименования элемента.
         /// </summary>
         public string Name
         {
             get { return _name; }
             set
             {
-                string pattern1 = @"^C\d$";
-                string pattern2 = @"^C\d{2}$";
+                string pattern = @"^C\d{1,2}$";   //задает значение типа "C1" или "C10"
                 TextInfo ti = CultureInfo.CurrentCulture.TextInfo;
                 value = ti.ToTitleCase(value);
                 if (value.Length > 3)
@@ -77,7 +76,7 @@ namespace Circuit_impedance_calculating_model.Elements
                         " превышать трех символов. Наименование конденсатора в цепи должно начинаться" +
                         " с латинской буквы 'C' после которой должен идти порядковый номер конденсатора в цепи.");
                 }
-                if (!(Regex.IsMatch(value, pattern1) || Regex.IsMatch(value, pattern2)))
+                if (!Regex.IsMatch(value, pattern))
                 {
                     throw new ArgumentException("Наименование конденсатора в цепи должно начинаться" +
                         " с латинской буквы 'C' после которой должен идти порядковый номер конденсатора в цепи.");
@@ -87,7 +86,7 @@ namespace Circuit_impedance_calculating_model.Elements
         }
 
         /// <summary>
-        /// Свойство-аксессор для поля _value.
+        /// Свойство для значения элемента.
         /// </summary>
         public double Value
         {
@@ -97,10 +96,21 @@ namespace Circuit_impedance_calculating_model.Elements
             {
                 if (value < 0)
                 {
-                    throw new ArgumentException("Значение конденсатора не должно быть меньше нуля.");
+                    throw new ArgumentException("Значение ёмкости не должно быть меньше нуля.");
+                }
+                if (double.IsNaN(value))
+                {
+                    throw new ArgumentException("Значение ёмкости не должно быть нулевым.");
+                }
+                if (double.IsNegativeInfinity(value) || double.IsPositiveInfinity(value))
+                {
+                    throw new ArgumentException("Значение ёмкости не должно быть равным бесконечности.");
+                }
+                if (_value != value)
+                {
+                    OnValueChanged();
                 }
                 _value = value;
-                OnValueChanged();
             }
         }
 
@@ -115,6 +125,21 @@ namespace Circuit_impedance_calculating_model.Elements
         /// <returns>Импеданс элемента</returns>
         public Complex CalculateZ(double frequency)
         {
+            if (frequency < 0)
+            {
+                throw new ArgumentOutOfRangeException(nameof(frequency), frequency,
+                    "Значение частоты не должно быть меньше нуля.");
+            }
+            if (double.IsNaN(frequency))
+            {
+                throw new ArgumentOutOfRangeException(nameof(frequency), frequency,
+                    "Значение частоты не должно быть нулевым.");
+            }
+            if (double.IsNegativeInfinity(frequency) || double.IsPositiveInfinity(frequency))
+            {
+                throw new ArgumentOutOfRangeException(nameof(frequency), frequency,
+                    "Значение частоты не должно быть равным бесконечности.");
+            }
             return new Complex(0, -1/(2 * Math.PI * frequency * _value));
         }
 

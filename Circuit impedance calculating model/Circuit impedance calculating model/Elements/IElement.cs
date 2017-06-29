@@ -11,7 +11,7 @@ namespace Circuit_impedance_calculating_model.Elements
     /// </summary>
     public interface IElement: IComponent
     {
-        #region - Fields - 
+        #region - Properties - 
 
         /// <summary>
         /// Значение элемента.
@@ -26,15 +26,6 @@ namespace Circuit_impedance_calculating_model.Elements
         /// Событие, срабатывающее на изменеие значения элемента.
         /// </summary>
         event EventHandler ValueChanged;
-
-        #endregion
-
-        #region - Public methods -
-
-        /// <summary>
-        /// Вызывает событие ValueChanged, если оно не пустое.
-        /// </summary>
-        void OnValueChanged();
 
         #endregion
     }

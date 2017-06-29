@@ -33,17 +33,20 @@ namespace Circuit_impedance_calculating_view
         /// <summary>
         /// Список всех схем.
         /// </summary>
-        private List<IComponent> _circuits;
+        private readonly List<IComponent> _circuits;
 
         /// <summary>
         /// Переменная класса с тестовыми схемами.
         /// </summary>
-        private TestCircuits _testCircuits = new TestCircuits();
+        private readonly TestCircuits _testCircuits = new TestCircuits();
 
         #endregion
 
         #region - Constructors -
 
+        /// <summary>
+        /// Конструктор главной формы.
+        /// </summary>
         public CircuitViewForm()
         {
             InitializeComponent();
@@ -55,20 +58,39 @@ namespace Circuit_impedance_calculating_view
 
         #region - Event handlers-
 
+        /// <summary>
+        /// Кнопка рассчета импеданса цепи по заданным частотам.
+        /// </summary>
         private void calculateImpedanceButton_Click(object sender, EventArgs e)
         {
             _frequency = new double[impedanceGridView.RowCount - 1];
             _impedance = new Complex[impedanceGridView.RowCount - 1];
-            for (int i = 0; i < impedanceGridView.RowCount - 1; i++)
+            if (_frequency.Length > 0)
             {
-                _frequency[i] = Convert.ToDouble(impedanceGridView[0, i].Value.ToString());
+                for (int i = 0; i < impedanceGridView.RowCount - 1; i++)
+                {
+                    _frequency[i] = Convert.ToDouble(impedanceGridView[0, i].Value.ToString());
+                }
+                for (int i = 0; i < impedanceGridView.RowCount - 1; i++)
+                {
+                    _impedance[i] = _circuits[circuitsListBox.SelectedIndex].CalculateZ(_frequency[i]);
+                    impedanceGridView[1, i].Value = Convert.ToString(Math.Round(_impedance[i].Real, 7)
+                                                                     + " + " + Math.Round(_impedance[i].Imaginary, 7) +
+                                                                     "i");
+                }
             }
-            for (int i = 0; i < impedanceGridView.RowCount - 1; i++)
+            else
             {
-                _impedance[i] = _circuits[circuitsListBox.SelectedIndex].CalculateZ(_frequency[i]);
-                impedanceGridView[1, i].Value = Convert.ToString(Math.Round(_impedance[i].Real, 7)
-                                              + " + " + Math.Round(_impedance[i].Imaginary, 7) + "i");
+                MessageBox.Show("Список входных частот пуст. Введите частоту!", "Frequency Error", MessageBoxButtons.OK);
             }
+        }
+
+        /// <summary>
+        /// Событие для вызова метода отрисовки схем.
+        /// </summary>
+        private void circuitsListBox_SelectedIndexChanged(object sender, EventArgs e)
+        {
+            Draw(_circuits[circuitsListBox.SelectedIndex]);
         }
 
         #endregion
@@ -86,6 +108,10 @@ namespace Circuit_impedance_calculating_view
             }
         }
 
+        /// <summary>
+        /// Вызывает метод отрисовки входной цепи.
+        /// </summary>
+        /// <param name="component">Цепь для отрисовки</param>
         private void Draw(IComponent component)
         {
             Bitmap bmp = new Bitmap(circuitView.Width, circuitView.Height);
@@ -94,10 +120,5 @@ namespace Circuit_impedance_calculating_view
         }
 
         #endregion
-
-        private void circuitsListBox_SelectedIndexChanged(object sender, EventArgs e)
-        {
-            Draw(_circuits[circuitsListBox.SelectedIndex]);
-        }
     }
 }

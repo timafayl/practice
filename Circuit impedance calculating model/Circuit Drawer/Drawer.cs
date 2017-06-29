@@ -11,6 +11,9 @@ using Circuit_impedance_calculating_model.Elements;
 
 namespace Circuit_Drawer
 {
+    /// <summary>
+    /// Класс отрисовки цепей.
+    /// </summary>
     public class Drawer
     {
         #region - Private fields-
@@ -18,7 +21,7 @@ namespace Circuit_Drawer
         /// <summary>
         /// Переменная, задающая цвет линий.
         /// </summary>
-        private Pen _pen;
+        private readonly Pen _pen;
 
         #endregion
 
@@ -43,23 +46,18 @@ namespace Circuit_Drawer
         /// <param name="bmp">Рисунок</param>
         /// <param name="x">Входное значение координаты по оси Ох</param>
         /// <param name="y">Входное значение координаты по оси Оу</param>
-        /// <returns></returns>
+        /// <returns>Изображение входной цепи</returns>
         public Bitmap DrawCircuit(IComponent circuit, Bitmap bmp, int x, int y)
         {
             DrawKlemme(bmp, x, y);
-            Graphics graph = Graphics.FromImage(bmp);
-
             if (circuit is SerialCircuit)
             {
                 DrawSerialCircuit(circuit as SerialCircuit, bmp, x, y);
-
                 DrawKlemme(bmp, x + CalculateSerialCircuitLength(circuit as SerialCircuit) + 10, y);
             }
-
             else if (circuit is ParallelCircuit)
             {
                 DrawParallelCircuit(circuit as ParallelCircuit, bmp, x, y);
-
                 DrawKlemme(bmp, x + CalculateParallelCircuitLength(circuit as ParallelCircuit) + 10, y);
             }
             return bmp;
@@ -91,7 +89,7 @@ namespace Circuit_Drawer
         /// <param name="x">Входное значение координаты по оси Ох</param>
         /// <param name="y">Входное значение координаты по оси Оу</param>
         /// <param name="length">Необязательный параметр длинны, при вхождении элемента в параллельную схему</param>
-        /// <returns></returns>
+        /// <returns>Изображение резистора</returns>
         private Bitmap DrawResistor(Bitmap bmp, int x, int y, int length = 0)
         {
             Graphics graph = Graphics.FromImage(bmp);
@@ -112,7 +110,7 @@ namespace Circuit_Drawer
         /// <param name="x">Входное значение координаты по оси Ох</param>
         /// <param name="y">Входное значение координаты по оси Оу</param>
         /// <param name="length">Необязательный параметр длинны, при вхождении элемента в параллельную схему</param>
-        /// <returns></returns>
+        /// <returns>Изображение катушки индуктивности</returns>
         private Bitmap DrawInductor(Bitmap bmp, int x, int y, int length = 0)
         {
             Graphics graph = Graphics.FromImage(bmp);
@@ -135,7 +133,7 @@ namespace Circuit_Drawer
         /// <param name="x">Входное значение координаты по оси Ох</param>
         /// <param name="y">Входное значение координаты по оси Оу</param>
         /// <param name="length">Необязательный параметр длинны, при вхождении элемента в параллельную схему</param>
-        /// <returns></returns>
+        /// <returns>Изображение конденсатора</returns>
         private Bitmap DrawCapacitor(Bitmap bmp, int x, int y, int length = 0)
         {
             Graphics graph = Graphics.FromImage(bmp);
@@ -162,7 +160,7 @@ namespace Circuit_Drawer
         /// <param name="x">Входное значение координаты по оси Ох</param>
         /// <param name="y">Входное значение координаты по оси Оу</param>
         /// <param name="length">Необязательный параметр длинны, при вхождении цепи в параллельную схему</param>
-        /// <returns></returns>
+        /// <returns>Изображение входной последовательной цепи</returns>
         private Bitmap DrawSerialCircuit(SerialCircuit circuit, Bitmap bmp, int x, int y, int length = 0)
         {
             int startX = x;
@@ -204,7 +202,7 @@ namespace Circuit_Drawer
         /// <param name="bmp">Рисунок</param>
         /// <param name="x">Входное значение координаты по оси Ох</param>
         /// <param name="y">Входное значение координаты по оси Оу</param>
-        /// <returns></returns>
+        /// <returns>Изображение входной параллельной цепи</returns>
         private Bitmap DrawParallelCircuit(ParallelCircuit circuit, Bitmap bmp, int x, int y)
         {
             Graphics graph = Graphics.FromImage(bmp);
@@ -253,7 +251,7 @@ namespace Circuit_Drawer
         /// Метод, для вычисления длины последовательной цепи в схеме.
         /// </summary>
         /// <param name="circuit">Входная схема цепи</param>
-        /// <returns></returns>
+        /// <returns>Длину входной последовательной цепи</returns>
         private int CalculateSerialCircuitLength(SerialCircuit circuit)
         {
             int length = 0;
@@ -275,9 +273,10 @@ namespace Circuit_Drawer
         /// Метод, для вычисления длины параллельной цепи в схеме.
         /// </summary>
         /// <param name="circuit">Входная схема цепи</param>
-        /// <returns></returns>
+        /// <returns>Длину входной параллельной цепи</returns>
         private int CalculateParallelCircuitLength(ParallelCircuit circuit)
         {
+            const int defaulLength = 110;
             List<SerialCircuit> serials = new List<SerialCircuit>();
             for (int i = 0; i < circuit.Circuit.Count; i++)
             {
@@ -298,16 +297,17 @@ namespace Circuit_Drawer
                 }
                 return length + 30;
             }
-            return 110;
+            return defaulLength;
         }
 
         /// <summary>
         /// Метод, для вычисления высоты между уровнями в параллельной цепи.
         /// </summary>
         /// <param name="circuit">Входная схема цепи</param>
-        /// <returns></returns>
+        /// <returns>Ширину между ветвями входной параллельной цепи</returns>
         private int CalculateParallelCircuitHeight(ParallelCircuit circuit)
         {
+            const int defaultHeight = 30;
             int count = 1;
             for (int i = 0; i < circuit.Circuit.Count; i++)
             {
@@ -331,7 +331,7 @@ namespace Circuit_Drawer
                     }
                 }
             }
-            return 30;
+            return defaultHeight;
         }
 
         #endregion

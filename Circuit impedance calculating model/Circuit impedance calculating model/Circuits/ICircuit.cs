@@ -6,14 +6,17 @@ using System.Collections.Generic;
 #endregion
 
 namespace Circuit_impedance_calculating_model.Circuits
-{
+{ 
     /// <summary>
     /// Интерфейс, описывающий цепи.
     /// </summary>
     public interface ICircuit: IComponent
     {
-        #region - Fields -
-
+        #region - Properties -
+        
+        /// <summary>
+        /// Свойство, 
+        /// </summary>
         List<IComponent> Circuit { get; set; }
 
         #endregion
@@ -24,15 +27,6 @@ namespace Circuit_impedance_calculating_model.Circuits
         /// Событие, срабатывающее на изменения в цепи.
         /// </summary>
         event EventHandler CircuitChanged;
-
-        #endregion
-
-        #region - OnCircuitChanged -
-
-        /// <summary>
-        /// Вызывает событие CircuitChanged, если оно не пустое.
-        /// </summary>
-        void OnCircuitChanged();
 
         #endregion
     }
