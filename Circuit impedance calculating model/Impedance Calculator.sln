@@ -3,11 +3,11 @@ Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio 14
 VisualStudioVersion = 14.0.25420.1
 MinimumVisualStudioVersion = 10.0.40219.1
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ImpedanceCalculatingModel", "Circuit impedance calculating model\ImpedanceCalculatingModel.csproj", "{EDC1B1CF-1028-4B17-B865-8511A4AA2405}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "CircuitModeling", "Circuit impedance calculating model\CircuitModeling.csproj", "{EDC1B1CF-1028-4B17-B865-8511A4AA2405}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ImpendanceCalculatingView", "Circuit impedance calculating view\ImpendanceCalculatingView.csproj", "{1BE4DC7C-1172-4674-BB7C-A819556EB9D5}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "CircuitView", "Circuit impedance calculating view\CircuitView.csproj", "{1BE4DC7C-1172-4674-BB7C-A819556EB9D5}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Circuit Drawer", "Circuit Drawer\Circuit Drawer.csproj", "{71AAB6B6-1CCB-4A81-8D4A-CAB996B26956}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "CircuitDrawer", "Circuit Drawer\CircuitDrawer.csproj", "{71AAB6B6-1CCB-4A81-8D4A-CAB996B26956}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution

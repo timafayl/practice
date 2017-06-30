@@ -1,14 +1,14 @@
 ﻿#region - Using -
 
 using System.Collections.Generic;
-using Circuit_impedance_calculating_model;
-using Circuit_impedance_calculating_model.Circuits;
-using Circuit_impedance_calculating_model.Elements;
+using CircuitModeling;
+using CircuitModeling.Circuits;
+using CircuitModeling.Elements;
 
 #endregion
 
 
-namespace Circuit_impedance_calculating_view
+namespace CircuitView
 {
 
     /// <summary>

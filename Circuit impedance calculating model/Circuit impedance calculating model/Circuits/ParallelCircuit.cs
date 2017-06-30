@@ -6,7 +6,7 @@ using System.Numerics;
 
 #endregion
 
-namespace Circuit_impedance_calculating_model.Circuits
+namespace CircuitModeling.Circuits
 {
     /// <summary>
     /// Класс, описывающий параллельные цепи.

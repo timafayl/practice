@@ -7,8 +7,8 @@
     <ProjectGuid>{EDC1B1CF-1028-4B17-B865-8511A4AA2405}</ProjectGuid>
     <OutputType>Library</OutputType>
     <AppDesignerFolder>Properties</AppDesignerFolder>
-    <RootNamespace>Circuit_impedance_calculating_model</RootNamespace>
-    <AssemblyName>Circuit impedance calculating model</AssemblyName>
+    <RootNamespace>CircuitModeling</RootNamespace>
+    <AssemblyName>CircuitModeling</AssemblyName>
     <TargetFrameworkVersion>v4.5.2</TargetFrameworkVersion>
     <FileAlignment>512</FileAlignment>
   </PropertyGroup>
@@ -51,6 +51,9 @@
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Elements\Resistor.cs" />
     <Compile Include="Circuits\SerialCircuit.cs" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Properties\DataSources\Circuit_impedance_calculating_model.Elements.IElement.datasource" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 

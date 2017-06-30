@@ -1,4 +1,4 @@
-﻿namespace Circuit_impedance_calculating_view
+﻿namespace CircuitView
 {
     partial class CircuitViewForm
     {
@@ -31,21 +31,23 @@
             this.circuitViewGroupBox = new System.Windows.Forms.GroupBox();
             this.circuitView = new System.Windows.Forms.PictureBox();
             this.circuitsGroupBox = new System.Windows.Forms.GroupBox();
+            this.tabControl = new System.Windows.Forms.TabControl();
+            this.circuitListTab = new System.Windows.Forms.TabPage();
             this.circuitsListBox = new System.Windows.Forms.ListBox();
-            this.changeElementsValueButton = new System.Windows.Forms.Button();
+            this.circuitElementsValues = new System.Windows.Forms.TabPage();
+            this.circuitElementsGridView = new System.Windows.Forms.DataGridView();
             this.calculateImpedanceButton = new System.Windows.Forms.Button();
             this.impedanceGridView = new System.Windows.Forms.DataGridView();
             this.frequency = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.impedance = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.tabControl = new System.Windows.Forms.TabControl();
-            this.circuitListTab = new System.Windows.Forms.TabPage();
-            this.circuitElementsValues = new System.Windows.Forms.TabPage();
             this.circuitViewGroupBox.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.circuitView)).BeginInit();
             this.circuitsGroupBox.SuspendLayout();
-            ((System.ComponentModel.ISupportInitialize)(this.impedanceGridView)).BeginInit();
             this.tabControl.SuspendLayout();
             this.circuitListTab.SuspendLayout();
+            this.circuitElementsValues.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.circuitElementsGridView)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.impedanceGridView)).BeginInit();
             this.SuspendLayout();
             // 
             // circuitViewGroupBox
@@ -76,7 +78,6 @@
             this.circuitsGroupBox.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
             | System.Windows.Forms.AnchorStyles.Right)));
             this.circuitsGroupBox.Controls.Add(this.tabControl);
-            this.circuitsGroupBox.Controls.Add(this.changeElementsValueButton);
             this.circuitsGroupBox.Controls.Add(this.calculateImpedanceButton);
             this.circuitsGroupBox.Controls.Add(this.impedanceGridView);
             this.circuitsGroupBox.Location = new System.Drawing.Point(579, 12);
@@ -85,6 +86,29 @@
             this.circuitsGroupBox.TabIndex = 1;
             this.circuitsGroupBox.TabStop = false;
             this.circuitsGroupBox.Text = "Схемы";
+            // 
+            // tabControl
+            // 
+            this.tabControl.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
+            | System.Windows.Forms.AnchorStyles.Right)));
+            this.tabControl.Controls.Add(this.circuitListTab);
+            this.tabControl.Controls.Add(this.circuitElementsValues);
+            this.tabControl.Location = new System.Drawing.Point(6, 19);
+            this.tabControl.Name = "tabControl";
+            this.tabControl.SelectedIndex = 0;
+            this.tabControl.Size = new System.Drawing.Size(312, 236);
+            this.tabControl.TabIndex = 5;
+            // 
+            // circuitListTab
+            // 
+            this.circuitListTab.Controls.Add(this.circuitsListBox);
+            this.circuitListTab.Location = new System.Drawing.Point(4, 22);
+            this.circuitListTab.Name = "circuitListTab";
+            this.circuitListTab.Padding = new System.Windows.Forms.Padding(3);
+            this.circuitListTab.Size = new System.Drawing.Size(304, 210);
+            this.circuitListTab.TabIndex = 0;
+            this.circuitListTab.Text = "Список схем";
+            this.circuitListTab.UseVisualStyleBackColor = true;
             // 
             // circuitsListBox
             // 
@@ -96,20 +120,32 @@
             this.circuitsListBox.TabIndex = 4;
             this.circuitsListBox.SelectedIndexChanged += new System.EventHandler(this.circuitsListBox_SelectedIndexChanged);
             // 
-            // changeElementsValueButton
+            // circuitElementsValues
             // 
-            this.changeElementsValueButton.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
-            this.changeElementsValueButton.Location = new System.Drawing.Point(179, 417);
-            this.changeElementsValueButton.Name = "changeElementsValueButton";
-            this.changeElementsValueButton.Size = new System.Drawing.Size(139, 23);
-            this.changeElementsValueButton.TabIndex = 3;
-            this.changeElementsValueButton.Text = "Изменить значения";
-            this.changeElementsValueButton.UseVisualStyleBackColor = true;
+            this.circuitElementsValues.Controls.Add(this.circuitElementsGridView);
+            this.circuitElementsValues.Location = new System.Drawing.Point(4, 22);
+            this.circuitElementsValues.Name = "circuitElementsValues";
+            this.circuitElementsValues.Padding = new System.Windows.Forms.Padding(3);
+            this.circuitElementsValues.Size = new System.Drawing.Size(304, 210);
+            this.circuitElementsValues.TabIndex = 1;
+            this.circuitElementsValues.Text = "Значения элементов схемы";
+            this.circuitElementsValues.UseVisualStyleBackColor = true;
+            // 
+            // circuitElementsGridView
+            // 
+            this.circuitElementsGridView.AutoSizeColumnsMode = System.Windows.Forms.DataGridViewAutoSizeColumnsMode.Fill;
+            this.circuitElementsGridView.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
+            this.circuitElementsGridView.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.circuitElementsGridView.Location = new System.Drawing.Point(3, 3);
+            this.circuitElementsGridView.Name = "circuitElementsGridView";
+            this.circuitElementsGridView.RowHeadersVisible = false;
+            this.circuitElementsGridView.Size = new System.Drawing.Size(298, 204);
+            this.circuitElementsGridView.TabIndex = 0;
             // 
             // calculateImpedanceButton
             // 
             this.calculateImpedanceButton.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
-            this.calculateImpedanceButton.Location = new System.Drawing.Point(36, 417);
+            this.calculateImpedanceButton.Location = new System.Drawing.Point(181, 417);
             this.calculateImpedanceButton.Name = "calculateImpedanceButton";
             this.calculateImpedanceButton.Size = new System.Drawing.Size(137, 23);
             this.calculateImpedanceButton.TabIndex = 2;
@@ -143,39 +179,6 @@
             this.impedance.Name = "impedance";
             this.impedance.ReadOnly = true;
             // 
-            // tabControl
-            // 
-            this.tabControl.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
-            | System.Windows.Forms.AnchorStyles.Right)));
-            this.tabControl.Controls.Add(this.circuitListTab);
-            this.tabControl.Controls.Add(this.circuitElementsValues);
-            this.tabControl.Location = new System.Drawing.Point(6, 19);
-            this.tabControl.Name = "tabControl";
-            this.tabControl.SelectedIndex = 0;
-            this.tabControl.Size = new System.Drawing.Size(312, 236);
-            this.tabControl.TabIndex = 5;
-            // 
-            // circuitListTab
-            // 
-            this.circuitListTab.Controls.Add(this.circuitsListBox);
-            this.circuitListTab.Location = new System.Drawing.Point(4, 22);
-            this.circuitListTab.Name = "circuitListTab";
-            this.circuitListTab.Padding = new System.Windows.Forms.Padding(3);
-            this.circuitListTab.Size = new System.Drawing.Size(304, 210);
-            this.circuitListTab.TabIndex = 0;
-            this.circuitListTab.Text = "Список схем";
-            this.circuitListTab.UseVisualStyleBackColor = true;
-            // 
-            // circuitElementsValues
-            // 
-            this.circuitElementsValues.Location = new System.Drawing.Point(4, 22);
-            this.circuitElementsValues.Name = "circuitElementsValues";
-            this.circuitElementsValues.Padding = new System.Windows.Forms.Padding(3);
-            this.circuitElementsValues.Size = new System.Drawing.Size(304, 210);
-            this.circuitElementsValues.TabIndex = 1;
-            this.circuitElementsValues.Text = "Значения элементов схемы";
-            this.circuitElementsValues.UseVisualStyleBackColor = true;
-            // 
             // CircuitViewForm
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
@@ -190,9 +193,11 @@
             this.circuitViewGroupBox.ResumeLayout(false);
             ((System.ComponentModel.ISupportInitialize)(this.circuitView)).EndInit();
             this.circuitsGroupBox.ResumeLayout(false);
-            ((System.ComponentModel.ISupportInitialize)(this.impedanceGridView)).EndInit();
             this.tabControl.ResumeLayout(false);
             this.circuitListTab.ResumeLayout(false);
+            this.circuitElementsValues.ResumeLayout(false);
+            ((System.ComponentModel.ISupportInitialize)(this.circuitElementsGridView)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.impedanceGridView)).EndInit();
             this.ResumeLayout(false);
 
         }
@@ -203,7 +208,6 @@
         private System.Windows.Forms.PictureBox circuitView;
         private System.Windows.Forms.GroupBox circuitsGroupBox;
         private System.Windows.Forms.DataGridView impedanceGridView;
-        private System.Windows.Forms.Button changeElementsValueButton;
         private System.Windows.Forms.Button calculateImpedanceButton;
         private System.Windows.Forms.DataGridViewTextBoxColumn frequency;
         private System.Windows.Forms.DataGridViewTextBoxColumn impedance;
@@ -211,6 +215,7 @@
         private System.Windows.Forms.TabControl tabControl;
         private System.Windows.Forms.TabPage circuitListTab;
         private System.Windows.Forms.TabPage circuitElementsValues;
+        private System.Windows.Forms.DataGridView circuitElementsGridView;
     }
 }
 

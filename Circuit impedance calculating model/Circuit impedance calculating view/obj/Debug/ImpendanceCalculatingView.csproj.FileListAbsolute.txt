@@ -11,3 +11,4 @@ C:\Users\tima\Documents\Visual Studio 2015\Projects\practice\Circuit impedance c
 C:\Users\tima\Documents\Visual Studio 2015\Projects\practice\Circuit impedance calculating model\Circuit impedance calculating view\obj\Debug\ImpendanceCalculatingView.csproj.GenerateResource.Cache
 C:\Users\tima\Documents\Visual Studio 2015\Projects\practice\Circuit impedance calculating model\Circuit impedance calculating view\obj\Debug\Circuit impedance calculating view.exe
 C:\Users\tima\Documents\Visual Studio 2015\Projects\practice\Circuit impedance calculating model\Circuit impedance calculating view\obj\Debug\Circuit impedance calculating view.pdb
+C:\Users\tima\Documents\Visual Studio 2015\Projects\practice\Circuit impedance calculating model\Circuit impedance calculating view\bin\Debug\CircuitView.exe.config

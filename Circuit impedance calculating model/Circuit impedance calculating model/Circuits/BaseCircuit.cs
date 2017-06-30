@@ -6,8 +6,8 @@ using System.Numerics;
 using System.Text.RegularExpressions;
 
 #endregion
-
-namespace Circuit_impedance_calculating_model.Circuits
+//TODO поменять список List<IComponent> на ObservableCollection
+namespace CircuitModeling.Circuits
 {
     /// <summary>
     /// Базовай класс Circuit.
@@ -56,7 +56,7 @@ namespace Circuit_impedance_calculating_model.Circuits
             get { return _name; }
             set
             {
-                string pattern = @"^circuit\d{1,2}$";
+                string pattern = @"^circuit\d{1,2}$"; //задает значение типа "circuit1" или "circuit10"
                 value = value.ToLower();
                 if (value.Length > 9)
                 {

@@ -5,7 +5,7 @@ using System.Collections.Generic;
 
 #endregion
 
-namespace Circuit_impedance_calculating_model.Circuits
+namespace CircuitModeling.Circuits
 { 
     /// <summary>
     /// Интерфейс, описывающий цепи.

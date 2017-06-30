@@ -7,7 +7,7 @@ using System.Text.RegularExpressions;
 
 #endregion
 
-namespace Circuit_impedance_calculating_model.Elements
+namespace CircuitModeling.Elements
 {
     /// <summary>
     /// Класс, описывающий катушку индуктивности.

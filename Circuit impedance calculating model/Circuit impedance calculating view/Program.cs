@@ -6,7 +6,7 @@ using System.Windows.Forms;
 #endregion
 
 
-namespace Circuit_impedance_calculating_view
+namespace CircuitView
 {
     /// <summary>
     /// Класс запуска программы.

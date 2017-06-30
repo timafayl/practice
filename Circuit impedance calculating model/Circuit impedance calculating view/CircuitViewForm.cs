@@ -3,16 +3,17 @@
 using System;
 using System.Collections.Generic;
 using System.Drawing;
+using System.Linq;
 using System.Numerics;
 using System.Windows.Forms;
+using CircuitModeling;
+using CircuitModeling.Circuits;
+using CircuitModeling.Elements;
 using Circuit_Drawer;
-using Circuit_impedance_calculating_model;
-using Circuit_impedance_calculating_model.Circuits;
-using Circuit_impedance_calculating_model.Elements;
 
 #endregion
 
-namespace Circuit_impedance_calculating_view
+namespace CircuitView
 {
     /// <summary>
     /// Форма отображения цепи.
@@ -57,7 +58,7 @@ namespace Circuit_impedance_calculating_view
 
         #endregion
 
-        #region - Event handlers-
+        #region - Controls events -
 
         /// <summary>
         /// Кнопка рассчета импеданса цепи по заданным частотам.
@@ -76,8 +77,7 @@ namespace Circuit_impedance_calculating_view
                 {
                     _impedance[i] = _circuits[circuitsListBox.SelectedIndex].CalculateZ(_frequency[i]);
                     impedanceGridView[1, i].Value = Convert.ToString(Math.Round(_impedance[i].Real, 7)
-                                                                     + " + " + Math.Round(_impedance[i].Imaginary, 7) +
-                                                                     "i");
+                        + " + " + Math.Round(_impedance[i].Imaginary, 7) + "i");
                 }
             }
             else
@@ -92,6 +92,9 @@ namespace Circuit_impedance_calculating_view
         private void circuitsListBox_SelectedIndexChanged(object sender, EventArgs e)
         {
             Draw(_circuits[circuitsListBox.SelectedIndex]);
+            InitializeCircuitElementsList(_circuits[circuitsListBox.SelectedIndex]);
+            _circuits.Cast<ICircuit>().ToList()[circuitsListBox.SelectedIndex].CircuitChanged +=
+                ValueChangedEventHadler;
         }
 
         #endregion
@@ -109,6 +112,15 @@ namespace Circuit_impedance_calculating_view
             }
         }
 
+        private void InitializeCircuitElementsList(IComponent component)
+        {
+            ICircuit circuit = component as ICircuit;
+            circuitElementsGridView.DataSource = (from el in GetCircuitElements(circuit)
+                                        select new ElementAdapter(el)).ToList();
+            //GetCircuitElements(circuit).Select(t => new ElementAdapter(t)).ToList();
+
+        }
+
         /// <summary>
         /// Вызывает метод отрисовки входной цепи.
         /// </summary>
@@ -118,6 +130,33 @@ namespace Circuit_impedance_calculating_view
             Bitmap bmp = new Bitmap(circuitView.Width, circuitView.Height);
             CircuitDrawer drawer = new CircuitDrawer();
             circuitView.Image = drawer.DrawCircuit(component, bmp, 20, circuitView.Height / 2);
+        }
+
+        /// <summary>
+        /// Возвращает список элементов цепи.
+        /// </summary>
+        /// <param name="circuit">Входная цепь</param>
+        /// <returns>Список элементов цепи</returns>
+        private List<IElement> GetCircuitElements(ICircuit circuit)
+        {
+            var elementsList = new List<IElement>();
+            for (int i = 0; i < circuit.Circuit.Count; i++)
+            {
+                if (circuit.Circuit[i] is IElement)
+                {
+                    elementsList.Add((IElement)circuit.Circuit[i]);
+                }
+                else if (circuit.Circuit[i] is ICircuit)
+                {
+                    elementsList.AddRange(GetCircuitElements((ICircuit)circuit.Circuit[i]));
+                }
+            }
+            return elementsList;
+        }
+
+        private void ValueChangedEventHadler(object sender, EventArgs args)
+        {
+            
         }
 
         #endregion

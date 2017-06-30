@@ -7,8 +7,8 @@
     <ProjectGuid>{1BE4DC7C-1172-4674-BB7C-A819556EB9D5}</ProjectGuid>
     <OutputType>WinExe</OutputType>
     <AppDesignerFolder>Properties</AppDesignerFolder>
-    <RootNamespace>Circuit_impedance_calculating_view</RootNamespace>
-    <AssemblyName>Circuit impedance calculating view</AssemblyName>
+    <RootNamespace>CircuitView</RootNamespace>
+    <AssemblyName>CircuitView</AssemblyName>
     <TargetFrameworkVersion>v4.5.2</TargetFrameworkVersion>
     <FileAlignment>512</FileAlignment>
     <AutoGenerateBindingRedirects>true</AutoGenerateBindingRedirects>
@@ -47,6 +47,7 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="ElementAdapter.cs" />
     <Compile Include="CircuitViewForm.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -67,7 +68,9 @@
     <Compile Include="Properties\Resources.Designer.cs">
       <AutoGen>True</AutoGen>
       <DependentUpon>Resources.resx</DependentUpon>
+      <DesignTime>True</DesignTime>
     </Compile>
+    <None Include="Properties\DataSources\Circuit_impedance_calculating_model.IComponent.datasource" />
     <None Include="Properties\Settings.settings">
       <Generator>SettingsSingleFileGenerator</Generator>
       <LastGenOutput>Settings.Designer.cs</LastGenOutput>
@@ -82,13 +85,13 @@
     <None Include="App.config" />
   </ItemGroup>
   <ItemGroup>
-    <ProjectReference Include="..\Circuit Drawer\Circuit Drawer.csproj">
+    <ProjectReference Include="..\Circuit Drawer\CircuitDrawer.csproj">
       <Project>{71aab6b6-1ccb-4a81-8d4a-cab996b26956}</Project>
-      <Name>Circuit Drawer</Name>
+      <Name>CircuitDrawer</Name>
     </ProjectReference>
-    <ProjectReference Include="..\Circuit impedance calculating model\ImpedanceCalculatingModel.csproj">
+    <ProjectReference Include="..\Circuit impedance calculating model\CircuitModeling.csproj">
       <Project>{edc1b1cf-1028-4b17-b865-8511a4aa2405}</Project>
-      <Name>ImpedanceCalculatingModel</Name>
+      <Name>CircuitModeling</Name>
     </ProjectReference>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
