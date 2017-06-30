@@ -1,0 +1,5 @@
+C:\Users\tima\Documents\Visual Studio 2015\Projects\practice\Circuit impedance calculating model\Circuit impedance calculating model\bin\Debug\CircuitModeling.dll
+C:\Users\tima\Documents\Visual Studio 2015\Projects\practice\Circuit impedance calculating model\Circuit impedance calculating model\bin\Debug\CircuitModeling.pdb
+C:\Users\tima\Documents\Visual Studio 2015\Projects\practice\Circuit impedance calculating model\Circuit impedance calculating model\obj\Debug\CircuitModeling.csprojResolveAssemblyReference.cache
+C:\Users\tima\Documents\Visual Studio 2015\Projects\practice\Circuit impedance calculating model\Circuit impedance calculating model\obj\Debug\CircuitModeling.dll
+C:\Users\tima\Documents\Visual Studio 2015\Projects\practice\Circuit impedance calculating model\Circuit impedance calculating model\obj\Debug\CircuitModeling.pdb

@@ -1,0 +1,13 @@
+C:\Users\tima\Documents\Visual Studio 2015\Projects\practice\Circuit impedance calculating model\Circuit impedance calculating view\bin\Debug\CircuitView.exe.config
+C:\Users\tima\Documents\Visual Studio 2015\Projects\practice\Circuit impedance calculating model\Circuit impedance calculating view\obj\Debug\CircuitView.csprojResolveAssemblyReference.cache
+C:\Users\tima\Documents\Visual Studio 2015\Projects\practice\Circuit impedance calculating model\Circuit impedance calculating view\obj\Debug\CircuitView.CircuitViewForm.resources
+C:\Users\tima\Documents\Visual Studio 2015\Projects\practice\Circuit impedance calculating model\Circuit impedance calculating view\obj\Debug\CircuitView.Properties.Resources.resources
+C:\Users\tima\Documents\Visual Studio 2015\Projects\practice\Circuit impedance calculating model\Circuit impedance calculating view\obj\Debug\CircuitView.csproj.GenerateResource.Cache
+C:\Users\tima\Documents\Visual Studio 2015\Projects\practice\Circuit impedance calculating model\Circuit impedance calculating view\bin\Debug\CircuitView.exe
+C:\Users\tima\Documents\Visual Studio 2015\Projects\practice\Circuit impedance calculating model\Circuit impedance calculating view\bin\Debug\CircuitView.pdb
+C:\Users\tima\Documents\Visual Studio 2015\Projects\practice\Circuit impedance calculating model\Circuit impedance calculating view\bin\Debug\Circuit Drawer.dll
+C:\Users\tima\Documents\Visual Studio 2015\Projects\practice\Circuit impedance calculating model\Circuit impedance calculating view\bin\Debug\CircuitModeling.dll
+C:\Users\tima\Documents\Visual Studio 2015\Projects\practice\Circuit impedance calculating model\Circuit impedance calculating view\bin\Debug\Circuit Drawer.pdb
+C:\Users\tima\Documents\Visual Studio 2015\Projects\practice\Circuit impedance calculating model\Circuit impedance calculating view\bin\Debug\CircuitModeling.pdb
+C:\Users\tima\Documents\Visual Studio 2015\Projects\practice\Circuit impedance calculating model\Circuit impedance calculating view\obj\Debug\CircuitView.exe
+C:\Users\tima\Documents\Visual Studio 2015\Projects\practice\Circuit impedance calculating model\Circuit impedance calculating view\obj\Debug\CircuitView.pdb

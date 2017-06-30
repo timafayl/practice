@@ -11,7 +11,6 @@ namespace CircuitView
     /// </summary>
     public class ElementAdapter
     {
-#region -  -
 
         #region - Constructors -
 

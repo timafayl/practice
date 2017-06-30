@@ -20,7 +20,12 @@ namespace Circuit_Drawer
         //TODO вынести все возможные константы
         #region - Constants -
 
+        /// <summary>
+        /// Длина одного элемента.
+        /// </summary>
         private const int _elementLength = 80;
+
+        private const int _connectingLineLength = 15;
 
         #endregion
 
@@ -78,7 +83,7 @@ namespace Circuit_Drawer
 
         #region - Private methods -
 
-        #region - Circuits' drawing -
+        #region - Circuits drawing -
 
         /// <summary>
         /// Метод, для отрисовки последовательной цепи.
@@ -118,7 +123,7 @@ namespace Circuit_Drawer
             if (x < startX + length)
             {
                 Graphics graph = Graphics.FromImage(bmp);
-                graph.DrawLine(_pen, x, y, startX + length - 30, y);
+                graph.DrawLine(_pen, x, y, startX + length - _connectingLineLength*2, y);
             }
             return bmp;
         }
@@ -134,46 +139,47 @@ namespace Circuit_Drawer
         private Bitmap DrawParallelCircuit(ParallelCircuit circuit, Bitmap bmp, int x, int y)
         {
             Graphics graph = Graphics.FromImage(bmp);
-            graph.DrawLine(_pen, x, y, x + 15, y);
+            graph.DrawLine(_pen, x, y, x + _connectingLineLength, y);
             int startY = y;
             int height = CalculateParallelCircuitHeight(circuit);
             y -= height * (circuit.Circuit.Count - 1) / 2;
+            x += _connectingLineLength;
             var h = y;
             foreach (IComponent component in circuit.Circuit)
             {
                 if (component is Resistor)
                 {
-                    bmp = DrawResistor(bmp, x + 15, y, CalculateParallelCircuitLength(circuit));
+                    bmp = DrawResistor(bmp, x, y, CalculateParallelCircuitLength(circuit));
                     y += height;
                 }
                 else if (component is Inductor)
                 {
-                    bmp = DrawInductor(bmp, x + 15, y, CalculateParallelCircuitLength(circuit));
+                    bmp = DrawInductor(bmp, x, y, CalculateParallelCircuitLength(circuit));
                     y += height;
                 }
                 else if (component is Capacitor)
                 {
-                    bmp = DrawCapacitor(bmp, x + 15, y, CalculateParallelCircuitLength(circuit));
+                    bmp = DrawCapacitor(bmp, x, y, CalculateParallelCircuitLength(circuit));
                     y += height;
                 }
                 else
                 {
-                    bmp = DrawSerialCircuit(component as SerialCircuit, bmp, x + 15, y,
+                    bmp = DrawSerialCircuit(component as SerialCircuit, bmp, x, y,
                         CalculateParallelCircuitLength(circuit));
                     y += height;
                 }
             }
-            graph.DrawLine(_pen, x + 15, h, x + 15, y - height);
-            graph.DrawLine(_pen, x + CalculateParallelCircuitLength(circuit) - 15, h,
-                x + CalculateParallelCircuitLength(circuit) - 15, y - height);
-            graph.DrawLine(_pen, x + CalculateParallelCircuitLength(circuit) - 15, startY,
-                x + CalculateParallelCircuitLength(circuit), startY);
+            graph.DrawLine(_pen, x, h, x, y - height);
+            graph.DrawLine(_pen, x + CalculateParallelCircuitLength(circuit) - _connectingLineLength*2, h,
+                x + CalculateParallelCircuitLength(circuit) - _connectingLineLength*2, y - height);
+            graph.DrawLine(_pen, x + CalculateParallelCircuitLength(circuit) - _connectingLineLength*2, startY,
+                x + CalculateParallelCircuitLength(circuit) - _connectingLineLength, startY);
             return bmp;
         }
 
         #endregion
 
-        #region - Elements' drawing -
+        #region - Elements drawing -
 
         /// <summary>
         /// Метод для отрисовки клемы.
@@ -183,9 +189,11 @@ namespace Circuit_Drawer
         /// <param name="y">Входное значение координаты по оси Оу</param>
         private void DrawKlemme(Bitmap bmp, int x, int y)
         {
+            const int klemmeDiameter = 10;
+            const int klemmeCrossingLineHeight = 20;
             Graphics graph = Graphics.FromImage(bmp);
-            graph.DrawArc(_pen, x - 10, y - 5, 10, 10, 0, 360);
-            graph.DrawLine(_pen, x, y - 10, x - 10, y + 10);
+            graph.DrawArc(_pen, x - klemmeDiameter, y - klemmeDiameter / 2, klemmeDiameter, klemmeDiameter, 0, 360);
+            graph.DrawLine(_pen, x, y - klemmeCrossingLineHeight/2, x - klemmeDiameter, y + klemmeCrossingLineHeight/2);
         }
 
         /// <summary>
@@ -198,13 +206,15 @@ namespace Circuit_Drawer
         /// <returns>Изображение резистора</returns>
         private Bitmap DrawResistor(Bitmap bmp, int x, int y, int length = 0)
         {
+            const int resistorHeight = 10;
+            const int resistorLength = 50;
             Graphics graph = Graphics.FromImage(bmp);
-            graph.DrawLine(_pen, x, y, x + 15, y);
-            graph.DrawRectangle(_pen, x + 15, y - 5, 50, 10);
-            graph.DrawLine(_pen, x + 65, y, x + 80, y);
-            if (x + 80 < x + length)
+            graph.DrawLine(_pen, x, y, x + _connectingLineLength, y);
+            graph.DrawRectangle(_pen, x + _connectingLineLength, y - resistorHeight/2, resistorLength, resistorHeight);
+            graph.DrawLine(_pen, x + _connectingLineLength + resistorLength, y, x + _elementLength, y);
+            if (x + _elementLength < x + length)
             {
-                graph.DrawLine(_pen, x + 80, y, x + length - 30, y);
+                graph.DrawLine(_pen, x + _elementLength, y, x + length - _connectingLineLength*2, y);
             }
             return bmp;
         }
@@ -219,15 +229,22 @@ namespace Circuit_Drawer
         /// <returns>Изображение катушки индуктивности</returns>
         private Bitmap DrawInductor(Bitmap bmp, int x, int y, int length = 0)
         {
+            const int inductorHeight = 10;
+            const int inductorArcDiamter = 16;
+            const int inductorLength = 48;
+            const int inductorConnectingLine = 16;
             Graphics graph = Graphics.FromImage(bmp);
-            graph.DrawLine(_pen, x, y, x + 16, y);
-            graph.DrawArc(_pen, x + 16, y - 5, 16, 10, 360, -180);
-            graph.DrawArc(_pen, x + 32, y - 5, 16, 10, 360, -180);
-            graph.DrawArc(_pen, x + 48, y - 5, 16, 10, 360, -180);
-            graph.DrawLine(_pen, x + 64, y, x + 80, y);
-            if (x + 80 < x + length)
+            graph.DrawLine(_pen, x, y, x + inductorConnectingLine, y);
+            graph.DrawArc(_pen, x + inductorConnectingLine, y - inductorHeight/2,
+                inductorArcDiamter, inductorHeight, 360, -180);
+            graph.DrawArc(_pen, x + inductorConnectingLine + inductorArcDiamter,
+                y - inductorHeight/2, inductorArcDiamter, inductorHeight, 360, -180);
+            graph.DrawArc(_pen, x + inductorConnectingLine + inductorArcDiamter*2,
+                y - inductorHeight/2, inductorArcDiamter, inductorHeight, 360, -180);
+            graph.DrawLine(_pen, x + inductorConnectingLine + inductorLength, y, x + _elementLength, y);
+            if (x + _elementLength < x + length)
             {
-                graph.DrawLine(_pen, x + 80, y, x + length - 30, y);
+                graph.DrawLine(_pen, x + _elementLength, y, x + length - _connectingLineLength*2, y);
             }
             return bmp;
         }
@@ -242,21 +259,27 @@ namespace Circuit_Drawer
         /// <returns>Изображение конденсатора</returns>
         private Bitmap DrawCapacitor(Bitmap bmp, int x, int y, int length = 0)
         {
+            const int capacitorConnectingLine = 35;
+            const int capacitorHeight = 30;
+            const int capacitorLength = 10;
             Graphics graph = Graphics.FromImage(bmp);
-            graph.DrawLine(_pen, x, y, x + 35, y);
-            graph.DrawLine(_pen, x + 35, y + 15, x + 35, y - 15);
-            graph.DrawLine(_pen, x + 45, y + 15, x + 45, y - 15);
-            graph.DrawLine(_pen, x + 45, y, x + 80, y);
-            if (x + 80 < x + length)
+            graph.DrawLine(_pen, x, y, x + capacitorConnectingLine, y);
+            graph.DrawLine(_pen, x + capacitorConnectingLine, y + capacitorHeight/2,
+                x + capacitorConnectingLine, y - capacitorHeight/2);
+            graph.DrawLine(_pen, x + capacitorConnectingLine + capacitorLength,
+                y + capacitorHeight/2, x + capacitorConnectingLine + capacitorLength, y - capacitorHeight/2);
+            graph.DrawLine(_pen, x + capacitorConnectingLine + capacitorLength,
+                y, x + _elementLength, y);
+            if (x + _elementLength < x + length)
             {
-                graph.DrawLine(_pen, x + 80, y, x + length - 30, y);
+                graph.DrawLine(_pen, x + _elementLength, y, x + length - _connectingLineLength, y);
             }
             return bmp;
         }
 
         #endregion
 
-        #region - Calculating circuits' length | height -
+        #region - Calculating circuits length | height -
 
         /// <summary>
         /// Метод, для вычисления длины последовательной цепи в схеме.
@@ -270,7 +293,7 @@ namespace Circuit_Drawer
             {
                 if (circuit.Circuit[i] is IElement)
                 {
-                    length += 80;
+                    length += _elementLength;
                 }
                 else if (circuit.Circuit[i] is ParallelCircuit)
                 {
@@ -306,7 +329,7 @@ namespace Circuit_Drawer
                         length = CalculateSerialCircuitLength(serials[i]);
                     }
                 }
-                return length + 30;
+                return length + _connectingLineLength*2;
             }
             return defaulLength;
         }
