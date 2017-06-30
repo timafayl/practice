@@ -83,21 +83,28 @@ namespace CircuitView
         /// </summary>
         private void circuitsListBox_SelectedIndexChanged(object sender, EventArgs e)
         {
-            Draw(_circuits[circuitsListBox.SelectedIndex]);
-            InitializeCircuitElementsList(_circuits[circuitsListBox.SelectedIndex]);
-            CalculateImpedance();
-            if (_selecetedCircuitIndex == -1)
+            try
             {
-                _circuits.Cast<ICircuit>().ToList()[circuitsListBox.SelectedIndex].CircuitChanged +=
-                    CircuitChangedEventHadler;
+                Draw(_circuits[circuitsListBox.SelectedIndex]);
+                InitializeCircuitElementsList(_circuits[circuitsListBox.SelectedIndex]);
+                CalculateImpedance();
+                if (_selecetedCircuitIndex == -1)
+                {
+                    _circuits.Cast<ICircuit>().ToList()[circuitsListBox.SelectedIndex].CircuitChanged +=
+                        CircuitChangedEventHadler;
+                }
+                else if (_selecetedCircuitIndex != -1 && circuitsListBox.SelectedIndex != _selecetedCircuitIndex)
+                {
+                    _circuits.Cast<ICircuit>().ToList()[_selecetedCircuitIndex].CircuitChanged -=
+                        CircuitChangedEventHadler;
+                    _circuits.Cast<ICircuit>().ToList()[circuitsListBox.SelectedIndex].CircuitChanged +=
+                        CircuitChangedEventHadler;
+                    _selecetedCircuitIndex = circuitsListBox.SelectedIndex;
+                }
             }
-            else if (_selecetedCircuitIndex != -1 && circuitsListBox.SelectedIndex != _selecetedCircuitIndex)
+            catch (Exception exception)
             {
-                _circuits.Cast<ICircuit>().ToList()[_selecetedCircuitIndex].CircuitChanged -=
-                    CircuitChangedEventHadler;
-                _circuits.Cast<ICircuit>().ToList()[circuitsListBox.SelectedIndex].CircuitChanged +=
-                    CircuitChangedEventHadler;
-                _selecetedCircuitIndex = circuitsListBox.SelectedIndex;
+                MessageBox.Show(exception.Message);
             }
         }
 
@@ -122,10 +129,10 @@ namespace CircuitView
         /// <param name="component">Входная цепь</param>
         private void InitializeCircuitElementsList(IComponent component)
         {
-            ICircuit circuit = component as ICircuit;
-            circuitElementsGridView.DataSource = (from el in GetCircuitElements(circuit)
-                                        select new ElementAdapter(el)).ToList();
-            //GetCircuitElements(circuit).Select(t => new ElementAdapter(t)).ToList();
+                ICircuit circuit = component as ICircuit;
+                circuitElementsGridView.DataSource = (from el in GetCircuitElements(circuit)
+                    select new ElementAdapter(el)).ToList();
+                //GetCircuitElements(circuit).Select(t => new ElementAdapter(t)).ToList();
         }
 
         /// <summary>

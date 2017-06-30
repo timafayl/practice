@@ -1,6 +1,7 @@
 ﻿#region - Using -
 
 using System;
+using System.Runtime.CompilerServices;
 using System.Windows.Forms;
 
 #endregion
@@ -19,9 +20,16 @@ namespace CircuitView
         [STAThread]
         static void Main()
         {
-            Application.EnableVisualStyles();
-            Application.SetCompatibleTextRenderingDefault(false);
-            Application.Run(new CircuitViewForm());
+            try
+            {
+                Application.EnableVisualStyles();
+                Application.SetCompatibleTextRenderingDefault(false);
+                Application.Run(new CircuitViewForm());
+            }
+            catch (Exception exception)
+            {
+                MessageBox.Show(exception.Message);
+            }
         }
     }
 }

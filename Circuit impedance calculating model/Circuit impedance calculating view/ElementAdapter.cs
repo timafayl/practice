@@ -1,5 +1,7 @@
 ﻿#region - Using -
 
+using System;
+using System.Windows.Forms;
 using CircuitModeling.Elements;
 
 #endregion
@@ -31,7 +33,17 @@ namespace CircuitView
         public string Name
         {
             get { return _element.Name; }
-            set { _element.Name = value; }
+            set
+            {
+                try
+                {
+                    _element.Name = value;
+                }
+                catch (Exception exception)
+                {
+                    MessageBox.Show(exception.Message);
+                } 
+            }
         }
 
         /// <summary>
@@ -40,7 +52,17 @@ namespace CircuitView
         public double Value
         {
             get { return _element.Value; }
-            set { _element.Value = value; }
+            set
+            {
+                try
+                {
+                    _element.Value = value;
+                }
+                catch (Exception exception)
+                {
+                    MessageBox.Show(exception.Message);
+                }
+            }
         }
 
         /// <summary>
