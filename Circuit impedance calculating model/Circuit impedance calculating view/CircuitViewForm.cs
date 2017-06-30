@@ -22,6 +22,9 @@ namespace CircuitView
     {
         #region - Private fields -
 
+        /// <summary>
+        /// Индекс выбранной из списка цепи.
+        /// </summary>
         private int _selecetedCircuitIndex = -1;
 
         /// <summary>
@@ -103,7 +106,7 @@ namespace CircuitView
         #region - Private methods -
 
         /// <summary>
-        /// Инициализирует список схем в circuitsListBox.
+        /// Инициализирует список схем на форме.
         /// </summary>
         private void InitializeCircuitsList()
         {
@@ -113,13 +116,16 @@ namespace CircuitView
             }
         }
 
+        /// <summary>
+        /// Инициализирует список элементов выбранной цепи на форме.
+        /// </summary>
+        /// <param name="component">Входная цепь</param>
         private void InitializeCircuitElementsList(IComponent component)
         {
             ICircuit circuit = component as ICircuit;
             circuitElementsGridView.DataSource = (from el in GetCircuitElements(circuit)
                                         select new ElementAdapter(el)).ToList();
             //GetCircuitElements(circuit).Select(t => new ElementAdapter(t)).ToList();
-
         }
 
         /// <summary>
@@ -155,6 +161,9 @@ namespace CircuitView
             return elementsList;
         }
 
+        /// <summary>
+        /// Обработчик события выбранной цепи.
+        /// </summary>
         private void CircuitChangedEventHadler(object sender, EventArgs args)
         {
             if (_frequency.Length != 0)
@@ -167,6 +176,9 @@ namespace CircuitView
             }
         }
 
+        /// <summary>
+        /// Рассчитывает импеданс цепи во входным частотам и выводит его на форму.
+        /// </summary>
         private void CalculateImpedance()
         {
             _frequency = new double[impedanceGridView.RowCount - 1];

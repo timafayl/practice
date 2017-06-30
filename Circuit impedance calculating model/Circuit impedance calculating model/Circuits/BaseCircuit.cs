@@ -112,6 +112,9 @@ namespace CircuitModeling.Circuits
 
         #region - Private methods -
 
+        /// <summary>
+        /// Обработчик события изменения списка элементов.
+        /// </summary>
         private void Circuit_CollectionChanged(object sender, NotifyCollectionChangedEventArgs e)
         {
             switch (e.Action)
@@ -151,6 +154,9 @@ namespace CircuitModeling.Circuits
             }
         }
 
+        /// <summary>
+        /// Метод, запускающий событие CircuitChanged.
+        /// </summary>
         private void OnCircuitChanged(object sender, EventArgs args)
         {
             CircuitChanged?.Invoke(this, EventArgs.Empty);
