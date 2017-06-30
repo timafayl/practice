@@ -2,6 +2,7 @@
 
 using System;
 using System.Collections.Generic;
+using System.Collections.ObjectModel;
 using System.Numerics;
 
 #endregion
@@ -18,19 +19,15 @@ namespace CircuitModeling.Circuits
         /// <summary>
         /// Пустой конструктор
         /// </summary>
-        public SerialCircuit()
-        {
-            Circuit = new List<IComponent>();
-        }
+        public SerialCircuit(): base () { }
 
         /// <summary>
         /// Конструктор с входными параметрами
         /// </summary>
         /// <param name="name">Наименование цепи</param>
-        public SerialCircuit(string name)
+        public SerialCircuit(string name): base ()
         {
             Name = name;
-            Circuit = new List<IComponent>();
         }
 
         #endregion

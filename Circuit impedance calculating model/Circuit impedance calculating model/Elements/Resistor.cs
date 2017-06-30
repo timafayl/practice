@@ -57,7 +57,7 @@ namespace CircuitModeling.Elements
 
         #endregion
 
-        #region - Public properties -
+        #region - Properties -
 
         /// <summary>
         /// Свойство для наименования элемента.

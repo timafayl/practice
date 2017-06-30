@@ -2,11 +2,16 @@
 
 using System;
 using System.Collections.Generic;
+using System.Collections.ObjectModel;
+using System.Collections.Specialized;
+using System.Linq;
 using System.Numerics;
+using System.Runtime.Remoting.Channels;
 using System.Text.RegularExpressions;
+using CircuitModeling.Elements;
 
 #endregion
-//TODO поменять список List<IComponent> на ObservableCollection
+
 namespace CircuitModeling.Circuits
 {
     /// <summary>
@@ -24,7 +29,7 @@ namespace CircuitModeling.Circuits
         /// <summary>
         /// Поле, содержащее список компонентов цепи.
         /// </summary>
-        private List<IComponent> _circuit;
+        private ObservableCollection<IComponent> _circuit;
 
         #endregion
 
@@ -42,11 +47,15 @@ namespace CircuitModeling.Circuits
         /// <summary>
         /// Пустой конструктор.
         /// </summary>
-        protected BaseCircuit() { }
+        protected BaseCircuit()
+        {
+            Circuit = new ObservableCollection<IComponent>();
+            Circuit.CollectionChanged += Circuit_CollectionChanged;
+        }
 
         #endregion
 
-        #region - Public Properties -
+        #region - Properties -
 
         /// <summary>
         /// Свойство для наименования цепи.
@@ -74,16 +83,15 @@ namespace CircuitModeling.Circuits
         }
 
         /// <summary>
-        /// Свойство для списка элементов цепи.
+        /// Свойство для списка компонентов цепи.
         /// </summary>
-        public List<IComponent> Circuit
+        public ObservableCollection<IComponent> Circuit
         {
             get { return _circuit; }
             set
             {
                 _circuit = value;
-                CircuitChanged?.Invoke(this, EventArgs.Empty);
-            } 
+            }
         }
 
         #endregion
@@ -98,6 +106,54 @@ namespace CircuitModeling.Circuits
         public virtual Complex CalculateZ(double frequency)
         {
             throw new NotImplementedException("Метод не реализован!");
+        }
+
+        #endregion
+
+        #region - Private methods -
+
+        private void Circuit_CollectionChanged(object sender, NotifyCollectionChangedEventArgs e)
+        {
+            switch (e.Action)
+            {
+                case NotifyCollectionChangedAction.Add:
+                    if (e.NewItems[0] is IElement)
+                    {
+                        e.NewItems.Cast<IElement>().ToList()[0].ValueChanged += OnCircuitChanged;
+                    }
+                    else if (e.NewItems[0] is ICircuit)
+                    {
+                        e.NewItems.Cast<ICircuit>().ToList()[0].CircuitChanged += OnCircuitChanged;
+                    }
+                    break;
+                case NotifyCollectionChangedAction.Remove:
+                    if (e.OldItems[0] is IElement)
+                    {
+                        e.OldItems.Cast<IElement>().ToList()[0].ValueChanged -= OnCircuitChanged;
+                    }
+                    else if (e.OldItems[0] is ICircuit)
+                    {
+                        e.OldItems.Cast<ICircuit>().ToList()[0].CircuitChanged -= OnCircuitChanged;
+                    }
+                    break;
+                case NotifyCollectionChangedAction.Replace:
+                    if (e.NewItems[0] is IElement)
+                    {
+                        e.OldItems.Cast<IElement>().ToList()[0].ValueChanged -= OnCircuitChanged;
+                        e.NewItems.Cast<IElement>().ToList()[0].ValueChanged += OnCircuitChanged;
+                    }
+                    else if (e.NewItems[0] is ICircuit)
+                    {
+                        e.OldItems.Cast<ICircuit>().ToList()[0].CircuitChanged -= OnCircuitChanged;
+                        e.NewItems.Cast<ICircuit>().ToList()[0].CircuitChanged += OnCircuitChanged;
+                    }
+                    break;
+            }
+        }
+
+        private void OnCircuitChanged(object sender, EventArgs args)
+        {
+            CircuitChanged?.Invoke(this, EventArgs.Empty);
         }
 
         #endregion

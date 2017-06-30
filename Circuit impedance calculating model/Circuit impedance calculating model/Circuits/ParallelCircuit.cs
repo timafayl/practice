@@ -2,7 +2,10 @@
 
 using System;
 using System.Collections.Generic;
+using System.Collections.ObjectModel;
+using System.Collections.Specialized;
 using System.Numerics;
+using CircuitModeling.Elements;
 
 #endregion
 
@@ -18,19 +21,15 @@ namespace CircuitModeling.Circuits
         /// <summary>
         /// Пустой конструктор
         /// </summary>
-        public ParallelCircuit()
-        {
-            Circuit = new List<IComponent>();
-        }
+        public ParallelCircuit(): base() { }
 
         /// <summary>
         /// Конструктор с входными параметрами
         /// </summary>
         /// <param name="name">Наименование цепи</param>
-        public ParallelCircuit(string name)
+        public ParallelCircuit(string name): base()
         {
             Name = name;
-            Circuit = new List<IComponent>();
         }
 
         #endregion

@@ -17,7 +17,7 @@ namespace Circuit_Drawer
     public class CircuitDrawer
     {
         #region - Private fields-
-        //TODO вынести все возможные константы
+
         #region - Constants -
 
         /// <summary>
@@ -272,7 +272,7 @@ namespace Circuit_Drawer
                 y, x + _elementLength, y);
             if (x + _elementLength < x + length)
             {
-                graph.DrawLine(_pen, x + _elementLength, y, x + length - _connectingLineLength, y);
+                graph.DrawLine(_pen, x + _elementLength, y, x + length - _connectingLineLength*2, y);
             }
             return bmp;
         }

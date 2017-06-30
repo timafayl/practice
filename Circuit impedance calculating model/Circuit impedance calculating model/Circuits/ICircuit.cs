@@ -2,6 +2,7 @@
 
 using System;
 using System.Collections.Generic;
+using System.Collections.ObjectModel;
 
 #endregion
 
@@ -13,11 +14,11 @@ namespace CircuitModeling.Circuits
     public interface ICircuit: IComponent
     {
         #region - Properties -
-        
+
         /// <summary>
         /// Свойство, 
         /// </summary>
-        List<IComponent> Circuit { get; set; }
+        ObservableCollection<IComponent> Circuit { get; set; }
 
         #endregion
 

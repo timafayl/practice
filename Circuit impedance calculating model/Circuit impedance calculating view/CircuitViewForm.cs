@@ -22,6 +22,8 @@ namespace CircuitView
     {
         #region - Private fields -
 
+        private int _selecetedCircuitIndex = -1;
+
         /// <summary>
         /// Массив с выходными частотами.
         /// </summary>
@@ -65,24 +67,11 @@ namespace CircuitView
         /// </summary>
         private void calculateImpedanceButton_Click(object sender, EventArgs e)
         {
-            _frequency = new double[impedanceGridView.RowCount - 1];
-            _impedance = new Complex[impedanceGridView.RowCount - 1];
-            if (_frequency.Length > 0)
+            CalculateImpedance();
+            if (_frequency.Length == 0)
             {
-                for (int i = 0; i < impedanceGridView.RowCount - 1; i++)
-                {
-                    _frequency[i] = Convert.ToDouble(impedanceGridView[0, i].Value.ToString());
-                }
-                for (int i = 0; i < impedanceGridView.RowCount - 1; i++)
-                {
-                    _impedance[i] = _circuits[circuitsListBox.SelectedIndex].CalculateZ(_frequency[i]);
-                    impedanceGridView[1, i].Value = Convert.ToString(Math.Round(_impedance[i].Real, 7)
-                        + " + " + Math.Round(_impedance[i].Imaginary, 7) + "i");
-                }
-            }
-            else
-            {
-                MessageBox.Show("Список входных частот пуст. Введите частоту!", "Frequency Error", MessageBoxButtons.OK);
+                MessageBox.Show(@"Список входных частот пуст. Введите частоту!",
+                    @"Frequency Error", MessageBoxButtons.OK);
             }
         }
 
@@ -93,8 +82,20 @@ namespace CircuitView
         {
             Draw(_circuits[circuitsListBox.SelectedIndex]);
             InitializeCircuitElementsList(_circuits[circuitsListBox.SelectedIndex]);
-            _circuits.Cast<ICircuit>().ToList()[circuitsListBox.SelectedIndex].CircuitChanged +=
-                ValueChangedEventHadler;
+            CalculateImpedance();
+            if (_selecetedCircuitIndex == -1)
+            {
+                _circuits.Cast<ICircuit>().ToList()[circuitsListBox.SelectedIndex].CircuitChanged +=
+                    CircuitChangedEventHadler;
+            }
+            else if (_selecetedCircuitIndex != -1 && circuitsListBox.SelectedIndex != _selecetedCircuitIndex)
+            {
+                _circuits.Cast<ICircuit>().ToList()[_selecetedCircuitIndex].CircuitChanged -=
+                    CircuitChangedEventHadler;
+                _circuits.Cast<ICircuit>().ToList()[circuitsListBox.SelectedIndex].CircuitChanged +=
+                    CircuitChangedEventHadler;
+                _selecetedCircuitIndex = circuitsListBox.SelectedIndex;
+            }
         }
 
         #endregion
@@ -154,9 +155,39 @@ namespace CircuitView
             return elementsList;
         }
 
-        private void ValueChangedEventHadler(object sender, EventArgs args)
+        private void CircuitChangedEventHadler(object sender, EventArgs args)
         {
-            
+            if (_frequency.Length != 0)
+            {
+                CalculateImpedance();
+            }
+            else
+            {
+                return;
+            }
+        }
+
+        private void CalculateImpedance()
+        {
+            _frequency = new double[impedanceGridView.RowCount - 1];
+            _impedance = new Complex[impedanceGridView.RowCount - 1];
+            if (_frequency.Length > 0)
+            {
+                for (int i = 0; i < impedanceGridView.RowCount - 1; i++)
+                {
+                    _frequency[i] = Convert.ToDouble(impedanceGridView[0, i].Value.ToString());
+                }
+                for (int i = 0; i < impedanceGridView.RowCount - 1; i++)
+                {
+                    _impedance[i] = _circuits[circuitsListBox.SelectedIndex].CalculateZ(_frequency[i]);
+                    impedanceGridView[1, i].Value = Convert.ToString(Math.Round(_impedance[i].Real, 7)
+                        + " + " + Math.Round(_impedance[i].Imaginary, 7) + "i");
+                }
+            }
+            else
+            {
+                return;
+            }
         }
 
         #endregion
