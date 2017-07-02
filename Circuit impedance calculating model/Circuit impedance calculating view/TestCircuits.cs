@@ -22,9 +22,9 @@ namespace CircuitView
         /// Метод, возвращающий список с тестовыми схемами.
         /// </summary>
         /// <returns>Список с тестовыми цепями</returns>
-        public List<IComponent> TestCircuitsList()
+        public List<ICircuit> TestCircuitsList()
         {
-            var testCircuitsList = new List<IComponent>
+            var testCircuitsList = new List<ICircuit>
                 { Сircuit1(), Сircuit2(), Сircuit3(), Сircuit4(), Сircuit5(), Сircuit6()};
             return testCircuitsList;
         }
@@ -37,7 +37,7 @@ namespace CircuitView
         /// Тестовая схема №1.
         /// </summary>
         /// <returns>Первую тестовую схему</returns>
-        public IComponent Сircuit1()
+        public ICircuit Сircuit1()
         {
             var R1 = new Resistor("R1", 100);
             var C1 = new Capacitor("C1", 0.005);
@@ -55,7 +55,7 @@ namespace CircuitView
         /// Тестовая схема №2.
         /// </summary>
         /// <returns>Ввторую тестовую схему</returns
-        private IComponent Сircuit2()
+        private ICircuit Сircuit2()
         {
             var R1 = new Resistor("R1", 100);
             var C1 = new Capacitor("C1", 0.005);
@@ -73,7 +73,7 @@ namespace CircuitView
         /// Тестовая схема №3.
         /// </summary>
         /// <returns>Третью тестовую схему</returns
-        private IComponent Сircuit3()
+        private ICircuit Сircuit3()
         {
             var R1 = new Resistor("R1", 100);
             var C1 = new Capacitor("C1", 0.005);
@@ -97,7 +97,7 @@ namespace CircuitView
         /// Тестовая схема №4.
         /// </summary>
         /// <returns>Четвертую тестовую схему</returns>
-        private IComponent Сircuit4()
+        private ICircuit Сircuit4()
         {
             var R1 = new Resistor("R1", 100);
             var R2 = new Resistor("R2", 100);
@@ -127,7 +127,7 @@ namespace CircuitView
         /// Тестовая схема №5.
         /// </summary>
         /// <returns>Пятую тестовую схему</returns>
-        private IComponent Сircuit5()
+        private ICircuit Сircuit5()
         {
             var R1 = new Resistor("R1", 100);
             var R2 = new Resistor("R2", 100);
@@ -159,7 +159,7 @@ namespace CircuitView
         /// Тестовая схема №6.
         /// </summary>
         /// <returns>Шестую тестовую схему</returns>
-        private IComponent Сircuit6()
+        private ICircuit Сircuit6()
         {
             var R1 = new Resistor("R1", 100);
             var circuit1 = new ParallelCircuit("circuit1");

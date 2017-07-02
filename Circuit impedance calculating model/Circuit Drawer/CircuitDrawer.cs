@@ -341,8 +341,8 @@ namespace Circuit_Drawer
         /// <returns>Ширину между ветвями входной параллельной цепи</returns>
         private int CalculateParallelCircuitHeight(ParallelCircuit circuit)
         {
-            const int defaultHeight = 30;
-            int count = 1;
+            const int defaultHeight = 40;
+            int height = 1;
             for (int i = 0; i < circuit.Circuit.Count; i++)
             {
                 if (circuit.Circuit[i] is SerialCircuit)
@@ -352,17 +352,10 @@ namespace Circuit_Drawer
                     {
                         if (serial.Circuit[j] is ParallelCircuit)
                         {
-                            count += CalculateParallelCircuitHeight(serial.Circuit[j] as ParallelCircuit);
+                            height += CalculateParallelCircuitHeight(serial.Circuit[j] as ParallelCircuit);
                         }
                     }
-                    if (count > 4)
-                    {
-                        return count * 2;
-                    }
-                    if (count <= 4 && count > 2)
-                    {
-                        return count;
-                    }
+                    return height * 2;
                 }
             }
             return defaultHeight;
