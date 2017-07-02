@@ -128,6 +128,7 @@ namespace CircuitModeling.Circuits
                     {
                         e.NewItems.Cast<ICircuit>().ToList()[0].CircuitChanged += OnCircuitChanged;
                     }
+                    OnCircuitChanged(this, EventArgs.Empty);
                     break;
                 case NotifyCollectionChangedAction.Remove:
                     if (e.OldItems[0] is IElement)
@@ -138,6 +139,7 @@ namespace CircuitModeling.Circuits
                     {
                         e.OldItems.Cast<ICircuit>().ToList()[0].CircuitChanged -= OnCircuitChanged;
                     }
+                    OnCircuitChanged(this, EventArgs.Empty);
                     break;
                 case NotifyCollectionChangedAction.Replace:
                     if (e.NewItems[0] is IElement)
@@ -150,6 +152,7 @@ namespace CircuitModeling.Circuits
                         e.OldItems.Cast<ICircuit>().ToList()[0].CircuitChanged -= OnCircuitChanged;
                         e.NewItems.Cast<ICircuit>().ToList()[0].CircuitChanged += OnCircuitChanged;
                     }
+                    OnCircuitChanged(this, EventArgs.Empty);
                     break;
             }
         }

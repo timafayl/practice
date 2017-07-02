@@ -94,10 +94,16 @@ namespace CircuitView
             if (_selecetedCircuitIndex == -1)
             {
                 _circuits[circuitsListBox.SelectedIndex].CircuitChanged +=
+                    ElementValueChangedEventHadler;
+                _circuits[circuitsListBox.SelectedIndex].CircuitChanged +=
                     CircuitChangedEventHadler;
             }
             else if (_selecetedCircuitIndex != -1 && circuitsListBox.SelectedIndex != _selecetedCircuitIndex)
             {
+                _circuits[_selecetedCircuitIndex].CircuitChanged -=
+                    ElementValueChangedEventHadler;
+                _circuits[circuitsListBox.SelectedIndex].CircuitChanged +=
+                    ElementValueChangedEventHadler;
                 _circuits[_selecetedCircuitIndex].CircuitChanged -=
                     CircuitChangedEventHadler;
                 _circuits[circuitsListBox.SelectedIndex].CircuitChanged +=
@@ -112,15 +118,6 @@ namespace CircuitView
         private void deleteElementButton_Click(object sender, EventArgs e)
         {
             DeleteElementInCircuit(_circuits[circuitsListBox.SelectedIndex]);
-            Draw(_circuits[circuitsListBox.SelectedIndex]);
-            InitializeCircuitElementsList(_circuits[circuitsListBox.SelectedIndex]);
-            CalculateImpedance();
-        }
-
-        private void circuitElementsGridView_SelectionChanged(object sender, EventArgs e)
-        {
-            List<IElement> elementsList = GetCircuitElements(_circuits[circuitsListBox.SelectedIndex]);
-            _selectedElement = elementsList[circuitElementsGridView.CurrentCell.RowIndex];
         }
 
         #endregion
@@ -185,12 +182,22 @@ namespace CircuitView
         /// <summary>
         /// Обработчик события выбранной цепи.
         /// </summary>
-        private void CircuitChangedEventHadler(object sender, EventArgs args)
+        private void ElementValueChangedEventHadler(object sender, EventArgs args)
         {
             if (_frequency.Length != 0)
             {
                 CalculateImpedance();
             }
+        }
+
+        /// <summary>
+        /// Обработчик события выбранной цепи.
+        /// </summary>
+        private void CircuitChangedEventHadler(object sender, EventArgs args)
+        {
+            Draw(_circuits[circuitsListBox.SelectedIndex]);
+            InitializeCircuitElementsList(_circuits[circuitsListBox.SelectedIndex]);
+            CalculateImpedance();
         }
 
         /// <summary>
@@ -221,15 +228,16 @@ namespace CircuitView
         /// <param name="circuit">Входная цепь</param>
         private void DeleteElementInCircuit(ICircuit circuit)
         {
+            List<IElement> elementsList = GetCircuitElements(_circuits[circuitsListBox.SelectedIndex]);
+            _selectedElement = elementsList[circuitElementsGridView.CurrentCell.RowIndex];
             foreach (IComponent component in circuit.Circuit)
             {
                 if (component.Equals(_selectedElement))
                 {
                     circuit.Circuit.Remove(component);
-                    //circuitElementsGridView.ClearSelection();
                     return;
                 }
-                else if (component is ICircuit)
+                if (component is ICircuit)
                 {
                     DeleteElementInCircuit((ICircuit)component);
                 }

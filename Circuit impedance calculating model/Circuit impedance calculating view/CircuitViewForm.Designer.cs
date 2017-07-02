@@ -155,8 +155,7 @@
             this.circuitElementsGridView.RowHeadersWidthSizeMode = System.Windows.Forms.DataGridViewRowHeadersWidthSizeMode.DisableResizing;
             this.circuitElementsGridView.Size = new System.Drawing.Size(304, 178);
             this.circuitElementsGridView.TabIndex = 0;
-            this.circuitElementsGridView.SelectionChanged += new System.EventHandler(this.circuitElementsGridView_SelectionChanged);
-            // 
+            //
             // calculateImpedanceButton
             // 
             this.calculateImpedanceButton.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
