@@ -1,13 +1,17 @@
 ﻿#region - Using -
 
 using System;
+using System.Runtime.CompilerServices;
 using System.Windows.Forms;
 
 #endregion
 
 
-namespace Circuit_impedance_calculating_view
+namespace CircuitView
 {
+    /// <summary>
+    /// Класс запуска программы.
+    /// </summary>
     static class Program
     {
         /// <summary>
@@ -16,9 +20,16 @@ namespace Circuit_impedance_calculating_view
         [STAThread]
         static void Main()
         {
-            Application.EnableVisualStyles();
-            Application.SetCompatibleTextRenderingDefault(false);
-            Application.Run(new CircuitViewForm());
+            try
+            {
+                Application.EnableVisualStyles();
+                Application.SetCompatibleTextRenderingDefault(false);
+                Application.Run(new CircuitViewForm());
+            }
+            catch (Exception exception)
+            {
+                MessageBox.Show(exception.Message);
+            }
         }
     }
 }

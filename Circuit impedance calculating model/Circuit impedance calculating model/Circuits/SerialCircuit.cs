@@ -2,13 +2,16 @@
 
 using System;
 using System.Collections.Generic;
+using System.Collections.ObjectModel;
 using System.Numerics;
-using System.Text.RegularExpressions;
 
 #endregion
 
-namespace Circuit_impedance_calculating_model.Circuits
+namespace CircuitModeling.Circuits
 {
+    /// <summary>
+    /// Класс, описывающий последовательные цепи.
+    /// </summary>
     public class SerialCircuit: BaseCircuit
     {
         #region -Constructors-
@@ -16,19 +19,15 @@ namespace Circuit_impedance_calculating_model.Circuits
         /// <summary>
         /// Пустой конструктор
         /// </summary>
-        public SerialCircuit()
-        {
-            Circuit = new List<IComponent>();
-        }
+        public SerialCircuit(): base () { }
 
         /// <summary>
         /// Конструктор с входными параметрами
         /// </summary>
         /// <param name="name">Наименование цепи</param>
-        public SerialCircuit(string name)
+        public SerialCircuit(string name): base ()
         {
             Name = name;
-            Circuit = new List<IComponent>();
         }
 
         #endregion
@@ -42,6 +41,21 @@ namespace Circuit_impedance_calculating_model.Circuits
         /// <returns>Импеданс цепи</returns>
         public override Complex CalculateZ(double frequency)
         {
+            if (frequency < 0)
+            {
+                throw new ArgumentOutOfRangeException(nameof(frequency), frequency,
+                    "Значение частоты не должно быть меньше нуля.");
+            }
+            if (double.IsNaN(frequency))
+            {
+                throw new ArgumentOutOfRangeException(nameof(frequency), frequency,
+                    "Значение частоты не должно быть нулевым.");
+            }
+            if (double.IsNegativeInfinity(frequency) || double.IsPositiveInfinity(frequency))
+            {
+                throw new ArgumentOutOfRangeException(nameof(frequency), frequency,
+                    "Значение частоты не должно быть равным бесконечности.");
+            }
             Complex impedance = new Complex();
             foreach (IComponent component in Circuit)
             {

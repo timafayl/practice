@@ -1,30 +1,30 @@
 ﻿#region - Using -
 
 using System.Collections.Generic;
-using Circuit_impedance_calculating_model;
-using Circuit_impedance_calculating_model.Circuits;
-using Circuit_impedance_calculating_model.Elements;
+using CircuitModeling;
+using CircuitModeling.Circuits;
+using CircuitModeling.Elements;
 
 #endregion
 
 
-namespace Circuit_impedance_calculating_view
+namespace CircuitView
 {
     /// <summary>
-    /// Класс с тестовыми схемами
+    /// Класс с тестовыми схемами.
     /// </summary>
-    public class TestCircuits
+    public class TestCircuitsFactory
     {
         #region - Public methods -
 
         /// <summary>
         /// Метод, возвращающий список с тестовыми схемами.
         /// </summary>
-        /// <returns></returns>
-        public List<IComponent> TestCircuitsList()
+        /// <returns>Список с тестовыми цепями</returns>
+        public List<ICircuit> TestCircuitsList()
         {
-            var testCircuitsList = new List<IComponent>
-                { _circuit1(), _circuit2(), _circuit3(), _circuit4(), _circuit5(), _circuit6()};
+            var testCircuitsList = new List<ICircuit>
+                { Сircuit1(), Сircuit2(), Сircuit3(), Сircuit4(), Сircuit5(), Сircuit6()};
             return testCircuitsList;
         }
 
@@ -35,8 +35,8 @@ namespace Circuit_impedance_calculating_view
         /// <summary>
         /// Тестовая схема №1.
         /// </summary>
-        /// <returns></returns>
-        public IComponent _circuit1()
+        /// <returns>Первую тестовую схему</returns>
+        public ICircuit Сircuit1()
         {
             var R1 = new Resistor("R1", 100);
             var C1 = new Capacitor("C1", 0.005);
@@ -53,8 +53,8 @@ namespace Circuit_impedance_calculating_view
         /// <summary>
         /// Тестовая схема №2.
         /// </summary>
-        /// <returns></returns
-        private IComponent _circuit2()
+        /// <returns>Ввторую тестовую схему</returns
+        private ICircuit Сircuit2()
         {
             var R1 = new Resistor("R1", 100);
             var C1 = new Capacitor("C1", 0.005);
@@ -71,8 +71,8 @@ namespace Circuit_impedance_calculating_view
         /// <summary>
         /// Тестовая схема №3.
         /// </summary>
-        /// <returns></returns
-        private IComponent _circuit3()
+        /// <returns>Третью тестовую схему</returns
+        private ICircuit Сircuit3()
         {
             var R1 = new Resistor("R1", 100);
             var C1 = new Capacitor("C1", 0.005);
@@ -95,8 +95,8 @@ namespace Circuit_impedance_calculating_view
         /// <summary>
         /// Тестовая схема №4.
         /// </summary>
-        /// <returns></returns>
-        private IComponent _circuit4()
+        /// <returns>Четвертую тестовую схему</returns>
+        private ICircuit Сircuit4()
         {
             var R1 = new Resistor("R1", 100);
             var R2 = new Resistor("R2", 100);
@@ -125,8 +125,8 @@ namespace Circuit_impedance_calculating_view
         /// <summary>
         /// Тестовая схема №5.
         /// </summary>
-        /// <returns></returns
-        private IComponent _circuit5()
+        /// <returns>Пятую тестовую схему</returns>
+        private ICircuit Сircuit5()
         {
             var R1 = new Resistor("R1", 100);
             var R2 = new Resistor("R2", 100);
@@ -157,48 +157,34 @@ namespace Circuit_impedance_calculating_view
         /// <summary>
         /// Тестовая схема №6.
         /// </summary>
-        /// <returns></returns>
-        private IComponent _circuit6()
+        /// <returns>Шестую тестовую схему</returns>
+        private ICircuit Сircuit6()
         {
             var R1 = new Resistor("R1", 100);
             var circuit1 = new ParallelCircuit("circuit1");
             var circuit2 = new SerialCircuit("circuit2");
-            var circuit3 = new SerialCircuit("circuit3");
             var circuit4 = new ParallelCircuit("circuit4");
             var circuit5 = new ParallelCircuit("circuit5");
             var circuit6 = new SerialCircuit("circuit6");
             var circuit7 = new ParallelCircuit("circuit7");
             var circuit8 = new ParallelCircuit("circuit8");
             var circuit9 = new SerialCircuit("circuit9");
-
             circuit7.Circuit.Add(R1);
             circuit7.Circuit.Add(R1);
-
             circuit6.Circuit.Add(R1);
             circuit6.Circuit.Add(circuit7);
-
             circuit5.Circuit.Add(R1);
             circuit5.Circuit.Add(circuit6);
-
             circuit8.Circuit.Add(circuit6);
             circuit8.Circuit.Add(R1);
-
             circuit4.Circuit.Add(R1);
             circuit4.Circuit.Add(R1);
-
-            circuit3.Circuit.Add(R1);
-            circuit3.Circuit.Add(circuit4);
-            circuit3.Circuit.Add(R1);
-
             circuit2.Circuit.Add(R1);
             circuit2.Circuit.Add(circuit5);
-
             circuit9.Circuit.Add(R1);
             circuit9.Circuit.Add(circuit8);
-
             circuit1.Circuit.Add(circuit2);
             circuit1.Circuit.Add(circuit9);
-
             return circuit1;
         }
 

@@ -2,12 +2,14 @@
 
 using System;
 using System.Collections.Generic;
+using System.Collections.ObjectModel;
+using System.Collections.Specialized;
 using System.Numerics;
-using System.Text.RegularExpressions;
+using CircuitModeling.Elements;
 
 #endregion
 
-namespace Circuit_impedance_calculating_model.Circuits
+namespace CircuitModeling.Circuits
 {
     /// <summary>
     /// Класс, описывающий параллельные цепи.
@@ -19,19 +21,15 @@ namespace Circuit_impedance_calculating_model.Circuits
         /// <summary>
         /// Пустой конструктор
         /// </summary>
-        public ParallelCircuit()
-        {
-            Circuit = new List<IComponent>();
-        }
+        public ParallelCircuit(): base() { }
 
         /// <summary>
         /// Конструктор с входными параметрами
         /// </summary>
         /// <param name="name">Наименование цепи</param>
-        public ParallelCircuit(string name)
+        public ParallelCircuit(string name)//: base()
         {
             Name = name;
-            Circuit = new List<IComponent>();
         }
 
         #endregion
@@ -45,6 +43,21 @@ namespace Circuit_impedance_calculating_model.Circuits
         /// <returns>Импеданс цепи</returns>
         public override Complex CalculateZ(double frequency)
         {
+            if (frequency < 0)
+            {
+                throw new ArgumentOutOfRangeException(nameof(frequency), frequency,
+                    "Значение частоты не должно быть меньше нуля.");
+            }
+            if (double.IsNaN(frequency))
+            {
+                throw new ArgumentOutOfRangeException(nameof(frequency), frequency,
+                    "Значение частоты не должно быть нулевым.");
+            }
+            if (double.IsNegativeInfinity(frequency) || double.IsPositiveInfinity(frequency))
+            {
+                throw new ArgumentOutOfRangeException(nameof(frequency), frequency,
+                    "Значение частоты не должно быть равным бесконечности.");
+            }
             Complex admittance = new Complex();
             foreach (IComponent component in Circuit)
             {

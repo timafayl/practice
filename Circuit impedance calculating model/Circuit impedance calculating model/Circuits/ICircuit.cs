@@ -2,19 +2,23 @@
 
 using System;
 using System.Collections.Generic;
+using System.Collections.ObjectModel;
 
 #endregion
 
-namespace Circuit_impedance_calculating_model.Circuits
-{
+namespace CircuitModeling.Circuits
+{ 
     /// <summary>
     /// Интерфейс, описывающий цепи.
     /// </summary>
     public interface ICircuit: IComponent
     {
-        #region - Fields -
+        #region - Properties -
 
-        List<IComponent> Circuit { get; set; }
+        /// <summary>
+        /// Свойство, 
+        /// </summary>
+        ObservableCollection<IComponent> Circuit { get; set; }
 
         #endregion
 

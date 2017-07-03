@@ -7,7 +7,7 @@ using System.Text.RegularExpressions;
 
 #endregion
 
-namespace Circuit_impedance_calculating_model.Elements
+namespace CircuitModeling.Elements
 {
     /// <summary>
     /// Класс, описывающий резистор.
@@ -57,18 +57,17 @@ namespace Circuit_impedance_calculating_model.Elements
 
         #endregion
 
-        #region - Public properties -
+        #region - Properties -
 
         /// <summary>
-        /// Свойство-аксессор для поля _name.
+        /// Свойство для наименования элемента.
         /// </summary>
         public string Name
         {
             get { return _name; }
             set
             {
-                string pattern1 = @"^R\d$";
-                string pattern2 = @"^R\d{2}$";
+                string pattern = @"^R\d{1,2}$"; //задает значение типа "R1" или "R10"
                 TextInfo ti = CultureInfo.CurrentCulture.TextInfo;
                 value = ti.ToTitleCase(value);
                 if (value.Length > 3)
@@ -77,7 +76,7 @@ namespace Circuit_impedance_calculating_model.Elements
                         " превышать трех символов. Наименование резистора в цепи должно начинаться" +
                         " с латинской буквы 'R' после которой должен идти порядковый номер резистора в цепи.");
                 }
-                if (!(Regex.IsMatch(value, pattern1) || Regex.IsMatch(value, pattern2)))
+                if (!Regex.IsMatch(value, pattern))
                 {
                     throw new ArgumentException("Наименование резистора в цепи должно начинаться" +
                         " с латинской буквы 'R' после которой должен идти порядковый номер резистора в цепи.");
@@ -87,7 +86,7 @@ namespace Circuit_impedance_calculating_model.Elements
         }
 
         /// <summary>
-        /// Свойство-аксессор для поля _value.
+        /// Свойство для сопротивления.
         /// </summary>
         public double Value
         {
@@ -96,9 +95,22 @@ namespace Circuit_impedance_calculating_model.Elements
             {
                 if (value < 0)
                 {
-                    throw new ArgumentException("Значение резистора не должно быть меньше нуля.");
+                    throw new ArgumentException("Значение сопротивления не должно быть меньше нуля.");
+                }
+                if (double.IsNaN(value))
+                {
+                    throw new ArgumentException("Значение сопротивления не должно быть нулевым.");
+                }
+                if (double.IsNegativeInfinity(value) || double.IsPositiveInfinity(value))
+                {
+                    throw new ArgumentException("Значение сопротивления не должно быть равным бесконечности.");
+                }
+                if (Math.Abs(value - _value) < float.Epsilon)
+                {
+                    return;
                 }
                 _value = value;
+                ValueChanged?.Invoke(this, EventArgs.Empty);
             }
         }
 
@@ -113,6 +125,21 @@ namespace Circuit_impedance_calculating_model.Elements
         /// <returns>Импеданс элемента</returns>
         public Complex CalculateZ(double frequency)
         {
+            if (frequency < 0)
+            {
+                throw new ArgumentOutOfRangeException(nameof(frequency), frequency,
+                    "Значение частоты не должно быть меньше нуля.");
+            }
+            if (double.IsNaN(frequency))
+            {
+                throw new ArgumentOutOfRangeException(nameof(frequency), frequency,
+                    "Значение частоты не должно быть нулевым.");
+            }
+            if (double.IsNegativeInfinity(frequency) || double.IsPositiveInfinity(frequency))
+            {
+                throw new ArgumentOutOfRangeException(nameof(frequency), frequency,
+                    "Значение частоты не должно быть равным бесконечности.");
+            }
             return new Complex(Value, 0);
         }
 

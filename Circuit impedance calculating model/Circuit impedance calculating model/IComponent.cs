@@ -4,7 +4,7 @@ using System.Numerics;
 
 #endregion
 
-namespace Circuit_impedance_calculating_model
+namespace CircuitModeling
 {
     /// <summary>
     /// Интерфейс, служащий для объединения Circuits и Elements в одном списке. 
