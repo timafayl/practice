@@ -7,8 +7,8 @@
     <ProjectGuid>{71AAB6B6-1CCB-4A81-8D4A-CAB996B26956}</ProjectGuid>
     <OutputType>Library</OutputType>
     <AppDesignerFolder>Properties</AppDesignerFolder>
-    <RootNamespace>Circuit_Drawer</RootNamespace>
-    <AssemblyName>Circuit Drawer</AssemblyName>
+    <RootNamespace>CircuitDrawing</RootNamespace>
+    <AssemblyName>CircuitDrawing</AssemblyName>
     <TargetFrameworkVersion>v4.5.2</TargetFrameworkVersion>
     <FileAlignment>512</FileAlignment>
   </PropertyGroup>

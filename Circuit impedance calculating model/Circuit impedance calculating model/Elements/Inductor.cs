@@ -105,9 +105,9 @@ namespace CircuitModeling.Elements
                 {
                     throw new ArgumentException("Значение индуктивности не должно быть равным бесконечности.");
                 }
-                if (_value == value)
+                if (Math.Abs(value - _value) < float.Epsilon)
                 {
-                    throw new ArgumentException("Вы пытаетесь присвоить переменной существующее значение.");
+                    return;
                 }
                 _value = value;
                 ValueChanged?.Invoke(this, EventArgs.Empty);

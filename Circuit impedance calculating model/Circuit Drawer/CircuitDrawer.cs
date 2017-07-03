@@ -9,7 +9,7 @@ using IComponent = CircuitModeling.IComponent;
 #endregion
 
 
-namespace Circuit_Drawer
+namespace CircuitDrawing
 {
     /// <summary>
     /// Класс отрисовки цепей.
@@ -23,9 +23,9 @@ namespace Circuit_Drawer
         /// <summary>
         /// Длина одного элемента.
         /// </summary>
-        private const int _elementLength = 80;
+        private const int ElementLength = 80;
 
-        private const int _connectingLineLength = 15;
+        private const int ConnectingLineLength = 15;
 
         #endregion
 
@@ -68,13 +68,13 @@ namespace Circuit_Drawer
             DrawKlemme(bmp, x, y);
             if (circuit is SerialCircuit)
             {
-                DrawSerialCircuit(circuit as SerialCircuit, bmp, x, y);
-                DrawKlemme(bmp, x + CalculateSerialCircuitLength(circuit as SerialCircuit) + 10, y);
+                DrawSerialCircuit((SerialCircuit) circuit, bmp, x, y);
+                DrawKlemme(bmp, x + CalculateSerialCircuitLength((SerialCircuit) circuit) + 10, y);
             }
             else if (circuit is ParallelCircuit)
             {
-                DrawParallelCircuit(circuit as ParallelCircuit, bmp, x, y);
-                DrawKlemme(bmp, x + CalculateParallelCircuitLength(circuit as ParallelCircuit) + 10, y);
+                DrawParallelCircuit((ParallelCircuit) circuit, bmp, x, y);
+                DrawKlemme(bmp, x + CalculateParallelCircuitLength((ParallelCircuit) circuit) + 10, y);
             }
             return bmp;
         }
@@ -102,17 +102,17 @@ namespace Circuit_Drawer
                 if (component is Resistor)
                 {
                     bmp = DrawResistor(bmp, x, y);
-                    x += _elementLength;
+                    x += ElementLength;
                 }
                 else if (component is Inductor)
                 {
                     bmp = DrawInductor(bmp, x, y);
-                    x += _elementLength;
+                    x += ElementLength;
                 }
                 else if (component is Capacitor)
                 {
                     bmp = DrawCapacitor(bmp, x, y);
-                    x += _elementLength;
+                    x += ElementLength;
                 }
                 else
                 {
@@ -123,7 +123,7 @@ namespace Circuit_Drawer
             if (x < startX + length)
             {
                 Graphics graph = Graphics.FromImage(bmp);
-                graph.DrawLine(_pen, x, y, startX + length - _connectingLineLength*2, y);
+                graph.DrawLine(_pen, x, y, startX + length - ConnectingLineLength*2, y);
             }
             return bmp;
         }
@@ -139,11 +139,11 @@ namespace Circuit_Drawer
         private Bitmap DrawParallelCircuit(ParallelCircuit circuit, Bitmap bmp, int x, int y)
         {
             Graphics graph = Graphics.FromImage(bmp);
-            graph.DrawLine(_pen, x, y, x + _connectingLineLength, y);
+            graph.DrawLine(_pen, x, y, x + ConnectingLineLength, y);
             int startY = y;
             int height = CalculateParallelCircuitHeight(circuit);
             y -= height * (circuit.Circuit.Count - 1) / 2;
-            x += _connectingLineLength;
+            x += ConnectingLineLength;
             var h = y;
             foreach (IComponent component in circuit.Circuit)
             {
@@ -170,10 +170,10 @@ namespace Circuit_Drawer
                 }
             }
             graph.DrawLine(_pen, x, h, x, y - height);
-            graph.DrawLine(_pen, x + CalculateParallelCircuitLength(circuit) - _connectingLineLength*2, h,
-                x + CalculateParallelCircuitLength(circuit) - _connectingLineLength*2, y - height);
-            graph.DrawLine(_pen, x + CalculateParallelCircuitLength(circuit) - _connectingLineLength*2, startY,
-                x + CalculateParallelCircuitLength(circuit) - _connectingLineLength, startY);
+            graph.DrawLine(_pen, x + CalculateParallelCircuitLength(circuit) - ConnectingLineLength*2, h,
+                x + CalculateParallelCircuitLength(circuit) - ConnectingLineLength*2, y - height);
+            graph.DrawLine(_pen, x + CalculateParallelCircuitLength(circuit) - ConnectingLineLength*2, startY,
+                x + CalculateParallelCircuitLength(circuit) - ConnectingLineLength, startY);
             return bmp;
         }
 
@@ -209,12 +209,12 @@ namespace Circuit_Drawer
             const int resistorHeight = 10;
             const int resistorLength = 50;
             Graphics graph = Graphics.FromImage(bmp);
-            graph.DrawLine(_pen, x, y, x + _connectingLineLength, y);
-            graph.DrawRectangle(_pen, x + _connectingLineLength, y - resistorHeight/2, resistorLength, resistorHeight);
-            graph.DrawLine(_pen, x + _connectingLineLength + resistorLength, y, x + _elementLength, y);
-            if (x + _elementLength < x + length)
+            graph.DrawLine(_pen, x, y, x + ConnectingLineLength, y);
+            graph.DrawRectangle(_pen, x + ConnectingLineLength, y - resistorHeight/2, resistorLength, resistorHeight);
+            graph.DrawLine(_pen, x + ConnectingLineLength + resistorLength, y, x + ElementLength, y);
+            if (x + ElementLength < x + length)
             {
-                graph.DrawLine(_pen, x + _elementLength, y, x + length - _connectingLineLength*2, y);
+                graph.DrawLine(_pen, x + ElementLength, y, x + length - ConnectingLineLength*2, y);
             }
             return bmp;
         }
@@ -241,10 +241,10 @@ namespace Circuit_Drawer
                 y - inductorHeight/2, inductorArcDiamter, inductorHeight, 360, -180);
             graph.DrawArc(_pen, x + inductorConnectingLine + inductorArcDiamter*2,
                 y - inductorHeight/2, inductorArcDiamter, inductorHeight, 360, -180);
-            graph.DrawLine(_pen, x + inductorConnectingLine + inductorLength, y, x + _elementLength, y);
-            if (x + _elementLength < x + length)
+            graph.DrawLine(_pen, x + inductorConnectingLine + inductorLength, y, x + ElementLength, y);
+            if (x + ElementLength < x + length)
             {
-                graph.DrawLine(_pen, x + _elementLength, y, x + length - _connectingLineLength*2, y);
+                graph.DrawLine(_pen, x + ElementLength, y, x + length - ConnectingLineLength*2, y);
             }
             return bmp;
         }
@@ -269,10 +269,10 @@ namespace Circuit_Drawer
             graph.DrawLine(_pen, x + capacitorConnectingLine + capacitorLength,
                 y + capacitorHeight/2, x + capacitorConnectingLine + capacitorLength, y - capacitorHeight/2);
             graph.DrawLine(_pen, x + capacitorConnectingLine + capacitorLength,
-                y, x + _elementLength, y);
-            if (x + _elementLength < x + length)
+                y, x + ElementLength, y);
+            if (x + ElementLength < x + length)
             {
-                graph.DrawLine(_pen, x + _elementLength, y, x + length - _connectingLineLength*2, y);
+                graph.DrawLine(_pen, x + ElementLength, y, x + length - ConnectingLineLength*2, y);
             }
             return bmp;
         }
@@ -293,7 +293,7 @@ namespace Circuit_Drawer
             {
                 if (circuit.Circuit[i] is IElement)
                 {
-                    length += _elementLength;
+                    length += ElementLength;
                 }
                 else if (circuit.Circuit[i] is ParallelCircuit)
                 {
@@ -329,7 +329,7 @@ namespace Circuit_Drawer
                         length = CalculateSerialCircuitLength(serials[i]);
                     }
                 }
-                return length + _connectingLineLength*2;
+                return length + ConnectingLineLength*2;
             }
             return defaulLength;
         }

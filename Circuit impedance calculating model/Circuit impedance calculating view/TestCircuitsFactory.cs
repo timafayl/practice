@@ -10,11 +10,10 @@ using CircuitModeling.Elements;
 
 namespace CircuitView
 {
-
     /// <summary>
     /// Класс с тестовыми схемами.
     /// </summary>
-    public class TestCircuits
+    public class TestCircuitsFactory
     {
         #region - Public methods -
 
