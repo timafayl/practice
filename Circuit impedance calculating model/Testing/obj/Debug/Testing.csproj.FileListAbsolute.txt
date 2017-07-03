@@ -1,0 +1,7 @@
+C:\Users\tima\Documents\Visual Studio 2015\Projects\practice\Circuit impedance calculating model\Testing\bin\Debug\Testing.dll
+C:\Users\tima\Documents\Visual Studio 2015\Projects\practice\Circuit impedance calculating model\Testing\bin\Debug\Testing.pdb
+C:\Users\tima\Documents\Visual Studio 2015\Projects\practice\Circuit impedance calculating model\Testing\bin\Debug\Microsoft.VisualStudio.QualityTools.UnitTestFramework.dll
+C:\Users\tima\Documents\Visual Studio 2015\Projects\practice\Circuit impedance calculating model\Testing\bin\Debug\ru\Microsoft.VisualStudio.QualityTools.UnitTestFramework.resources.dll
+C:\Users\tima\Documents\Visual Studio 2015\Projects\practice\Circuit impedance calculating model\Testing\obj\Debug\Testing.csprojResolveAssemblyReference.cache
+C:\Users\tima\Documents\Visual Studio 2015\Projects\practice\Circuit impedance calculating model\Testing\obj\Debug\Testing.dll
+C:\Users\tima\Documents\Visual Studio 2015\Projects\practice\Circuit impedance calculating model\Testing\obj\Debug\Testing.pdb

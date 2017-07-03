@@ -20,16 +20,16 @@ namespace CircuitView
         [STAThread]
         static void Main()
         {
-            //try
-            //{
+            try
+            {
                 Application.EnableVisualStyles();
                 Application.SetCompatibleTextRenderingDefault(false);
                 Application.Run(new CircuitViewForm());
-            //}
-            //catch (Exception exception)
-            //{
-            //    MessageBox.Show(exception.Message);
-            //}
+            }
+            catch (Exception exception)
+            {
+                MessageBox.Show(exception.Message);
+            }
         }
     }
 }

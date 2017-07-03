@@ -56,7 +56,7 @@
     </Compile>
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
-    <Compile Include="TestCircuits.cs" />
+    <Compile Include="TestCircuitsFactory.cs" />
     <EmbeddedResource Include="CircuitViewForm.resx">
       <DependentUpon>CircuitViewForm.cs</DependentUpon>
     </EmbeddedResource>
@@ -85,9 +85,9 @@
     <None Include="App.config" />
   </ItemGroup>
   <ItemGroup>
-    <ProjectReference Include="..\Circuit Drawer\CircuitDrawer.csproj">
+    <ProjectReference Include="..\Circuit Drawer\CircuitDrawing.csproj">
       <Project>{71aab6b6-1ccb-4a81-8d4a-cab996b26956}</Project>
-      <Name>CircuitDrawer</Name>
+      <Name>CircuitDrawing</Name>
     </ProjectReference>
     <ProjectReference Include="..\Circuit impedance calculating model\CircuitModeling.csproj">
       <Project>{edc1b1cf-1028-4b17-b865-8511a4aa2405}</Project>

@@ -6,10 +6,10 @@ using System.Drawing;
 using System.Linq;
 using System.Numerics;
 using System.Windows.Forms;
+using CircuitDrawing;
 using CircuitModeling;
 using CircuitModeling.Circuits;
 using CircuitModeling.Elements;
-using Circuit_Drawer;
 
 #endregion
 
@@ -21,12 +21,12 @@ namespace CircuitView
     public partial class CircuitViewForm : Form
     {
         #region - Private fields -
-
+        //TODO изменить класс Drawer 
         /// <summary>
-        /// 
+        /// Список всех схем.
         /// </summary>
-        private IElement _selectedElement;
-        
+        private readonly List<ICircuit> _circuits;
+
         /// <summary>
         /// Индекс выбранной из списка цепи.
         /// </summary>
@@ -35,23 +35,18 @@ namespace CircuitView
         /// <summary>
         /// Массив с выходными частотами.
         /// </summary>
-        private double[] _frequency;
+        private double[] _frequencies;
 
         /// <summary>
         /// Массив с рассчитаными импедансами для каждой частоты.
         /// </summary>
-        private Complex[] _impedance;
+        private Complex[] _selectedCircuitImpedance;
 
         /// <summary>
-        /// Список всех схем.
+        /// Выбранный элемент цепи.
         /// </summary>
-        private readonly List<ICircuit> _circuits;
-
-        /// <summary>
-        /// Переменная класса с тестовыми схемами.
-        /// </summary>
-        private readonly TestCircuits _testCircuits = new TestCircuits();
-
+        private IElement _selectedElement;
+        
         #endregion
 
         #region - Constructors -
@@ -62,26 +57,13 @@ namespace CircuitView
         public CircuitViewForm()
         {
             InitializeComponent();
-            _circuits = _testCircuits.TestCircuitsList();
+            _circuits = new TestCircuitsFactory().TestCircuitsList();
             InitializeCircuitsList();
         }
 
         #endregion
 
         #region - Controls events -
-
-        /// <summary>
-        /// Кнопка рассчета импеданса цепи по заданным частотам.
-        /// </summary>
-        private void calculateImpedanceButton_Click(object sender, EventArgs e)
-        {
-            CalculateImpedance();
-            if (_frequency.Length == 0)
-            {
-                MessageBox.Show(@"Список входных частот пуст. Введите частоту!",
-                    @"Frequency Error", MessageBoxButtons.OK);
-            }
-        }
 
         /// <summary>
         /// Событие для вызова метода отрисовки схем.
@@ -91,25 +73,41 @@ namespace CircuitView
             Draw(_circuits[circuitsListBox.SelectedIndex]);
             InitializeCircuitElementsList(_circuits[circuitsListBox.SelectedIndex]);
             CalculateImpedance();
+
             if (_selecetedCircuitIndex == -1)
             {
                 _circuits[circuitsListBox.SelectedIndex].CircuitChanged +=
-                    ElementValueChangedEventHadler;
+                    ElementValueChangedEventHandler;
+
                 _circuits[circuitsListBox.SelectedIndex].CircuitChanged +=
-                    CircuitChangedEventHadler;
+                    CircuitChangedEventHandler;
             }
             else if (_selecetedCircuitIndex != -1 && circuitsListBox.SelectedIndex != _selecetedCircuitIndex)
             {
                 _circuits[_selecetedCircuitIndex].CircuitChanged -=
-                    ElementValueChangedEventHadler;
+                    ElementValueChangedEventHandler;
                 _circuits[circuitsListBox.SelectedIndex].CircuitChanged +=
-                    ElementValueChangedEventHadler;
+                    ElementValueChangedEventHandler;
+
                 _circuits[_selecetedCircuitIndex].CircuitChanged -=
-                    CircuitChangedEventHadler;
+                    CircuitChangedEventHandler;
                 _circuits[circuitsListBox.SelectedIndex].CircuitChanged +=
-                    CircuitChangedEventHadler;
+                    CircuitChangedEventHandler;
             }
             _selecetedCircuitIndex = circuitsListBox.SelectedIndex;
+        }
+
+        /// <summary>
+        /// Кнопка рассчета импеданса цепи по заданным частотам.
+        /// </summary>
+        private void calculateImpedanceButton_Click(object sender, EventArgs e)
+        {
+            CalculateImpedance();
+            if (_frequencies.Length == 0)
+            {
+                MessageBox.Show(@"Список входных частот пуст. Введите частоту!",
+                    @"Frequency Error", MessageBoxButtons.OK);
+            }
         }
 
         /// <summary>
@@ -117,7 +115,11 @@ namespace CircuitView
         /// </summary>
         private void deleteElementButton_Click(object sender, EventArgs e)
         {
-            DeleteElementInCircuit(_circuits[circuitsListBox.SelectedIndex]);
+            if (MessageBox.Show(@"Вы действительно хотите удалить выбранный элемент?",
+                @"Element deleting", MessageBoxButtons.OKCancel) == DialogResult.OK)
+            {
+                DeleteElementInCircuit(_circuits[circuitsListBox.SelectedIndex]);
+            }
         }
 
         #endregion
@@ -136,17 +138,6 @@ namespace CircuitView
         }
 
         /// <summary>
-        /// Инициализирует список элементов выбранной цепи на форме.
-        /// </summary>
-        /// <param name="circuit">Входная цепь</param>
-        private void InitializeCircuitElementsList(ICircuit circuit)
-        {
-                circuitElementsGridView.DataSource = (from el in GetCircuitElements(circuit)
-                    select new ElementAdapter(el)).ToList();
-                //GetCircuitElements(circuit).Select(t => new ElementAdapter(t)).ToList();
-        }
-
-        /// <summary>
         /// Вызывает метод отрисовки входной цепи.
         /// </summary>
         /// <param name="component">Цепь для отрисовки</param>
@@ -155,6 +146,39 @@ namespace CircuitView
             Bitmap bmp = new Bitmap(circuitView.Width, circuitView.Height);
             CircuitDrawer drawer = new CircuitDrawer();
             circuitView.Image = drawer.DrawCircuit(component, bmp, 20, circuitView.Height / 2);
+        }
+
+        /// <summary>
+        /// Рассчитывает импеданс цепи во входным частотам и выводит его на форму.
+        /// </summary>
+        private void CalculateImpedance()
+        {
+            _frequencies = new double[impedanceGridView.RowCount - 1];
+            if (_frequencies.Length > 0)
+            {
+                _selectedCircuitImpedance = new Complex[impedanceGridView.RowCount - 1];
+                for (int i = 0; i < impedanceGridView.RowCount - 1; i++)
+                {
+                    _frequencies[i] = Convert.ToDouble(impedanceGridView[0, i].Value.ToString());
+                }
+                for (int i = 0; i < impedanceGridView.RowCount - 1; i++)
+                {
+                    _selectedCircuitImpedance[i] = _circuits[circuitsListBox.SelectedIndex].CalculateZ(_frequencies[i]);
+                    impedanceGridView[1, i].Value = Convert.ToString(Math.Round(_selectedCircuitImpedance[i].Real, 7)
+                                                                     + " + " + Math.Round(_selectedCircuitImpedance[i].Imaginary, 7) + "i");
+                }
+            }
+        }
+
+        /// <summary>
+        /// Инициализирует список элементов выбранной цепи на форме.
+        /// </summary>
+        /// <param name="circuit">Входная цепь</param>
+        private void InitializeCircuitElementsList(ICircuit circuit)
+        {
+            circuitElementsGridView.DataSource = (from el in GetCircuitElements(circuit)
+                select new ElementAdapter(el)).ToList();
+            //GetCircuitElements(circuit).Select(t => new ElementAdapter(t)).ToList();
         }
 
         /// <summary>
@@ -180,49 +204,6 @@ namespace CircuitView
         }
 
         /// <summary>
-        /// Обработчик события выбранной цепи.
-        /// </summary>
-        private void ElementValueChangedEventHadler(object sender, EventArgs args)
-        {
-            if (_frequency.Length != 0)
-            {
-                CalculateImpedance();
-            }
-        }
-
-        /// <summary>
-        /// Обработчик события выбранной цепи.
-        /// </summary>
-        private void CircuitChangedEventHadler(object sender, EventArgs args)
-        {
-            Draw(_circuits[circuitsListBox.SelectedIndex]);
-            InitializeCircuitElementsList(_circuits[circuitsListBox.SelectedIndex]);
-            CalculateImpedance();
-        }
-
-        /// <summary>
-        /// Рассчитывает импеданс цепи во входным частотам и выводит его на форму.
-        /// </summary>
-        private void CalculateImpedance()
-        {
-            _frequency = new double[impedanceGridView.RowCount - 1];
-            if (_frequency.Length > 0)
-            {
-                _impedance = new Complex[impedanceGridView.RowCount - 1];
-                for (int i = 0; i < impedanceGridView.RowCount - 1; i++)
-                {
-                    _frequency[i] = Convert.ToDouble(impedanceGridView[0, i].Value.ToString());
-                }
-                for (int i = 0; i < impedanceGridView.RowCount - 1; i++)
-                {
-                    _impedance[i] = _circuits[circuitsListBox.SelectedIndex].CalculateZ(_frequency[i]);
-                    impedanceGridView[1, i].Value = Convert.ToString(Math.Round(_impedance[i].Real, 7)
-                        + " + " + Math.Round(_impedance[i].Imaginary, 7) + "i");
-                }
-            }
-        }
-
-        /// <summary>
         /// Удаляет выбранный элемент из цепи.
         /// </summary>
         /// <param name="circuit">Входная цепь</param>
@@ -242,6 +223,26 @@ namespace CircuitView
                     DeleteElementInCircuit((ICircuit)component);
                 }
             }
+        }
+
+        /// <summary>
+        /// Обработчик события выбранной цепи.
+        /// </summary>
+        private void ElementValueChangedEventHandler(object sender, EventArgs args)
+        {
+            if (_frequencies.Length != 0)
+            {
+                CalculateImpedance();
+            }
+        }
+
+        /// <summary>
+        /// Обработчик события выбранной цепи.
+        /// </summary>
+        private void CircuitChangedEventHandler(object sender, EventArgs args)
+        {
+            Draw(_circuits[circuitsListBox.SelectedIndex]);
+            InitializeCircuitElementsList(_circuits[circuitsListBox.SelectedIndex]);
         }
 
         #endregion

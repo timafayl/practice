@@ -27,7 +27,7 @@ namespace CircuitModeling.Circuits
         /// Конструктор с входными параметрами
         /// </summary>
         /// <param name="name">Наименование цепи</param>
-        public ParallelCircuit(string name): base()
+        public ParallelCircuit(string name)//: base()
         {
             Name = name;
         }
