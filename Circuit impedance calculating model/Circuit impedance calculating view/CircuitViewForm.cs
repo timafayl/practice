@@ -144,10 +144,6 @@ namespace CircuitView
         /// <param name="component">Цепь для отрисовки</param>
         private void Draw(IComponent component)
         {
-            //Bitmap bmp = new Bitmap(circuitView.Width, circuitView.Height);
-            //Graphics graph = Graphics.FromImage(bmp);
-            //CircuitDrawer drawer = new CircuitDrawer();
-            //graph.DrawImage(drawer.DrawCircuit(component), 20, circuitView.Height/5);
             circuitView.Image = new CircuitDrawer().Draw(component);
         }
 
