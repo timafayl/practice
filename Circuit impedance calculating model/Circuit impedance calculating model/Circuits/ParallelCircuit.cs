@@ -59,7 +59,7 @@ namespace CircuitModeling.Circuits
                     "Значение частоты не должно быть равным бесконечности.");
             }
             Complex admittance = new Complex();
-            foreach (IComponent component in Circuit)
+            foreach (IComponent component in CircuitComponents)
             {
                 admittance += 1 / component.CalculateZ(frequency);
             }

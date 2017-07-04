@@ -20,6 +20,7 @@ namespace CircuitView
     /// </summary>
     public partial class CircuitViewForm : Form
     {
+
         #region - Private fields -
         //TODO изменить класс Drawer 
         /// <summary>
@@ -46,7 +47,7 @@ namespace CircuitView
         /// Выбранный элемент цепи.
         /// </summary>
         private IElement _selectedElement;
-        
+
         #endregion
 
         #region - Constructors -
@@ -116,7 +117,7 @@ namespace CircuitView
         private void deleteElementButton_Click(object sender, EventArgs e)
         {
             if (MessageBox.Show(@"Вы действительно хотите удалить выбранный элемент?",
-                @"Element deleting", MessageBoxButtons.OKCancel) == DialogResult.OK)
+                    @"Element deleting", MessageBoxButtons.OKCancel) == DialogResult.OK)
             {
                 DeleteElementInCircuit(_circuits[circuitsListBox.SelectedIndex]);
             }
@@ -143,9 +144,11 @@ namespace CircuitView
         /// <param name="component">Цепь для отрисовки</param>
         private void Draw(IComponent component)
         {
-            Bitmap bmp = new Bitmap(circuitView.Width, circuitView.Height);
-            CircuitDrawer drawer = new CircuitDrawer();
-            circuitView.Image = drawer.DrawCircuit(component, bmp, 20, circuitView.Height / 2);
+            //Bitmap bmp = new Bitmap(circuitView.Width, circuitView.Height);
+            //Graphics graph = Graphics.FromImage(bmp);
+            //CircuitDrawer drawer = new CircuitDrawer();
+            //graph.DrawImage(drawer.DrawCircuit(component), 20, circuitView.Height/5);
+            circuitView.Image = new CircuitDrawer().Draw(component);
         }
 
         /// <summary>
@@ -189,7 +192,7 @@ namespace CircuitView
         private List<IElement> GetCircuitElements(ICircuit circuit)
         {
             var elementsList = new List<IElement>();
-            foreach (IComponent component in circuit.Circuit)
+            foreach (IComponent component in circuit.CircuitComponents)
             {
                 if (component is IElement)
                 {
@@ -211,11 +214,11 @@ namespace CircuitView
         {
             List<IElement> elementsList = GetCircuitElements(_circuits[circuitsListBox.SelectedIndex]);
             _selectedElement = elementsList[circuitElementsGridView.CurrentCell.RowIndex];
-            foreach (IComponent component in circuit.Circuit)
+            foreach (IComponent component in circuit.CircuitComponents)
             {
                 if (component.Equals(_selectedElement))
                 {
-                    circuit.Circuit.Remove(component);
+                    circuit.CircuitComponents.Remove(component);
                     return;
                 }
                 if (component is ICircuit)

@@ -1,7 +1,8 @@
 ﻿#region - Using -
 
-using System.Collections.Generic;
+using System;
 using System.Drawing;
+using System.Linq;
 using CircuitModeling.Circuits;
 using CircuitModeling.Elements;
 using IComponent = CircuitModeling.IComponent;
@@ -25,6 +26,14 @@ namespace CircuitDrawing
         /// </summary>
         private const int ElementLength = 80;
 
+        /// <summary>
+        /// Высота одного элемента.
+        /// </summary>
+        private const int ElementHeight = 30;
+
+        /// <summary>
+        /// Длина соеденительной линии между компонентами цепи.
+        /// </summary>
         private const int ConnectingLineLength = 15;
 
         #endregion
@@ -58,25 +67,23 @@ namespace CircuitDrawing
         /// <summary>
         /// Метод, овтечающий за вызов отрисовки схем и отрисовки клем.
         /// </summary>
-        /// <param name="circuit">Входная схема</param>
-        /// <param name="bmp">Рисунок</param>
-        /// <param name="x">Входное значение координаты по оси Ох</param>
-        /// <param name="y">Входное значение координаты по оси Оу</param>
+        /// <param name="component">Входная схема</param>
         /// <returns>Изображение входной цепи</returns>
-        public Bitmap DrawCircuit(IComponent circuit, Bitmap bmp, int x, int y)
+        public Bitmap Draw(IComponent component)
         {
-            DrawKlemme(bmp, x, y);
-            if (circuit is SerialCircuit)
+            if (component is SerialCircuit)
             {
-                DrawSerialCircuit((SerialCircuit) circuit, bmp, x, y);
-                DrawKlemme(bmp, x + CalculateSerialCircuitLength((SerialCircuit) circuit) + 10, y);
+                return DrawCircuit((SerialCircuit)component);
             }
-            else if (circuit is ParallelCircuit)
+            if (component is ParallelCircuit)
             {
-                DrawParallelCircuit((ParallelCircuit) circuit, bmp, x, y);
-                DrawKlemme(bmp, x + CalculateParallelCircuitLength((ParallelCircuit) circuit) + 10, y);
+                return DrawCircuit((ParallelCircuit)component);
             }
-            return bmp;
+            if (component is IElement)
+            {
+                return DrawElement((IElement)component);
+            }
+            throw new NotImplementedException();
         }
 
         #endregion
@@ -89,42 +96,39 @@ namespace CircuitDrawing
         /// Метод, для отрисовки последовательной цепи.
         /// </summary>
         /// <param name="circuit">Входная схема цепи</param>
-        /// <param name="bmp">Рисунок</param>
-        /// <param name="x">Входное значение координаты по оси Ох</param>
-        /// <param name="y">Входное значение координаты по оси Оу</param>
-        /// <param name="length">Необязательный параметр длинны, при вхождении цепи в параллельную схему</param>
         /// <returns>Изображение входной последовательной цепи</returns>
-        private Bitmap DrawSerialCircuit(SerialCircuit circuit, Bitmap bmp, int x, int y, int length = 0)
+        private Bitmap DrawCircuit(SerialCircuit circuit)
         {
-            int startX = x;
-            foreach (IComponent component in circuit.Circuit)
+            var bmpList = circuit.CircuitComponents.Select(Draw).ToList(); //объяснение ниже
+            //var bmpList = new List<Bitmap>();
+            //foreach (var component in circuit.CircuitComponents)
+            //{
+            //    bmpList.Add(Draw(component));
+            //}
+
+            int circuitLength = 0;
+            int circuitHeight = 0;
+
+            foreach (var bmpItem in bmpList)
             {
-                if (component is Resistor)
+                circuitLength += bmpItem.Width;
+                if (circuitHeight < bmpItem.Height)
                 {
-                    bmp = DrawResistor(bmp, x, y);
-                    x += ElementLength;
-                }
-                else if (component is Inductor)
-                {
-                    bmp = DrawInductor(bmp, x, y);
-                    x += ElementLength;
-                }
-                else if (component is Capacitor)
-                {
-                    bmp = DrawCapacitor(bmp, x, y);
-                    x += ElementLength;
-                }
-                else
-                {
-                    bmp = DrawParallelCircuit(component as ParallelCircuit, bmp, x, y);
-                    x += CalculateParallelCircuitLength(component as ParallelCircuit);
+                    circuitHeight = bmpItem.Height;
                 }
             }
-            if (x < startX + length)
+
+            var bmp = new Bitmap(circuitLength, circuitHeight);
+            var graph = Graphics.FromImage(bmp);
+
+            int x = 0;
+            int y = circuitHeight / 2;
+
+            foreach (var component in circuit.CircuitComponents)
             {
-                Graphics graph = Graphics.FromImage(bmp);
-                graph.DrawLine(_pen, x, y, startX + length - ConnectingLineLength*2, y);
-            }
+                graph.DrawImage(Draw(component), x, y - Draw(component).Height / 2);
+                x += Draw(component).Width;
+          }
             return bmp;
         }
 
@@ -132,48 +136,69 @@ namespace CircuitDrawing
         /// Метод, для отрисовки параллельной цепи.
         /// </summary>
         /// <param name="circuit">Входная схема цепи</param>
-        /// <param name="bmp">Рисунок</param>
-        /// <param name="x">Входное значение координаты по оси Ох</param>
-        /// <param name="y">Входное значение координаты по оси Оу</param>
         /// <returns>Изображение входной параллельной цепи</returns>
-        private Bitmap DrawParallelCircuit(ParallelCircuit circuit, Bitmap bmp, int x, int y)
+        private Bitmap DrawCircuit(ParallelCircuit circuit)
         {
-            Graphics graph = Graphics.FromImage(bmp);
-            graph.DrawLine(_pen, x, y, x + ConnectingLineLength, y);
-            int startY = y;
-            int height = CalculateParallelCircuitHeight(circuit);
-            y -= height * (circuit.Circuit.Count - 1) / 2;
-            x += ConnectingLineLength;
-            var h = y;
-            foreach (IComponent component in circuit.Circuit)
+            var bmpList = circuit.CircuitComponents.Select(Draw).ToList(); //объяснение ниже
+            //List<Bitmap> bmpList = new List<Bitmap>();
+            //foreach (var component in circuit.CircuitComponents)
+            //{
+            //    bmpList.Add(Draw(component));
+            //}
+
+            int circuitLength = 0;
+            int circuitHeight = 0;
+            int parallelCircuitLevelHeight = 0;
+
+            foreach (var bmpItem in bmpList)
             {
-                if (component is Resistor)
+                circuitHeight += bmpItem.Height;
+
+                if (parallelCircuitLevelHeight < bmpItem.Height)
                 {
-                    bmp = DrawResistor(bmp, x, y, CalculateParallelCircuitLength(circuit));
-                    y += height;
+                    parallelCircuitLevelHeight = bmpItem.Height;
                 }
-                else if (component is Inductor)
+
+                if (circuitLength < bmpItem.Width)
                 {
-                    bmp = DrawInductor(bmp, x, y, CalculateParallelCircuitLength(circuit));
-                    y += height;
-                }
-                else if (component is Capacitor)
-                {
-                    bmp = DrawCapacitor(bmp, x, y, CalculateParallelCircuitLength(circuit));
-                    y += height;
-                }
-                else
-                {
-                    bmp = DrawSerialCircuit(component as SerialCircuit, bmp, x, y,
-                        CalculateParallelCircuitLength(circuit));
-                    y += height;
+                    circuitLength = bmpItem.Width;
                 }
             }
-            graph.DrawLine(_pen, x, h, x, y - height);
-            graph.DrawLine(_pen, x + CalculateParallelCircuitLength(circuit) - ConnectingLineLength*2, h,
-                x + CalculateParallelCircuitLength(circuit) - ConnectingLineLength*2, y - height);
-            graph.DrawLine(_pen, x + CalculateParallelCircuitLength(circuit) - ConnectingLineLength*2, startY,
-                x + CalculateParallelCircuitLength(circuit) - ConnectingLineLength, startY);
+
+            circuitLength += ConnectingLineLength * 2;
+            circuitHeight += 40 * (circuit.CircuitComponents.Count - 1);
+
+            var bmp = new Bitmap(circuitLength, circuitHeight);
+            var graph = Graphics.FromImage(bmp);
+
+            int x = 0;
+            int y = circuitHeight / 2;
+            int startY = y; //для отрисовки второй горизонтальной соединяющей линии
+
+            graph.DrawLine(_pen, x, y, x + ConnectingLineLength, y); //первая горизонтальная соединяющая линия
+
+            y -= parallelCircuitLevelHeight * (circuit.CircuitComponents.Count - 1) / 2;
+            x += ConnectingLineLength;
+
+            var h = y;  //фиксация высоты для отрисовки вертикальных соединяющих линий
+
+            foreach (IComponent component in circuit.CircuitComponents)
+            {
+                graph.DrawImage(Draw(component), x, y - Draw(component).Height / 2);
+
+                if (x + Draw(component).Width < x + circuitLength)
+                {
+                    graph.DrawLine(_pen, x + Draw(component).Width, y,
+                        x + circuitLength - ConnectingLineLength * 2, y);
+                }
+                y += parallelCircuitLevelHeight;
+            }
+
+            graph.DrawLine(_pen, x, h, x, y - parallelCircuitLevelHeight); //первая вертикальная соединительная линия
+            graph.DrawLine(_pen, x + circuitLength - ConnectingLineLength * 2, h,
+                x + circuitLength - ConnectingLineLength * 2, y - parallelCircuitLevelHeight); //вторая вертикальная соединительная линия
+            graph.DrawLine(_pen, x + circuitLength - ConnectingLineLength * 2, startY,
+                x + circuitLength - ConnectingLineLength, startY); //вторая горизонтльная соединяющая линия
             return bmp;
         }
 
@@ -182,183 +207,90 @@ namespace CircuitDrawing
         #region - Elements drawing -
 
         /// <summary>
-        /// Метод для отрисовки клемы.
+        /// Метод, овтечающий за вызов отрисовки элементов.
         /// </summary>
-        /// <param name="bmp">Рисунок</param>
-        /// <param name="x">Входное значение координаты по оси Ох</param>
-        /// <param name="y">Входное значение координаты по оси Оу</param>
-        private void DrawKlemme(Bitmap bmp, int x, int y)
+        /// <param name="element">Входной элемент</param>
+        /// <returns>Изображение входного элемента</returns>
+        private Bitmap DrawElement(IElement element)
         {
-            const int klemmeDiameter = 10;
-            const int klemmeCrossingLineHeight = 20;
-            Graphics graph = Graphics.FromImage(bmp);
-            graph.DrawArc(_pen, x - klemmeDiameter, y - klemmeDiameter / 2, klemmeDiameter, klemmeDiameter, 0, 360);
-            graph.DrawLine(_pen, x, y - klemmeCrossingLineHeight/2, x - klemmeDiameter, y + klemmeCrossingLineHeight/2);
+            if (element is Resistor)
+            {
+                return DrawResistor();
+            }
+            if (element is Capacitor)
+            {
+                return DrawCapacitor();
+            }
+            if (element is Inductor)
+            {
+                return DrawInductor();
+            }
+            throw new NotImplementedException();
         }
+
+        //TODO дорисовать клему.
 
         /// <summary>
         /// Метод для отрисовки резистора.
         /// </summary>
-        /// <param name="bmp">Рисунок</param>
-        /// <param name="x">Входное значение координаты по оси Ох</param>
-        /// <param name="y">Входное значение координаты по оси Оу</param>
-        /// <param name="length">Необязательный параметр длины, при вхождении элемента в параллельную схему</param>
         /// <returns>Изображение резистора</returns>
-        private Bitmap DrawResistor(Bitmap bmp, int x, int y, int length = 0)
+        private Bitmap DrawResistor()
         {
-            const int resistorHeight = 10;
             const int resistorLength = 50;
+            const int resistorHeight = 10;
+            Bitmap bmp = new Bitmap(ElementLength, ElementHeight);
             Graphics graph = Graphics.FromImage(bmp);
-            graph.DrawLine(_pen, x, y, x + ConnectingLineLength, y);
-            graph.DrawRectangle(_pen, x + ConnectingLineLength, y - resistorHeight/2, resistorLength, resistorHeight);
-            graph.DrawLine(_pen, x + ConnectingLineLength + resistorLength, y, x + ElementLength, y);
-            if (x + ElementLength < x + length)
-            {
-                graph.DrawLine(_pen, x + ElementLength, y, x + length - ConnectingLineLength*2, y);
-            }
+            graph.DrawLine(_pen, 0, ElementHeight / 2, ConnectingLineLength, ElementHeight / 2);
+            graph.DrawRectangle(_pen, ConnectingLineLength, ElementHeight / 2 - resistorHeight / 2, resistorLength, resistorHeight);
+            graph.DrawLine(_pen, ConnectingLineLength + resistorLength, ElementHeight / 2, ElementLength, ElementHeight / 2);
             return bmp;
         }
 
         /// <summary>
         /// Метод для отрисовки катушки индуктивности.
         /// </summary>
-        /// <param name="bmp">Рисунок</param>
-        /// <param name="x">Входное значение координаты по оси Ох</param>
-        /// <param name="y">Входное значение координаты по оси Оу</param>
-        /// <param name="length">Необязательный параметр длинны, при вхождении элемента в параллельную схему</param>
         /// <returns>Изображение катушки индуктивности</returns>
-        private Bitmap DrawInductor(Bitmap bmp, int x, int y, int length = 0)
+        private Bitmap DrawInductor()
         {
+            const int inductorLength = 48;
             const int inductorHeight = 10;
             const int inductorArcDiamter = 16;
-            const int inductorLength = 48;
             const int inductorConnectingLine = 16;
+            Bitmap bmp = new Bitmap(ElementLength, ElementHeight);
             Graphics graph = Graphics.FromImage(bmp);
-            graph.DrawLine(_pen, x, y, x + inductorConnectingLine, y);
-            graph.DrawArc(_pen, x + inductorConnectingLine, y - inductorHeight/2,
+            graph.DrawLine(_pen, 0, ElementHeight / 2, inductorConnectingLine, ElementHeight / 2);
+            graph.DrawArc(_pen, inductorConnectingLine, ElementHeight / 2 - inductorHeight / 2,
                 inductorArcDiamter, inductorHeight, 360, -180);
-            graph.DrawArc(_pen, x + inductorConnectingLine + inductorArcDiamter,
-                y - inductorHeight/2, inductorArcDiamter, inductorHeight, 360, -180);
-            graph.DrawArc(_pen, x + inductorConnectingLine + inductorArcDiamter*2,
-                y - inductorHeight/2, inductorArcDiamter, inductorHeight, 360, -180);
-            graph.DrawLine(_pen, x + inductorConnectingLine + inductorLength, y, x + ElementLength, y);
-            if (x + ElementLength < x + length)
-            {
-                graph.DrawLine(_pen, x + ElementLength, y, x + length - ConnectingLineLength*2, y);
-            }
+            graph.DrawArc(_pen, inductorConnectingLine + inductorArcDiamter, ElementHeight / 2 - inductorHeight / 2,
+                inductorArcDiamter, inductorHeight, 360, -180);
+            graph.DrawArc(_pen, inductorConnectingLine + inductorArcDiamter * 2, ElementHeight / 2 - inductorHeight / 2,
+                inductorArcDiamter, inductorHeight, 360, -180);
+            graph.DrawLine(_pen, inductorConnectingLine + inductorLength, ElementHeight / 2, ElementLength, ElementHeight / 2);
             return bmp;
         }
 
         /// <summary>
         /// Метод для отрисовки кондесатора.
         /// </summary>
-        /// <param name="bmp">Рисунок</param>
-        /// <param name="x">Входное значение координаты по оси Ох</param>
-        /// <param name="y">Входное значение координаты по оси Оу</param>
-        /// <param name="length">Необязательный параметр длинны, при вхождении элемента в параллельную схему</param>
         /// <returns>Изображение конденсатора</returns>
-        private Bitmap DrawCapacitor(Bitmap bmp, int x, int y, int length = 0)
+        private Bitmap DrawCapacitor()
         {
-            const int capacitorConnectingLine = 35;
-            const int capacitorHeight = 30;
             const int capacitorLength = 10;
+            const int capacitorConnectingLine = 35;
+            Bitmap bmp = new Bitmap(ElementLength, ElementHeight);
             Graphics graph = Graphics.FromImage(bmp);
-            graph.DrawLine(_pen, x, y, x + capacitorConnectingLine, y);
-            graph.DrawLine(_pen, x + capacitorConnectingLine, y + capacitorHeight/2,
-                x + capacitorConnectingLine, y - capacitorHeight/2);
-            graph.DrawLine(_pen, x + capacitorConnectingLine + capacitorLength,
-                y + capacitorHeight/2, x + capacitorConnectingLine + capacitorLength, y - capacitorHeight/2);
-            graph.DrawLine(_pen, x + capacitorConnectingLine + capacitorLength,
-                y, x + ElementLength, y);
-            if (x + ElementLength < x + length)
-            {
-                graph.DrawLine(_pen, x + ElementLength, y, x + length - ConnectingLineLength*2, y);
-            }
+
+            graph.DrawLine(_pen, 0, ElementHeight / 2, capacitorConnectingLine, ElementHeight / 2);
+
+            graph.DrawLine(_pen, capacitorConnectingLine, 0,
+                capacitorConnectingLine, ElementHeight);
+
+            graph.DrawLine(_pen, capacitorConnectingLine + capacitorLength,
+                0, capacitorConnectingLine + capacitorLength, ElementHeight);
+
+            graph.DrawLine(_pen, capacitorConnectingLine + capacitorLength,
+                ElementHeight / 2, ElementLength, ElementHeight / 2);
             return bmp;
-        }
-
-        #endregion
-
-        #region - Calculating circuits length | height -
-
-        /// <summary>
-        /// Метод, для вычисления длины последовательной цепи в схеме.
-        /// </summary>
-        /// <param name="circuit">Входная схема цепи</param>
-        /// <returns>Длину входной последовательной цепи</returns>
-        private int CalculateSerialCircuitLength(SerialCircuit circuit)
-        {
-            int length = 0;
-            for (int i = 0; i < circuit.Circuit.Count; i++)
-            {
-                if (circuit.Circuit[i] is IElement)
-                {
-                    length += ElementLength;
-                }
-                else if (circuit.Circuit[i] is ParallelCircuit)
-                {
-                    length += CalculateParallelCircuitLength(circuit.Circuit[i] as ParallelCircuit);
-                }
-            }
-            return length;
-        }
-
-        /// <summary>
-        /// Метод, для вычисления длины параллельной цепи в схеме.
-        /// </summary>
-        /// <param name="circuit">Входная схема цепи</param>
-        /// <returns>Длину входной параллельной цепи</returns>
-        private int CalculateParallelCircuitLength(ParallelCircuit circuit)
-        {
-            const int defaulLength = 110;
-            List<SerialCircuit> serials = new List<SerialCircuit>();
-            for (int i = 0; i < circuit.Circuit.Count; i++)
-            {
-                if (circuit.Circuit[i] is SerialCircuit)
-                {
-                    serials.Add(circuit.Circuit[i] as SerialCircuit);
-                }
-            }
-            if (serials.Count > 0)
-            {
-                int length = CalculateSerialCircuitLength(serials[0]);
-                for (int i = 1; i < serials.Count; i++)
-                {
-                    if (CalculateSerialCircuitLength(serials[i]) > length)
-                    {
-                        length = CalculateSerialCircuitLength(serials[i]);
-                    }
-                }
-                return length + ConnectingLineLength*2;
-            }
-            return defaulLength;
-        }
-
-        /// <summary>
-        /// Метод, для вычисления высоты между уровнями в параллельной цепи.
-        /// </summary>
-        /// <param name="circuit">Входная схема цепи</param>
-        /// <returns>Ширину между ветвями входной параллельной цепи</returns>
-        private int CalculateParallelCircuitHeight(ParallelCircuit circuit)
-        {
-            const int defaultHeight = 40;
-            int height = 1;
-            for (int i = 0; i < circuit.Circuit.Count; i++)
-            {
-                if (circuit.Circuit[i] is SerialCircuit)
-                {
-                    SerialCircuit serial = circuit.Circuit[i] as SerialCircuit;
-                    for (int j = 0; j < serial.Circuit.Count; j++)
-                    {
-                        if (serial.Circuit[j] is ParallelCircuit)
-                        {
-                            height += CalculateParallelCircuitHeight(serial.Circuit[j] as ParallelCircuit);
-                        }
-                    }
-                    return height * 2;
-                }
-            }
-            return defaultHeight;
         }
 
         #endregion

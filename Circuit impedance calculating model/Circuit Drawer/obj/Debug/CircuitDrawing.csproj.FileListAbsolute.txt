@@ -1,7 +1,7 @@
-C:\Users\tima\Documents\Visual Studio 2015\Projects\practice\Circuit impedance calculating model\Circuit Drawer\bin\Debug\CircuitDrawing.dll
-C:\Users\tima\Documents\Visual Studio 2015\Projects\practice\Circuit impedance calculating model\Circuit Drawer\bin\Debug\CircuitDrawing.pdb
 C:\Users\tima\Documents\Visual Studio 2015\Projects\practice\Circuit impedance calculating model\Circuit Drawer\bin\Debug\CircuitModeling.dll
 C:\Users\tima\Documents\Visual Studio 2015\Projects\practice\Circuit impedance calculating model\Circuit Drawer\bin\Debug\CircuitModeling.pdb
 C:\Users\tima\Documents\Visual Studio 2015\Projects\practice\Circuit impedance calculating model\Circuit Drawer\obj\Debug\CircuitDrawing.csprojResolveAssemblyReference.cache
-C:\Users\tima\Documents\Visual Studio 2015\Projects\practice\Circuit impedance calculating model\Circuit Drawer\obj\Debug\CircuitDrawing.dll
-C:\Users\tima\Documents\Visual Studio 2015\Projects\practice\Circuit impedance calculating model\Circuit Drawer\obj\Debug\CircuitDrawing.pdb
+C:\Users\tima\Documents\Visual Studio 2015\Projects\practice\Circuit impedance calculating model\Circuit Drawer\bin\Debug\Drawing.dll
+C:\Users\tima\Documents\Visual Studio 2015\Projects\practice\Circuit impedance calculating model\Circuit Drawer\bin\Debug\Drawing.pdb
+C:\Users\tima\Documents\Visual Studio 2015\Projects\practice\Circuit impedance calculating model\Circuit Drawer\obj\Debug\Drawing.dll
+C:\Users\tima\Documents\Visual Studio 2015\Projects\practice\Circuit impedance calculating model\Circuit Drawer\obj\Debug\Drawing.pdb

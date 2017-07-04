@@ -43,10 +43,10 @@ namespace CircuitView
             var L1 = new Inductor("L1", 0.5);
             var circuit1 = new SerialCircuit("circuit1");
             var circuit2 = new ParallelCircuit("circuit2");
-            circuit2.Circuit.Add(L1);
-            circuit2.Circuit.Add(C1);
-            circuit1.Circuit.Add(R1);
-            circuit1.Circuit.Add(circuit2);
+            circuit2.CircuitComponents.Add(L1);
+            circuit2.CircuitComponents.Add(C1);
+            circuit1.CircuitComponents.Add(R1);
+            circuit1.CircuitComponents.Add(circuit2);
             return circuit1;
         }
 
@@ -61,10 +61,10 @@ namespace CircuitView
             var L1 = new Inductor("L1", 0.5);
             var circuit1 = new SerialCircuit("circuit1");
             var circuit2 = new ParallelCircuit("circuit2");
-            circuit2.Circuit.Add(R1);
-            circuit2.Circuit.Add(C1);
-            circuit1.Circuit.Add(circuit2);
-            circuit1.Circuit.Add(L1);
+            circuit2.CircuitComponents.Add(R1);
+            circuit2.CircuitComponents.Add(C1);
+            circuit1.CircuitComponents.Add(circuit2);
+            circuit1.CircuitComponents.Add(L1);
             return circuit1;
         }
 
@@ -82,13 +82,13 @@ namespace CircuitView
             var circuit1 = new SerialCircuit("circuit1");
             var circuit2 = new ParallelCircuit("circuit2");
             var circuit3 = new ParallelCircuit("circuit3");
-            circuit3.Circuit.Add(L1);
-            circuit3.Circuit.Add(R1);
-            circuit2.Circuit.Add(C1);
-            circuit2.Circuit.Add(L2);
-            circuit1.Circuit.Add(circuit2);
-            circuit1.Circuit.Add(L3);
-            circuit1.Circuit.Add(circuit3);
+            circuit3.CircuitComponents.Add(L1);
+            circuit3.CircuitComponents.Add(R1);
+            circuit2.CircuitComponents.Add(C1);
+            circuit2.CircuitComponents.Add(L2);
+            circuit1.CircuitComponents.Add(circuit2);
+            circuit1.CircuitComponents.Add(L3);
+            circuit1.CircuitComponents.Add(circuit3);
             return circuit1;
         }
 
@@ -109,16 +109,16 @@ namespace CircuitView
             var circuit3 = new SerialCircuit("circuit3");
             var circuit4 = new ParallelCircuit("circuit4");
             var circuit5 = new ParallelCircuit("circuit5");
-            circuit5.Circuit.Add(L1);
-            circuit5.Circuit.Add(R1);
-            circuit4.Circuit.Add(L2);
-            circuit4.Circuit.Add(R2);
-            circuit3.Circuit.Add(circuit5);
-            circuit3.Circuit.Add(C1);
-            circuit2.Circuit.Add(C2);
-            circuit2.Circuit.Add(circuit4);
-            circuit1.Circuit.Add(circuit2);
-            circuit1.Circuit.Add(circuit3);
+            circuit5.CircuitComponents.Add(L1);
+            circuit5.CircuitComponents.Add(R1);
+            circuit4.CircuitComponents.Add(L2);
+            circuit4.CircuitComponents.Add(R2);
+            circuit3.CircuitComponents.Add(circuit5);
+            circuit3.CircuitComponents.Add(C1);
+            circuit2.CircuitComponents.Add(C2);
+            circuit2.CircuitComponents.Add(circuit4);
+            circuit1.CircuitComponents.Add(circuit2);
+            circuit1.CircuitComponents.Add(circuit3);
             return circuit1;
         }
 
@@ -140,17 +140,17 @@ namespace CircuitView
             var circuit3 = new SerialCircuit("circuit3");
             var circuit4 = new SerialCircuit("circuit4");
             var circuit5 = new ParallelCircuit("circuit5");
-            circuit5.Circuit.Add(C3);
-            circuit5.Circuit.Add(R1);
-            circuit4.Circuit.Add(R2);
-            circuit4.Circuit.Add(L2);
-            circuit3.Circuit.Add(L1);
-            circuit3.Circuit.Add(circuit5);
-            circuit2.Circuit.Add(C2);
-            circuit2.Circuit.Add(circuit3);
-            circuit2.Circuit.Add(circuit4);
-            circuit1.Circuit.Add(C1);
-            circuit1.Circuit.Add(circuit2);
+            circuit5.CircuitComponents.Add(C3);
+            circuit5.CircuitComponents.Add(R1);
+            circuit4.CircuitComponents.Add(R2);
+            circuit4.CircuitComponents.Add(L2);
+            circuit3.CircuitComponents.Add(L1);
+            circuit3.CircuitComponents.Add(circuit5);
+            circuit2.CircuitComponents.Add(C2);
+            circuit2.CircuitComponents.Add(circuit3);
+            circuit2.CircuitComponents.Add(circuit4);
+            circuit1.CircuitComponents.Add(C1);
+            circuit1.CircuitComponents.Add(circuit2);
             return circuit1;
         }
 
@@ -169,22 +169,22 @@ namespace CircuitView
             var circuit7 = new ParallelCircuit("circuit7");
             var circuit8 = new ParallelCircuit("circuit8");
             var circuit9 = new SerialCircuit("circuit9");
-            circuit7.Circuit.Add(R1);
-            circuit7.Circuit.Add(R1);
-            circuit6.Circuit.Add(R1);
-            circuit6.Circuit.Add(circuit7);
-            circuit5.Circuit.Add(R1);
-            circuit5.Circuit.Add(circuit6);
-            circuit8.Circuit.Add(circuit6);
-            circuit8.Circuit.Add(R1);
-            circuit4.Circuit.Add(R1);
-            circuit4.Circuit.Add(R1);
-            circuit2.Circuit.Add(R1);
-            circuit2.Circuit.Add(circuit5);
-            circuit9.Circuit.Add(R1);
-            circuit9.Circuit.Add(circuit8);
-            circuit1.Circuit.Add(circuit2);
-            circuit1.Circuit.Add(circuit9);
+            circuit7.CircuitComponents.Add(R1);
+            circuit7.CircuitComponents.Add(R1);
+            circuit6.CircuitComponents.Add(R1);
+            circuit6.CircuitComponents.Add(circuit7);
+            circuit5.CircuitComponents.Add(R1);
+            circuit5.CircuitComponents.Add(circuit6);
+            circuit8.CircuitComponents.Add(circuit6);
+            circuit8.CircuitComponents.Add(R1);
+            circuit4.CircuitComponents.Add(R1);
+            circuit4.CircuitComponents.Add(R1);
+            circuit2.CircuitComponents.Add(R1);
+            circuit2.CircuitComponents.Add(circuit5);
+            circuit9.CircuitComponents.Add(R1);
+            circuit9.CircuitComponents.Add(circuit8);
+            circuit1.CircuitComponents.Add(circuit2);
+            circuit1.CircuitComponents.Add(circuit9);
             return circuit1;
         }
 

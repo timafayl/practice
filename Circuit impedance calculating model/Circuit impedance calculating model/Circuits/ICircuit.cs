@@ -18,7 +18,7 @@ namespace CircuitModeling.Circuits
         /// <summary>
         /// Свойство, 
         /// </summary>
-        ObservableCollection<IComponent> Circuit { get; set; }
+        ObservableCollection<IComponent> CircuitComponents { get; set; }
 
         #endregion
 

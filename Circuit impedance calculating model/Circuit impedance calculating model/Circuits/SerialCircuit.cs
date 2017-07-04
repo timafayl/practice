@@ -57,7 +57,7 @@ namespace CircuitModeling.Circuits
                     "Значение частоты не должно быть равным бесконечности.");
             }
             Complex impedance = new Complex();
-            foreach (IComponent component in Circuit)
+            foreach (IComponent component in CircuitComponents)
             {
                 impedance += component.CalculateZ(frequency);
             }

@@ -49,8 +49,8 @@ namespace CircuitModeling.Circuits
         /// </summary>
         protected BaseCircuit()
         {
-            Circuit = new ObservableCollection<IComponent>();
-            Circuit.CollectionChanged += Circuit_CollectionChanged;
+            CircuitComponents = new ObservableCollection<IComponent>();
+            CircuitComponents.CollectionChanged += Circuit_CollectionChanged;
         }
 
         #endregion
@@ -85,7 +85,7 @@ namespace CircuitModeling.Circuits
         /// <summary>
         /// Свойство для списка компонентов цепи.
         /// </summary>
-        public ObservableCollection<IComponent> Circuit
+        public ObservableCollection<IComponent> CircuitComponents
         {
             get { return _circuit; }
             set
